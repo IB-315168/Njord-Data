@@ -1,4 +1,4 @@
-package com.sep3yg9.njorddata;
+package com.sep3yg9.njorddata.testclient;
 
 import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
