@@ -10,12 +10,12 @@ public interface UserListOrBuilder extends
   /**
    * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
    */
-  java.util.List<com.sep3yg9.njorddata.grpc.protobuf.user.User> 
+  java.util.List<User>
       getUserList();
   /**
    * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
    */
-  com.sep3yg9.njorddata.grpc.protobuf.user.User getUser(int index);
+  User getUser(int index);
   /**
    * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
    */
@@ -23,11 +23,11 @@ public interface UserListOrBuilder extends
   /**
    * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
    */
-  java.util.List<? extends com.sep3yg9.njorddata.grpc.protobuf.user.UserOrBuilder> 
+  java.util.List<? extends UserOrBuilder>
       getUserOrBuilderList();
   /**
    * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
    */
-  com.sep3yg9.njorddata.grpc.protobuf.user.UserOrBuilder getUserOrBuilder(
+  UserOrBuilder getUserOrBuilder(
       int index);
 }

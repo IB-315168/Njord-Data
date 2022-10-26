@@ -52,7 +52,7 @@ public final class UserServiceOuterClass {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    java.lang.String[] descriptorData = {
+    String[] descriptorData = {
       "\n\021UserService.proto\022(com.sep3yg9.njordda" +
       "ta.grpc.protobuf.user\032\033google/protobuf/e" +
       "mpty.proto\032\036google/protobuf/wrappers.pro" +
@@ -104,37 +104,37 @@ public final class UserServiceOuterClass {
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_CreatingUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_CreatingUser_descriptor,
-        new java.lang.String[] { "FullName", "UserName", "Email", "Password", });
+        new String[] { "FullName", "UserName", "Email", "Password", });
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UpdatingUser_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UpdatingUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UpdatingUser_descriptor,
-        new java.lang.String[] { "Id", "UserName", "Email", "Password", });
+        new String[] { "Id", "UserName", "Email", "Password", });
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_SearchingUser_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_SearchingUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_SearchingUser_descriptor,
-        new java.lang.String[] { "UserName", "Email", "FullName", });
+        new String[] { "UserName", "Email", "FullName", });
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_descriptor,
-        new java.lang.String[] { "FullName", "UserName", "Email", });
+        new String[] { "FullName", "UserName", "Email", });
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_User_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_User_descriptor,
-        new java.lang.String[] { "Id", "FullName", "Email", "UserName", "Password", });
+        new String[] { "Id", "FullName", "Email", "UserName", "Password", });
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_descriptor,
-        new java.lang.String[] { "User", });
+        new String[] { "User", });
     com.google.protobuf.EmptyProto.getDescriptor();
     com.google.protobuf.WrappersProto.getDescriptor();
   }

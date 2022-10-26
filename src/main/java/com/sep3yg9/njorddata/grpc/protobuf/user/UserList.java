@@ -18,7 +18,7 @@ public  final class UserList extends
     user_ = java.util.Collections.emptyList();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
@@ -45,11 +45,11 @@ public  final class UserList extends
           }
           case 10: {
             if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-              user_ = new java.util.ArrayList<com.sep3yg9.njorddata.grpc.protobuf.user.User>();
+              user_ = new java.util.ArrayList<User>();
               mutable_bitField0_ |= 0x00000001;
             }
             user_.add(
-                input.readMessage(com.sep3yg9.njorddata.grpc.protobuf.user.User.parser(), extensionRegistry));
+                input.readMessage(User.parser(), extensionRegistry));
             break;
           }
         }
@@ -68,28 +68,28 @@ public  final class UserList extends
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_descriptor;
+    return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_descriptor;
   }
 
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_fieldAccessorTable
+    return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.sep3yg9.njorddata.grpc.protobuf.user.UserList.class, com.sep3yg9.njorddata.grpc.protobuf.user.UserList.Builder.class);
+            UserList.class, Builder.class);
   }
 
   public static final int USER_FIELD_NUMBER = 1;
-  private java.util.List<com.sep3yg9.njorddata.grpc.protobuf.user.User> user_;
+  private java.util.List<User> user_;
   /**
    * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
    */
-  public java.util.List<com.sep3yg9.njorddata.grpc.protobuf.user.User> getUserList() {
+  public java.util.List<User> getUserList() {
     return user_;
   }
   /**
    * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
    */
-  public java.util.List<? extends com.sep3yg9.njorddata.grpc.protobuf.user.UserOrBuilder> 
+  public java.util.List<? extends UserOrBuilder>
       getUserOrBuilderList() {
     return user_;
   }
@@ -102,13 +102,13 @@ public  final class UserList extends
   /**
    * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
    */
-  public com.sep3yg9.njorddata.grpc.protobuf.user.User getUser(int index) {
+  public User getUser(int index) {
     return user_.get(index);
   }
   /**
    * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
    */
-  public com.sep3yg9.njorddata.grpc.protobuf.user.UserOrBuilder getUserOrBuilder(
+  public UserOrBuilder getUserOrBuilder(
       int index) {
     return user_.get(index);
   }
@@ -144,15 +144,15 @@ public  final class UserList extends
   }
 
   private static final long serialVersionUID = 0L;
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.sep3yg9.njorddata.grpc.protobuf.user.UserList)) {
+    if (!(obj instanceof UserList)) {
       return super.equals(obj);
     }
-    com.sep3yg9.njorddata.grpc.protobuf.user.UserList other = (com.sep3yg9.njorddata.grpc.protobuf.user.UserList) obj;
+    UserList other = (UserList) obj;
 
     boolean result = true;
     result = result && getUserList()
@@ -160,7 +160,7 @@ public  final class UserList extends
     return result;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -176,69 +176,69 @@ public  final class UserList extends
     return hash;
   }
 
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(
+  public static UserList parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(
+  public static UserList parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(
+  public static UserList parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(
+  public static UserList parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(byte[] data)
+  public static UserList parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(
+  public static UserList parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(java.io.InputStream input)
+  public static UserList parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(
+  public static UserList parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseDelimitedFrom(java.io.InputStream input)
+  public static UserList parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseDelimitedFrom(
+  public static UserList parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(
+  public static UserList parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList parseFrom(
+  public static UserList parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -250,7 +250,7 @@ public  final class UserList extends
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.sep3yg9.njorddata.grpc.protobuf.user.UserList prototype) {
+  public static Builder newBuilder(UserList prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -258,9 +258,9 @@ public  final class UserList extends
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -270,17 +270,17 @@ public  final class UserList extends
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:com.sep3yg9.njorddata.grpc.protobuf.user.UserList)
-      com.sep3yg9.njorddata.grpc.protobuf.user.UserListOrBuilder {
+      UserListOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_descriptor;
+      return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_fieldAccessorTable
+      return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.sep3yg9.njorddata.grpc.protobuf.user.UserList.class, com.sep3yg9.njorddata.grpc.protobuf.user.UserList.Builder.class);
+              UserList.class, Builder.class);
     }
 
     // Construct using com.sep3yg9.njorddata.grpc.protobuf.user.UserList.newBuilder()
@@ -289,7 +289,7 @@ public  final class UserList extends
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -312,23 +312,23 @@ public  final class UserList extends
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_descriptor;
+      return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_UserList_descriptor;
     }
 
-    public com.sep3yg9.njorddata.grpc.protobuf.user.UserList getDefaultInstanceForType() {
-      return com.sep3yg9.njorddata.grpc.protobuf.user.UserList.getDefaultInstance();
+    public UserList getDefaultInstanceForType() {
+      return UserList.getDefaultInstance();
     }
 
-    public com.sep3yg9.njorddata.grpc.protobuf.user.UserList build() {
-      com.sep3yg9.njorddata.grpc.protobuf.user.UserList result = buildPartial();
+    public UserList build() {
+      UserList result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public com.sep3yg9.njorddata.grpc.protobuf.user.UserList buildPartial() {
-      com.sep3yg9.njorddata.grpc.protobuf.user.UserList result = new com.sep3yg9.njorddata.grpc.protobuf.user.UserList(this);
+    public UserList buildPartial() {
+      UserList result = new UserList(this);
       int from_bitField0_ = bitField0_;
       if (userBuilder_ == null) {
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -370,16 +370,16 @@ public  final class UserList extends
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.sep3yg9.njorddata.grpc.protobuf.user.UserList) {
-        return mergeFrom((com.sep3yg9.njorddata.grpc.protobuf.user.UserList)other);
+      if (other instanceof UserList) {
+        return mergeFrom((UserList)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.sep3yg9.njorddata.grpc.protobuf.user.UserList other) {
-      if (other == com.sep3yg9.njorddata.grpc.protobuf.user.UserList.getDefaultInstance()) return this;
+    public Builder mergeFrom(UserList other) {
+      if (other == UserList.getDefaultInstance()) return this;
       if (userBuilder_ == null) {
         if (!other.user_.isEmpty()) {
           if (user_.isEmpty()) {
@@ -418,11 +418,11 @@ public  final class UserList extends
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.sep3yg9.njorddata.grpc.protobuf.user.UserList parsedMessage = null;
+      UserList parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.sep3yg9.njorddata.grpc.protobuf.user.UserList) e.getUnfinishedMessage();
+        parsedMessage = (UserList) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -433,22 +433,22 @@ public  final class UserList extends
     }
     private int bitField0_;
 
-    private java.util.List<com.sep3yg9.njorddata.grpc.protobuf.user.User> user_ =
+    private java.util.List<User> user_ =
       java.util.Collections.emptyList();
     private void ensureUserIsMutable() {
       if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-        user_ = new java.util.ArrayList<com.sep3yg9.njorddata.grpc.protobuf.user.User>(user_);
+        user_ = new java.util.ArrayList<User>(user_);
         bitField0_ |= 0x00000001;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        com.sep3yg9.njorddata.grpc.protobuf.user.User, com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder, com.sep3yg9.njorddata.grpc.protobuf.user.UserOrBuilder> userBuilder_;
+        User, User.Builder, UserOrBuilder> userBuilder_;
 
     /**
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
-    public java.util.List<com.sep3yg9.njorddata.grpc.protobuf.user.User> getUserList() {
+    public java.util.List<User> getUserList() {
       if (userBuilder_ == null) {
         return java.util.Collections.unmodifiableList(user_);
       } else {
@@ -468,7 +468,7 @@ public  final class UserList extends
     /**
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
-    public com.sep3yg9.njorddata.grpc.protobuf.user.User getUser(int index) {
+    public User getUser(int index) {
       if (userBuilder_ == null) {
         return user_.get(index);
       } else {
@@ -479,7 +479,7 @@ public  final class UserList extends
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
     public Builder setUser(
-        int index, com.sep3yg9.njorddata.grpc.protobuf.user.User value) {
+        int index, User value) {
       if (userBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -496,7 +496,7 @@ public  final class UserList extends
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
     public Builder setUser(
-        int index, com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder builderForValue) {
+        int index, User.Builder builderForValue) {
       if (userBuilder_ == null) {
         ensureUserIsMutable();
         user_.set(index, builderForValue.build());
@@ -509,7 +509,7 @@ public  final class UserList extends
     /**
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
-    public Builder addUser(com.sep3yg9.njorddata.grpc.protobuf.user.User value) {
+    public Builder addUser(User value) {
       if (userBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -526,7 +526,7 @@ public  final class UserList extends
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
     public Builder addUser(
-        int index, com.sep3yg9.njorddata.grpc.protobuf.user.User value) {
+        int index, User value) {
       if (userBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -543,7 +543,7 @@ public  final class UserList extends
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
     public Builder addUser(
-        com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder builderForValue) {
+        User.Builder builderForValue) {
       if (userBuilder_ == null) {
         ensureUserIsMutable();
         user_.add(builderForValue.build());
@@ -557,7 +557,7 @@ public  final class UserList extends
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
     public Builder addUser(
-        int index, com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder builderForValue) {
+        int index, User.Builder builderForValue) {
       if (userBuilder_ == null) {
         ensureUserIsMutable();
         user_.add(index, builderForValue.build());
@@ -571,7 +571,7 @@ public  final class UserList extends
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
     public Builder addAllUser(
-        java.lang.Iterable<? extends com.sep3yg9.njorddata.grpc.protobuf.user.User> values) {
+        Iterable<? extends User> values) {
       if (userBuilder_ == null) {
         ensureUserIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -611,14 +611,14 @@ public  final class UserList extends
     /**
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
-    public com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder getUserBuilder(
+    public User.Builder getUserBuilder(
         int index) {
       return getUserFieldBuilder().getBuilder(index);
     }
     /**
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
-    public com.sep3yg9.njorddata.grpc.protobuf.user.UserOrBuilder getUserOrBuilder(
+    public UserOrBuilder getUserOrBuilder(
         int index) {
       if (userBuilder_ == null) {
         return user_.get(index);  } else {
@@ -628,7 +628,7 @@ public  final class UserList extends
     /**
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
-    public java.util.List<? extends com.sep3yg9.njorddata.grpc.protobuf.user.UserOrBuilder> 
+    public java.util.List<? extends UserOrBuilder>
          getUserOrBuilderList() {
       if (userBuilder_ != null) {
         return userBuilder_.getMessageOrBuilderList();
@@ -639,31 +639,31 @@ public  final class UserList extends
     /**
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
-    public com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder addUserBuilder() {
+    public User.Builder addUserBuilder() {
       return getUserFieldBuilder().addBuilder(
-          com.sep3yg9.njorddata.grpc.protobuf.user.User.getDefaultInstance());
+          User.getDefaultInstance());
     }
     /**
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
-    public com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder addUserBuilder(
+    public User.Builder addUserBuilder(
         int index) {
       return getUserFieldBuilder().addBuilder(
-          index, com.sep3yg9.njorddata.grpc.protobuf.user.User.getDefaultInstance());
+          index, User.getDefaultInstance());
     }
     /**
      * <code>repeated .com.sep3yg9.njorddata.grpc.protobuf.user.User user = 1;</code>
      */
-    public java.util.List<com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder> 
+    public java.util.List<User.Builder>
          getUserBuilderList() {
       return getUserFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        com.sep3yg9.njorddata.grpc.protobuf.user.User, com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder, com.sep3yg9.njorddata.grpc.protobuf.user.UserOrBuilder> 
+        User, User.Builder, UserOrBuilder>
         getUserFieldBuilder() {
       if (userBuilder_ == null) {
         userBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            com.sep3yg9.njorddata.grpc.protobuf.user.User, com.sep3yg9.njorddata.grpc.protobuf.user.User.Builder, com.sep3yg9.njorddata.grpc.protobuf.user.UserOrBuilder>(
+            User, User.Builder, UserOrBuilder>(
                 user_,
                 ((bitField0_ & 0x00000001) == 0x00000001),
                 getParentForChildren(),
@@ -687,12 +687,12 @@ public  final class UserList extends
   }
 
   // @@protoc_insertion_point(class_scope:com.sep3yg9.njorddata.grpc.protobuf.user.UserList)
-  private static final com.sep3yg9.njorddata.grpc.protobuf.user.UserList DEFAULT_INSTANCE;
+  private static final UserList DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.sep3yg9.njorddata.grpc.protobuf.user.UserList();
+    DEFAULT_INSTANCE = new UserList();
   }
 
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.UserList getDefaultInstance() {
+  public static UserList getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
@@ -710,12 +710,12 @@ public  final class UserList extends
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<UserList> getParserForType() {
     return PARSER;
   }
 
-  public com.sep3yg9.njorddata.grpc.protobuf.user.UserList getDefaultInstanceForType() {
+  public UserList getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

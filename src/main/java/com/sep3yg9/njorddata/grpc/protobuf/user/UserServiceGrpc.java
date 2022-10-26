@@ -1,26 +1,19 @@
 package com.sep3yg9.njorddata.grpc.protobuf.user;
 
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
+import static io.grpc.stub.ClientCalls.asyncUnaryCall;
+import static io.grpc.stub.ClientCalls.blockingUnaryCall;
+import static io.grpc.stub.ClientCalls.futureUnaryCall;
 import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 
 /**
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.4.0)",
     comments = "Source: UserService.proto")
-public final class UserServiceGrpc {
+public final class UserServiceGrpc
+{
 
   private UserServiceGrpc() {}
 
@@ -28,26 +21,26 @@ public final class UserServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static final io.grpc.MethodDescriptor<com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser,
-      com.sep3yg9.njorddata.grpc.protobuf.user.User> METHOD_CREATE_USER =
-      io.grpc.MethodDescriptor.<com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser, com.sep3yg9.njorddata.grpc.protobuf.user.User>newBuilder()
+  public static final io.grpc.MethodDescriptor<CreatingUser,
+      User> METHOD_CREATE_USER =
+      io.grpc.MethodDescriptor.<CreatingUser, User>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "com.sep3yg9.njorddata.grpc.protobuf.user.UserService", "CreateUser"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser.getDefaultInstance()))
+              CreatingUser.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.sep3yg9.njorddata.grpc.protobuf.user.User.getDefaultInstance()))
+              User.getDefaultInstance()))
           .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static final io.grpc.MethodDescriptor<com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser,
+  public static final io.grpc.MethodDescriptor<UpdatingUser,
       com.google.protobuf.Empty> METHOD_UPDATE_USER =
-      io.grpc.MethodDescriptor.<com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser, com.google.protobuf.Empty>newBuilder()
+      io.grpc.MethodDescriptor.<UpdatingUser, com.google.protobuf.Empty>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "com.sep3yg9.njorddata.grpc.protobuf.user.UserService", "UpdateUser"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser.getDefaultInstance()))
+              UpdatingUser.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
               com.google.protobuf.Empty.getDefaultInstance()))
           .build();
@@ -65,39 +58,39 @@ public final class UserServiceGrpc {
           .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static final io.grpc.MethodDescriptor<com.google.protobuf.StringValue,
-      com.sep3yg9.njorddata.grpc.protobuf.user.User> METHOD_GET_BY_EMAIL =
-      io.grpc.MethodDescriptor.<com.google.protobuf.StringValue, com.sep3yg9.njorddata.grpc.protobuf.user.User>newBuilder()
+      User> METHOD_GET_BY_EMAIL =
+      io.grpc.MethodDescriptor.<com.google.protobuf.StringValue, User>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "com.sep3yg9.njorddata.grpc.protobuf.user.UserService", "GetByEmail"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
               com.google.protobuf.StringValue.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.sep3yg9.njorddata.grpc.protobuf.user.User.getDefaultInstance()))
+              User.getDefaultInstance()))
           .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static final io.grpc.MethodDescriptor<com.google.protobuf.Int32Value,
-      com.sep3yg9.njorddata.grpc.protobuf.user.User> METHOD_GET_BY_ID =
-      io.grpc.MethodDescriptor.<com.google.protobuf.Int32Value, com.sep3yg9.njorddata.grpc.protobuf.user.User>newBuilder()
+      User> METHOD_GET_BY_ID =
+      io.grpc.MethodDescriptor.<com.google.protobuf.Int32Value, User>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "com.sep3yg9.njorddata.grpc.protobuf.user.UserService", "GetById"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
               com.google.protobuf.Int32Value.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.sep3yg9.njorddata.grpc.protobuf.user.User.getDefaultInstance()))
+              User.getDefaultInstance()))
           .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static final io.grpc.MethodDescriptor<com.sep3yg9.njorddata.grpc.protobuf.user.SearchingUser,
-      com.sep3yg9.njorddata.grpc.protobuf.user.UserList> METHOD_SEARCH_USER =
-      io.grpc.MethodDescriptor.<com.sep3yg9.njorddata.grpc.protobuf.user.SearchingUser, com.sep3yg9.njorddata.grpc.protobuf.user.UserList>newBuilder()
+  public static final io.grpc.MethodDescriptor<SearchingUser,
+      UserList> METHOD_SEARCH_USER =
+      io.grpc.MethodDescriptor.<SearchingUser, UserList>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "com.sep3yg9.njorddata.grpc.protobuf.user.UserService", "SearchUser"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.sep3yg9.njorddata.grpc.protobuf.user.SearchingUser.getDefaultInstance()))
+              SearchingUser.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.sep3yg9.njorddata.grpc.protobuf.user.UserList.getDefaultInstance()))
+              UserList.getDefaultInstance()))
           .build();
 
   /**
@@ -129,14 +122,14 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public void createUser(com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser request,
-        io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.User> responseObserver) {
+    public void createUser(CreatingUser request,
+        io.grpc.stub.StreamObserver<User> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_CREATE_USER, responseObserver);
     }
 
     /**
      */
-    public void updateUser(com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser request,
+    public void updateUser(UpdatingUser request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_UPDATE_USER, responseObserver);
     }
@@ -151,38 +144,38 @@ public final class UserServiceGrpc {
     /**
      */
     public void getByEmail(com.google.protobuf.StringValue request,
-        io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.User> responseObserver) {
+        io.grpc.stub.StreamObserver<User> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_GET_BY_EMAIL, responseObserver);
     }
 
     /**
      */
     public void getById(com.google.protobuf.Int32Value request,
-        io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.User> responseObserver) {
+        io.grpc.stub.StreamObserver<User> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_GET_BY_ID, responseObserver);
     }
 
     /**
      */
-    public void searchUser(com.sep3yg9.njorddata.grpc.protobuf.user.SearchingUser request,
-        io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.UserList> responseObserver) {
+    public void searchUser(SearchingUser request,
+        io.grpc.stub.StreamObserver<UserList> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_SEARCH_USER, responseObserver);
     }
 
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+    @Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             METHOD_CREATE_USER,
             asyncUnaryCall(
               new MethodHandlers<
-                com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser,
-                com.sep3yg9.njorddata.grpc.protobuf.user.User>(
+                CreatingUser,
+                User>(
                   this, METHODID_CREATE_USER)))
           .addMethod(
             METHOD_UPDATE_USER,
             asyncUnaryCall(
               new MethodHandlers<
-                com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser,
+                UpdatingUser,
                 com.google.protobuf.Empty>(
                   this, METHODID_UPDATE_USER)))
           .addMethod(
@@ -197,21 +190,21 @@ public final class UserServiceGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 com.google.protobuf.StringValue,
-                com.sep3yg9.njorddata.grpc.protobuf.user.User>(
+                User>(
                   this, METHODID_GET_BY_EMAIL)))
           .addMethod(
             METHOD_GET_BY_ID,
             asyncUnaryCall(
               new MethodHandlers<
                 com.google.protobuf.Int32Value,
-                com.sep3yg9.njorddata.grpc.protobuf.user.User>(
+                User>(
                   this, METHODID_GET_BY_ID)))
           .addMethod(
             METHOD_SEARCH_USER,
             asyncUnaryCall(
               new MethodHandlers<
-                com.sep3yg9.njorddata.grpc.protobuf.user.SearchingUser,
-                com.sep3yg9.njorddata.grpc.protobuf.user.UserList>(
+                SearchingUser,
+                UserList>(
                   this, METHODID_SEARCH_USER)))
           .build();
     }
@@ -229,7 +222,7 @@ public final class UserServiceGrpc {
       super(channel, callOptions);
     }
 
-    @java.lang.Override
+    @Override
     protected UserServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new UserServiceStub(channel, callOptions);
@@ -237,15 +230,15 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public void createUser(com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser request,
-        io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.User> responseObserver) {
+    public void createUser(CreatingUser request,
+        io.grpc.stub.StreamObserver<User> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_CREATE_USER, getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void updateUser(com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser request,
+    public void updateUser(UpdatingUser request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_UPDATE_USER, getCallOptions()), request, responseObserver);
@@ -262,7 +255,7 @@ public final class UserServiceGrpc {
     /**
      */
     public void getByEmail(com.google.protobuf.StringValue request,
-        io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.User> responseObserver) {
+        io.grpc.stub.StreamObserver<User> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_GET_BY_EMAIL, getCallOptions()), request, responseObserver);
     }
@@ -270,15 +263,15 @@ public final class UserServiceGrpc {
     /**
      */
     public void getById(com.google.protobuf.Int32Value request,
-        io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.User> responseObserver) {
+        io.grpc.stub.StreamObserver<User> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_GET_BY_ID, getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void searchUser(com.sep3yg9.njorddata.grpc.protobuf.user.SearchingUser request,
-        io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.UserList> responseObserver) {
+    public void searchUser(SearchingUser request,
+        io.grpc.stub.StreamObserver<UserList> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_SEARCH_USER, getCallOptions()), request, responseObserver);
     }
@@ -296,7 +289,7 @@ public final class UserServiceGrpc {
       super(channel, callOptions);
     }
 
-    @java.lang.Override
+    @Override
     protected UserServiceBlockingStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new UserServiceBlockingStub(channel, callOptions);
@@ -304,14 +297,14 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.sep3yg9.njorddata.grpc.protobuf.user.User createUser(com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser request) {
+    public User createUser(CreatingUser request) {
       return blockingUnaryCall(
           getChannel(), METHOD_CREATE_USER, getCallOptions(), request);
     }
 
     /**
      */
-    public com.google.protobuf.Empty updateUser(com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser request) {
+    public com.google.protobuf.Empty updateUser(UpdatingUser request) {
       return blockingUnaryCall(
           getChannel(), METHOD_UPDATE_USER, getCallOptions(), request);
     }
@@ -325,21 +318,21 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.sep3yg9.njorddata.grpc.protobuf.user.User getByEmail(com.google.protobuf.StringValue request) {
+    public User getByEmail(com.google.protobuf.StringValue request) {
       return blockingUnaryCall(
           getChannel(), METHOD_GET_BY_EMAIL, getCallOptions(), request);
     }
 
     /**
      */
-    public com.sep3yg9.njorddata.grpc.protobuf.user.User getById(com.google.protobuf.Int32Value request) {
+    public User getById(com.google.protobuf.Int32Value request) {
       return blockingUnaryCall(
           getChannel(), METHOD_GET_BY_ID, getCallOptions(), request);
     }
 
     /**
      */
-    public com.sep3yg9.njorddata.grpc.protobuf.user.UserList searchUser(com.sep3yg9.njorddata.grpc.protobuf.user.SearchingUser request) {
+    public UserList searchUser(SearchingUser request) {
       return blockingUnaryCall(
           getChannel(), METHOD_SEARCH_USER, getCallOptions(), request);
     }
@@ -357,7 +350,7 @@ public final class UserServiceGrpc {
       super(channel, callOptions);
     }
 
-    @java.lang.Override
+    @Override
     protected UserServiceFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new UserServiceFutureStub(channel, callOptions);
@@ -365,8 +358,8 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.sep3yg9.njorddata.grpc.protobuf.user.User> createUser(
-        com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser request) {
+    public com.google.common.util.concurrent.ListenableFuture<User> createUser(
+        CreatingUser request) {
       return futureUnaryCall(
           getChannel().newCall(METHOD_CREATE_USER, getCallOptions()), request);
     }
@@ -374,7 +367,7 @@ public final class UserServiceGrpc {
     /**
      */
     public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> updateUser(
-        com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser request) {
+        UpdatingUser request) {
       return futureUnaryCall(
           getChannel().newCall(METHOD_UPDATE_USER, getCallOptions()), request);
     }
@@ -389,7 +382,7 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.sep3yg9.njorddata.grpc.protobuf.user.User> getByEmail(
+    public com.google.common.util.concurrent.ListenableFuture<User> getByEmail(
         com.google.protobuf.StringValue request) {
       return futureUnaryCall(
           getChannel().newCall(METHOD_GET_BY_EMAIL, getCallOptions()), request);
@@ -397,7 +390,7 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.sep3yg9.njorddata.grpc.protobuf.user.User> getById(
+    public com.google.common.util.concurrent.ListenableFuture<User> getById(
         com.google.protobuf.Int32Value request) {
       return futureUnaryCall(
           getChannel().newCall(METHOD_GET_BY_ID, getCallOptions()), request);
@@ -405,8 +398,8 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.sep3yg9.njorddata.grpc.protobuf.user.UserList> searchUser(
-        com.sep3yg9.njorddata.grpc.protobuf.user.SearchingUser request) {
+    public com.google.common.util.concurrent.ListenableFuture<UserList> searchUser(
+        SearchingUser request) {
       return futureUnaryCall(
           getChannel().newCall(METHOD_SEARCH_USER, getCallOptions()), request);
     }
@@ -432,16 +425,16 @@ public final class UserServiceGrpc {
       this.methodId = methodId;
     }
 
-    @java.lang.Override
-    @java.lang.SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_CREATE_USER:
-          serviceImpl.createUser((com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser) request,
-              (io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.User>) responseObserver);
+          serviceImpl.createUser((CreatingUser) request,
+              (io.grpc.stub.StreamObserver<User>) responseObserver);
           break;
         case METHODID_UPDATE_USER:
-          serviceImpl.updateUser((com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser) request,
+          serviceImpl.updateUser((UpdatingUser) request,
               (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
         case METHODID_DELETE_USER:
@@ -450,23 +443,23 @@ public final class UserServiceGrpc {
           break;
         case METHODID_GET_BY_EMAIL:
           serviceImpl.getByEmail((com.google.protobuf.StringValue) request,
-              (io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.User>) responseObserver);
+              (io.grpc.stub.StreamObserver<User>) responseObserver);
           break;
         case METHODID_GET_BY_ID:
           serviceImpl.getById((com.google.protobuf.Int32Value) request,
-              (io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.User>) responseObserver);
+              (io.grpc.stub.StreamObserver<User>) responseObserver);
           break;
         case METHODID_SEARCH_USER:
-          serviceImpl.searchUser((com.sep3yg9.njorddata.grpc.protobuf.user.SearchingUser) request,
-              (io.grpc.stub.StreamObserver<com.sep3yg9.njorddata.grpc.protobuf.user.UserList>) responseObserver);
+          serviceImpl.searchUser((SearchingUser) request,
+              (io.grpc.stub.StreamObserver<UserList>) responseObserver);
           break;
         default:
           throw new AssertionError();
       }
     }
 
-    @java.lang.Override
-    @java.lang.SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings("unchecked")
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
@@ -477,9 +470,9 @@ public final class UserServiceGrpc {
   }
 
   private static final class UserServiceDescriptorSupplier implements io.grpc.protobuf.ProtoFileDescriptorSupplier {
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return com.sep3yg9.njorddata.grpc.protobuf.user.UserServiceOuterClass.getDescriptor();
+      return UserServiceOuterClass.getDescriptor();
     }
   }
 

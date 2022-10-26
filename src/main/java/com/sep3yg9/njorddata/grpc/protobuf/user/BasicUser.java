@@ -20,7 +20,7 @@ public  final class BasicUser extends
     email_ = "";
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
@@ -46,19 +46,19 @@ public  final class BasicUser extends
             break;
           }
           case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             fullName_ = s;
             break;
           }
           case 18: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             userName_ = s;
             break;
           }
           case 26: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             email_ = s;
             break;
@@ -76,29 +76,29 @@ public  final class BasicUser extends
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_descriptor;
+    return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_descriptor;
   }
 
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_fieldAccessorTable
+    return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser.class, com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser.Builder.class);
+            BasicUser.class, Builder.class);
   }
 
   public static final int FULLNAME_FIELD_NUMBER = 1;
-  private volatile java.lang.Object fullName_;
+  private volatile Object fullName_;
   /**
    * <code>string fullName = 1;</code>
    */
-  public java.lang.String getFullName() {
-    java.lang.Object ref = fullName_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  public String getFullName() {
+    Object ref = fullName_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       fullName_ = s;
       return s;
     }
@@ -108,11 +108,11 @@ public  final class BasicUser extends
    */
   public com.google.protobuf.ByteString
       getFullNameBytes() {
-    java.lang.Object ref = fullName_;
-    if (ref instanceof java.lang.String) {
+    Object ref = fullName_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       fullName_ = b;
       return b;
     } else {
@@ -121,18 +121,18 @@ public  final class BasicUser extends
   }
 
   public static final int USERNAME_FIELD_NUMBER = 2;
-  private volatile java.lang.Object userName_;
+  private volatile Object userName_;
   /**
    * <code>string userName = 2;</code>
    */
-  public java.lang.String getUserName() {
-    java.lang.Object ref = userName_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  public String getUserName() {
+    Object ref = userName_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       userName_ = s;
       return s;
     }
@@ -142,11 +142,11 @@ public  final class BasicUser extends
    */
   public com.google.protobuf.ByteString
       getUserNameBytes() {
-    java.lang.Object ref = userName_;
-    if (ref instanceof java.lang.String) {
+    Object ref = userName_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       userName_ = b;
       return b;
     } else {
@@ -155,18 +155,18 @@ public  final class BasicUser extends
   }
 
   public static final int EMAIL_FIELD_NUMBER = 3;
-  private volatile java.lang.Object email_;
+  private volatile Object email_;
   /**
    * <code>string email = 3;</code>
    */
-  public java.lang.String getEmail() {
-    java.lang.Object ref = email_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  public String getEmail() {
+    Object ref = email_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       email_ = s;
       return s;
     }
@@ -176,11 +176,11 @@ public  final class BasicUser extends
    */
   public com.google.protobuf.ByteString
       getEmailBytes() {
-    java.lang.Object ref = email_;
-    if (ref instanceof java.lang.String) {
+    Object ref = email_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       email_ = b;
       return b;
     } else {
@@ -230,15 +230,15 @@ public  final class BasicUser extends
   }
 
   private static final long serialVersionUID = 0L;
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser)) {
+    if (!(obj instanceof BasicUser)) {
       return super.equals(obj);
     }
-    com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser other = (com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser) obj;
+    BasicUser other = (BasicUser) obj;
 
     boolean result = true;
     result = result && getFullName()
@@ -250,7 +250,7 @@ public  final class BasicUser extends
     return result;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -268,69 +268,69 @@ public  final class BasicUser extends
     return hash;
   }
 
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(
+  public static BasicUser parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(
+  public static BasicUser parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(
+  public static BasicUser parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(
+  public static BasicUser parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(byte[] data)
+  public static BasicUser parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(
+  public static BasicUser parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(java.io.InputStream input)
+  public static BasicUser parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(
+  public static BasicUser parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseDelimitedFrom(java.io.InputStream input)
+  public static BasicUser parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseDelimitedFrom(
+  public static BasicUser parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(
+  public static BasicUser parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parseFrom(
+  public static BasicUser parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -342,7 +342,7 @@ public  final class BasicUser extends
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser prototype) {
+  public static Builder newBuilder(BasicUser prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -350,9 +350,9 @@ public  final class BasicUser extends
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -362,17 +362,17 @@ public  final class BasicUser extends
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser)
-      com.sep3yg9.njorddata.grpc.protobuf.user.BasicUserOrBuilder {
+      BasicUserOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_descriptor;
+      return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_fieldAccessorTable
+      return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser.class, com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser.Builder.class);
+              BasicUser.class, Builder.class);
     }
 
     // Construct using com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser.newBuilder()
@@ -381,7 +381,7 @@ public  final class BasicUser extends
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -403,23 +403,23 @@ public  final class BasicUser extends
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.sep3yg9.njorddata.grpc.protobuf.user.UserService.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_descriptor;
+      return UserServiceOuterClass.internal_static_com_sep3yg9_njorddata_grpc_protobuf_user_BasicUser_descriptor;
     }
 
-    public com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser getDefaultInstanceForType() {
-      return com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser.getDefaultInstance();
+    public BasicUser getDefaultInstanceForType() {
+      return BasicUser.getDefaultInstance();
     }
 
-    public com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser build() {
-      com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser result = buildPartial();
+    public BasicUser build() {
+      BasicUser result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser buildPartial() {
-      com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser result = new com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser(this);
+    public BasicUser buildPartial() {
+      BasicUser result = new BasicUser(this);
       result.fullName_ = fullName_;
       result.userName_ = userName_;
       result.email_ = email_;
@@ -454,16 +454,16 @@ public  final class BasicUser extends
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser) {
-        return mergeFrom((com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser)other);
+      if (other instanceof BasicUser) {
+        return mergeFrom((BasicUser)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser other) {
-      if (other == com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser.getDefaultInstance()) return this;
+    public Builder mergeFrom(BasicUser other) {
+      if (other == BasicUser.getDefaultInstance()) return this;
       if (!other.getFullName().isEmpty()) {
         fullName_ = other.fullName_;
         onChanged();
@@ -488,11 +488,11 @@ public  final class BasicUser extends
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser parsedMessage = null;
+      BasicUser parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser) e.getUnfinishedMessage();
+        parsedMessage = (BasicUser) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -502,20 +502,20 @@ public  final class BasicUser extends
       return this;
     }
 
-    private java.lang.Object fullName_ = "";
+    private Object fullName_ = "";
     /**
      * <code>string fullName = 1;</code>
      */
-    public java.lang.String getFullName() {
-      java.lang.Object ref = fullName_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getFullName() {
+      Object ref = fullName_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         fullName_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -523,11 +523,11 @@ public  final class BasicUser extends
      */
     public com.google.protobuf.ByteString
         getFullNameBytes() {
-      java.lang.Object ref = fullName_;
+      Object ref = fullName_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         fullName_ = b;
         return b;
       } else {
@@ -538,7 +538,7 @@ public  final class BasicUser extends
      * <code>string fullName = 1;</code>
      */
     public Builder setFullName(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -571,20 +571,20 @@ public  final class BasicUser extends
       return this;
     }
 
-    private java.lang.Object userName_ = "";
+    private Object userName_ = "";
     /**
      * <code>string userName = 2;</code>
      */
-    public java.lang.String getUserName() {
-      java.lang.Object ref = userName_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getUserName() {
+      Object ref = userName_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         userName_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -592,11 +592,11 @@ public  final class BasicUser extends
      */
     public com.google.protobuf.ByteString
         getUserNameBytes() {
-      java.lang.Object ref = userName_;
+      Object ref = userName_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         userName_ = b;
         return b;
       } else {
@@ -607,7 +607,7 @@ public  final class BasicUser extends
      * <code>string userName = 2;</code>
      */
     public Builder setUserName(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -640,20 +640,20 @@ public  final class BasicUser extends
       return this;
     }
 
-    private java.lang.Object email_ = "";
+    private Object email_ = "";
     /**
      * <code>string email = 3;</code>
      */
-    public java.lang.String getEmail() {
-      java.lang.Object ref = email_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getEmail() {
+      Object ref = email_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         email_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -661,11 +661,11 @@ public  final class BasicUser extends
      */
     public com.google.protobuf.ByteString
         getEmailBytes() {
-      java.lang.Object ref = email_;
+      Object ref = email_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         email_ = b;
         return b;
       } else {
@@ -676,7 +676,7 @@ public  final class BasicUser extends
      * <code>string email = 3;</code>
      */
     public Builder setEmail(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -723,12 +723,12 @@ public  final class BasicUser extends
   }
 
   // @@protoc_insertion_point(class_scope:com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser)
-  private static final com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser DEFAULT_INSTANCE;
+  private static final BasicUser DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser();
+    DEFAULT_INSTANCE = new BasicUser();
   }
 
-  public static com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser getDefaultInstance() {
+  public static BasicUser getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
@@ -746,12 +746,12 @@ public  final class BasicUser extends
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<BasicUser> getParserForType() {
     return PARSER;
   }
 
-  public com.sep3yg9.njorddata.grpc.protobuf.user.BasicUser getDefaultInstanceForType() {
+  public BasicUser getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

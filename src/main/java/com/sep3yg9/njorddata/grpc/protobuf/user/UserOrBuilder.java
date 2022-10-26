@@ -15,7 +15,7 @@ public interface UserOrBuilder extends
   /**
    * <code>string fullName = 2;</code>
    */
-  java.lang.String getFullName();
+  String getFullName();
   /**
    * <code>string fullName = 2;</code>
    */
@@ -25,7 +25,7 @@ public interface UserOrBuilder extends
   /**
    * <code>string email = 3;</code>
    */
-  java.lang.String getEmail();
+  String getEmail();
   /**
    * <code>string email = 3;</code>
    */
@@ -35,7 +35,7 @@ public interface UserOrBuilder extends
   /**
    * <code>string userName = 4;</code>
    */
-  java.lang.String getUserName();
+  String getUserName();
   /**
    * <code>string userName = 4;</code>
    */
@@ -45,7 +45,7 @@ public interface UserOrBuilder extends
   /**
    * <code>string password = 5;</code>
    */
-  java.lang.String getPassword();
+  String getPassword();
   /**
    * <code>string password = 5;</code>
    */

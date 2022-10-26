@@ -3,7 +3,7 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 option java_multiple_files = true;
 option csharp_namespace = "GRPCUserClient";
-package com.sep3yg9.njorddata.grpc.protobuf;
+package com.sep3yg9.njorddata.grpc.protobuf.user;
 
 message CreatingUser {
   string fullName = 1;
@@ -43,7 +43,7 @@ message UserList {
   repeated User user = 1;
 }
 
-service HelloService {
+service UserService {
   rpc CreateUser(CreatingUser) returns (User);
   rpc UpdateUser(UpdatingUser) returns (google.protobuf.Empty);
   rpc DeleteUser(google.protobuf.Int32Value) returns (google.protobuf.Empty);

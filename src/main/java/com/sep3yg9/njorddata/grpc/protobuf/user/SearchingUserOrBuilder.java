@@ -10,7 +10,7 @@ public interface SearchingUserOrBuilder extends
   /**
    * <code>string userName = 1;</code>
    */
-  java.lang.String getUserName();
+  String getUserName();
   /**
    * <code>string userName = 1;</code>
    */
@@ -20,7 +20,7 @@ public interface SearchingUserOrBuilder extends
   /**
    * <code>string email = 2;</code>
    */
-  java.lang.String getEmail();
+  String getEmail();
   /**
    * <code>string email = 2;</code>
    */
@@ -30,7 +30,7 @@ public interface SearchingUserOrBuilder extends
   /**
    * <code>string fullName = 3;</code>
    */
-  java.lang.String getFullName();
+  String getFullName();
   /**
    * <code>string fullName = 3;</code>
    */

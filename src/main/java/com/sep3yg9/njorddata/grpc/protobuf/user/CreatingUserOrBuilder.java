@@ -10,7 +10,7 @@ public interface CreatingUserOrBuilder extends
   /**
    * <code>string fullName = 1;</code>
    */
-  java.lang.String getFullName();
+  String getFullName();
   /**
    * <code>string fullName = 1;</code>
    */
@@ -20,7 +20,7 @@ public interface CreatingUserOrBuilder extends
   /**
    * <code>string userName = 2;</code>
    */
-  java.lang.String getUserName();
+  String getUserName();
   /**
    * <code>string userName = 2;</code>
    */
@@ -30,7 +30,7 @@ public interface CreatingUserOrBuilder extends
   /**
    * <code>string email = 3;</code>
    */
-  java.lang.String getEmail();
+  String getEmail();
   /**
    * <code>string email = 3;</code>
    */
@@ -40,7 +40,7 @@ public interface CreatingUserOrBuilder extends
   /**
    * <code>string password = 4;</code>
    */
-  java.lang.String getPassword();
+  String getPassword();
   /**
    * <code>string password = 4;</code>
    */
