@@ -1,6 +1,6 @@
 package com.sep3yg9.njorddata.services;
 
-import com.sep3yg9.njorddata.models.User;
+import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,22 +13,22 @@ public class UserService
 {
   @Autowired
   private UserRepository userRepository;
-  public List<User> getAllUsers()
+  public List<UserEntity> getAllUsers()
   {
-    List<User>userRecords = new ArrayList<>();
-    userRepository.findAll().forEach(userRecords::add);
-    return userRecords;
+    List<UserEntity> userEntityRecords = new ArrayList<>();
+    userRepository.findAll().forEach(userEntityRecords::add);
+    return userEntityRecords;
   }
-  public void addUser(User userRecord)
+  public void addUser(UserEntity userEntityRecord)
   {
-    userRepository.save(userRecord);
+    userRepository.save(userEntityRecord);
   }
 
-  public User getById(int id) {
+  public UserEntity getById(int id) {
     return userRepository.findById(id);
   }
 
-  public User getByUserName(String username) {
+  public UserEntity getByUserName(String username) {
     return userRepository.findByUsername(username);
   }
 }

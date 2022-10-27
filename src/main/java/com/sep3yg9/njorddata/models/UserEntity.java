@@ -3,7 +3,7 @@ package com.sep3yg9.njorddata.models;
 import javax.persistence.*;
 
 @Entity @Table(name = "member", schema = "sep3ygroup9")
-public class User
+public class UserEntity
 {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -13,11 +13,11 @@ public class User
   private String username;
   private String password;
   private String recurringavailability;
-  public User () {
+  public UserEntity() {
 
   }
 
-  public User(String fullName, String email, String userName, String password) {
+  public UserEntity(String fullName, String email, String userName, String password) {
     this.fullname = fullName;
     this.email = email;
     this.username = userName;
