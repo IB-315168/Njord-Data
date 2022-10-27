@@ -1,43 +1,49 @@
 package com.sep3yg9.njorddata.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Entity @Table(name = "member", schema = "sep3ygroup9")
 public class User
 {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  private String fullName;
+//  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int idmember;
+  private String fullname;
   private String email;
-  private String userName;
+  private String username;
   private String password;
+  private String recurringavailability;
+  public User () {
 
-  public User() {
+  }
 
+  public User(int id, String fullName, String email, String userName, String password) {
+    this.idmember = id;
+    this.fullname = fullName;
+    this.email = email;
+    this.username = userName;
+    this.password = password;
+    recurringavailability = "test";
   }
 
   public int getId()
   {
-    return id;
+    return idmember;
   }
 
   public void setId(int id)
   {
-    this.id = id;
+    this.idmember = id;
   }
 
   public String getFullName()
   {
-    return fullName;
+    return fullname;
   }
 
   public void setFullName(String fullName)
   {
-    this.fullName = fullName;
+    this.fullname = fullName;
   }
 
   public String getEmail()
@@ -52,12 +58,12 @@ public class User
 
   public String getUserName()
   {
-    return userName;
+    return username;
   }
 
   public void setUserName(String userName)
   {
-    this.userName = userName;
+    this.username = userName;
   }
 
   public String getPassword()
@@ -72,6 +78,6 @@ public class User
 
   @Override
   public String toString() {
-    return "User [fullName=" + fullName + ", email=" + email + "]";
+    return "User [fullName=" + fullname + ", email=" + email + "]";
   }
 }

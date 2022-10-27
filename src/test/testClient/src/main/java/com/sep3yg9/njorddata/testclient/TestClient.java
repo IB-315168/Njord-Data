@@ -1,5 +1,8 @@
 package com.sep3yg9.njorddata.testclient;
 
+//import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
+//import com.sep3yg9.njorddata.grpc.protobuf.user.User;
+//import com.sep3yg9.njorddata.grpc.protobuf.user.UserServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.grpc.protobuf.user.UserServiceGrpc;
@@ -10,7 +13,7 @@ public class TestClient
 {
   public static void main(String[] args)
   {
-    ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+    ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 6565)
         .usePlaintext()
         .build();
 
