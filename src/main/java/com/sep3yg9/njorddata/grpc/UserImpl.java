@@ -16,14 +16,21 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
 
   @Override public void createUser(CreatingUser user, StreamObserver<User> responseObserver)
   {
-    userService.addUser(new com.sep3yg9.njorddata.models.User(1, user.getFullName(),
+    userService.addUser(new com.sep3yg9.njorddata.models.User(user.getFullName(),
         user.getEmail(), user.getUserName(), user.getPassword()));
 
-    User user1 = User.newBuilder().setId(1).setFullName(user.getFullName())
-        .setEmail(user.getEmail()).setUserName(user.getUserName())
-        .setEmail(user.getPassword()).build();
+    com.sep3yg9.njorddata.models.User userCreated = userService.getByUserName(
+        user.getUserName());
 
-    System.out.println(userService.getById(1));
+    User user1 = User.newBuilder()
+        .setId(userCreated.getIdmember())
+        .setFullName(userCreated.getFullName())
+        .setEmail(userCreated.getEmail())
+        .setUserName(userCreated.getUserName())
+        .setPassword(userCreated.getPassword())
+        .build();
+
+    System.out.println(userService.getById(userCreated.getIdmember()));
 
     responseObserver.onNext(user1);
     responseObserver.onCompleted();

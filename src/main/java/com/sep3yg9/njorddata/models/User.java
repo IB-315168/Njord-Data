@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class User
 {
   @Id
-//  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private int idmember;
   private String fullname;
   private String email;
@@ -17,8 +17,7 @@ public class User
 
   }
 
-  public User(int id, String fullName, String email, String userName, String password) {
-    this.idmember = id;
+  public User(String fullName, String email, String userName, String password) {
     this.fullname = fullName;
     this.email = email;
     this.username = userName;
@@ -26,12 +25,12 @@ public class User
     recurringavailability = "test";
   }
 
-  public int getId()
+  public int getIdmember()
   {
     return idmember;
   }
 
-  public void setId(int id)
+  public void setIdmember(int id)
   {
     this.idmember = id;
   }

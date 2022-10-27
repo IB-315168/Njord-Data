@@ -22,9 +22,9 @@ public class TestClient
 
     User user = stub.createUser(CreatingUser.newBuilder()
         .setFullName("Igor Test")
-        .setEmail("test@gmail.com")
-        .setUserName("test_igor")
-        .setPassword("1234")
+        .setEmail("test_acc@gmail.com")
+        .setUserName("igor_test")
+        .setPassword("Test1!")
         .build());
 
     System.out.println(user);
