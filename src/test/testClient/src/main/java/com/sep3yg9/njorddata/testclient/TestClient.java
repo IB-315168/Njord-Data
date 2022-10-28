@@ -1,6 +1,9 @@
 package com.sep3yg9.njorddata.testclient;
 
 import com.google.protobuf.Int32Value;
+import com.sep3yg9.njorddata.grpc.protobuf.team.CreatingTeam;
+import com.sep3yg9.njorddata.grpc.protobuf.team.Team;
+import com.sep3yg9.njorddata.grpc.protobuf.team.TeamServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.grpc.protobuf.user.UserServiceGrpc;
@@ -19,20 +22,28 @@ public class TestClient
         .usePlaintext()
         .build();
 
-    UserServiceGrpc.UserServiceBlockingStub stub
-        = UserServiceGrpc.newBlockingStub(channel);
+//    UserServiceGrpc.UserServiceBlockingStub stub
+//        = UserServiceGrpc.newBlockingStub(channel);
 
+    TeamServiceGrpc.TeamServiceBlockingStub stub = TeamServiceGrpc.newBlockingStub(channel);
 //    User user = stub.createUser(CreatingUser.newBuilder()
 //        .setFullName("Igor Test")
 //        .setEmail("test_acc@gmail.com")
 //        .setUserName("igor_test")
 //        .setPassword("Test1!")
 //        .build());
+//    Scanner scanner = new Scanner(System.in);
+//    System.out.println("Type in id:");
+//    int id = Integer.parseInt(scanner.nextLine());
+//    User ent = stub.getById(Int32Value.newBuilder().setValue(id).build());
+//    System.out.println(ent);
+    Team team = stub.createTeam(CreatingTeam.newBuilder().setTeamLeaderId(1).setName("sep3yg9").build());
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Type in id:");
+    System.out.println("Type an id:");
     int id = Integer.parseInt(scanner.nextLine());
-    User ent = stub.getById(Int32Value.newBuilder().setValue(id).build());
-    System.out.println(ent);
+    Team ent = stub.getById(Int32Value.newBuilder().setValue(id).build());
+    System.out.println(team);
+
 
     channel.shutdown();
   }
