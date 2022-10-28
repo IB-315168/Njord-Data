@@ -17,7 +17,7 @@ public class TeamService
     }
 
     public TeamEntity getById(int id){
-        return teamRepository.findByIdTeam(id);
+        return teamRepository.findByIdteam(id);
     }
 
     public TeamEntity getByName(String name){

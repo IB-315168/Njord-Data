@@ -37,12 +37,12 @@ public class TestClient
 //    int id = Integer.parseInt(scanner.nextLine());
 //    User ent = stub.getById(Int32Value.newBuilder().setValue(id).build());
 //    System.out.println(ent);
-    Team team = stub.createTeam(CreatingTeam.newBuilder().setTeamLeaderId(1).setName("sep3yg9").build());
+//    Team team = stub.createTeam(CreatingTeam.newBuilder().setTeamLeaderId(14).setName("sep3yg9").build());
     Scanner scanner = new Scanner(System.in);
     System.out.println("Type an id:");
     int id = Integer.parseInt(scanner.nextLine());
     Team ent = stub.getById(Int32Value.newBuilder().setValue(id).build());
-    System.out.println(team);
+    System.out.println(ent);
 
 
     channel.shutdown();

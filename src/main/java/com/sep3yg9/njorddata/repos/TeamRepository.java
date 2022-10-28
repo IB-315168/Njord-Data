@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface TeamRepository extends CrudRepository<TeamEntity, Integer>
 {
-    TeamEntity findByIdTeam(int id);
+    TeamEntity findByIdteam(int id);
     TeamEntity findByName(String name);
 }

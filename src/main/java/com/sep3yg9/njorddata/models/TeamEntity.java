@@ -6,9 +6,9 @@ import javax.persistence.*;
 public class TeamEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int idTeam;
+    private int idteam;
 
-    private int teamLeader;
+    private int teamleader;
 
     private String name;
 
@@ -17,24 +17,24 @@ public class TeamEntity {
     }
 
     public TeamEntity(int teamLeader, String name) {
-        this.teamLeader = teamLeader;
+        this.teamleader = teamLeader;
         this.name = name;
     }
 
     public int getIdTeam() {
-        return idTeam;
+        return idteam;
     }
 
     public void setIdTeam(int idTeam) {
-        this.idTeam = idTeam;
+        this.idteam = idTeam;
     }
 
     public int getTeamLeader() {
-        return teamLeader;
+        return teamleader;
     }
 
     public void setTeamLeader(int teamLeader) {
-        this.teamLeader = teamLeader;
+        this.teamleader = teamLeader;
     }
 
     public String getName() {
@@ -47,6 +47,6 @@ public class TeamEntity {
 
     @Override
     public String toString() {
-        return "Team [teamId=" + idTeam + ", name=" + name + "]";
+        return "Team [teamId=" + idteam + ", name=" + name + "]";
     }
 }

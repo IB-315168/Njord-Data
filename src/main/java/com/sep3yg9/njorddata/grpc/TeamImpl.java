@@ -19,18 +19,26 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
 {
     @Autowired
     private TeamService teamService;
+    @Autowired
     private UserService userService;
 
     @Override public void createTeam(CreatingTeam team, StreamObserver<Team> responseObserver)
     {
         teamService.addTeam(new TeamEntity(team.getTeamLeaderId(), team.getName()));
-        //userService.addUser(new UserEntity(user.getFullName(), user.getEmail(), user.getUserName(), user.getPassword()));
 
         TeamEntity teamCreated = teamService.getByName(team.getName());
+        UserEntity userLeader = userService.getById(teamCreated.getTeamLeader());
+
+        User teamLeader = User.newBuilder()
+            .setId(userLeader.getIdmember())
+            .setFullName(userLeader.getFullName())
+            .setEmail(userLeader.getEmail())
+            .setPassword(userLeader.getPassword())
+            .build();
 
         Team team1 = Team.newBuilder()
                 .setId(teamCreated.getIdTeam())
-                .setTeamLeader(teamCreated.getTeamLeader(userService.getById()))
+                .setTeamLeader(teamLeader)
                 .setName(teamCreated.getName())
                 .build();
 
