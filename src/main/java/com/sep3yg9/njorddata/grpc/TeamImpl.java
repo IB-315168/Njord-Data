@@ -3,10 +3,7 @@ package com.sep3yg9.njorddata.grpc;
 import com.google.protobuf.Empty;
 import com.google.protobuf.EmptyOrBuilder;
 import com.google.protobuf.Int32Value;
-import com.sep3yg9.njorddata.grpc.protobuf.team.CreatingTeam;
-import com.sep3yg9.njorddata.grpc.protobuf.team.Team;
-import com.sep3yg9.njorddata.grpc.protobuf.team.TeamServiceGrpc;
-import com.sep3yg9.njorddata.grpc.protobuf.team.User;
+import com.sep3yg9.njorddata.grpc.protobuf.team.*;
 import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.UserEntity;
@@ -64,6 +61,13 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
     @Override
     public void deleteTeam(Int32Value id, StreamObserver<Empty> responseObserver) {
         teamService.removeTeam(id.getValue());
+        responseObserver.onNext(Empty.newBuilder().build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updateTeam(UpdatingTeam team, StreamObserver<Empty> responseObserver){
+        teamService.updateTeam(team);
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
