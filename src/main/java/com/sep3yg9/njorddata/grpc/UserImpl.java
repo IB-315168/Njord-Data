@@ -1,7 +1,9 @@
 package com.sep3yg9.njorddata.grpc;
 
+import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
+import com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.grpc.protobuf.user.UserServiceGrpc;
 import com.sep3yg9.njorddata.services.UserService;
@@ -33,6 +35,13 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
         .build();
 
     responseObserver.onNext(user1);
+    responseObserver.onCompleted();
+  }
+
+  @Override
+  public void updateUser(UpdatingUser user, StreamObserver<Empty> responseObserver) {
+    userService.updateUser(user);
+
     responseObserver.onCompleted();
   }
 
