@@ -31,4 +31,8 @@ public class UserService
   public UserEntity getByUserName(String username) {
     return userRepository.findByUsername(username);
   }
+
+  public UserEntity getByEmail(String email) {
+    return userRepository.findByEmail(email);
+  }
 }
