@@ -1,5 +1,7 @@
 package com.sep3yg9.njorddata.models;
 
+import com.sep3yg9.njorddata.grpc.protobuf.user.User;
+
 import javax.persistence.*;
 
 @Entity @Table(name = "member", schema = "sep3ygroup9")
@@ -78,5 +80,15 @@ public class UserEntity
   @Override
   public String toString() {
     return "User [fullName=" + fullname + ", email=" + email + "]";
+  }
+
+  public User convertToUser() {
+    return User.newBuilder()
+        .setId(idmember)
+        .setFullName(fullname)
+        .setEmail(email)
+        .setUserName(username)
+        .setPassword(password)
+        .build();
   }
 }

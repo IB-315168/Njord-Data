@@ -1,5 +1,7 @@
 package com.sep3yg9.njorddata.services;
 
+import com.google.protobuf.Int32Value;
+import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser;
 import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.repos.UserRepository;
@@ -8,16 +10,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService
 {
   @Autowired
   private UserRepository userRepository;
-  public List<UserEntity> getAllUsers()
+  public List<User> getAllUsers()
   {
-    List<UserEntity> userEntityRecords = new ArrayList<>();
-    userRepository.findAll().forEach(userEntityRecords::add);
+    List<User> userEntityRecords = new ArrayList<>();
+    userRepository.findAll().forEach(userEntity -> userEntityRecords.add(userEntity.convertToUser()));
     return userEntityRecords;
   }
   public void addUser(UserEntity userEntityRecord)
@@ -50,6 +53,10 @@ public class UserService
     }
   }
 
+  public void deleteUser(int id) {
+    userRepository.deleteById(id);
+  }
+
   public UserEntity getById(int id) {
     return userRepository.findById(id);
   }
@@ -60,5 +67,9 @@ public class UserService
 
   public UserEntity getByEmail(String email) {
     return userRepository.findByEmail(email);
+  }
+
+  public Iterable<UserEntity> getAll() {
+    return userRepository.findAll();
   }
 }
