@@ -41,7 +41,7 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
   @Override
   public void updateUser(UpdatingUser user, StreamObserver<Empty> responseObserver) {
     userService.updateUser(user);
-
+    responseObserver.onNext(Empty.newBuilder().build());
     responseObserver.onCompleted();
   }
 

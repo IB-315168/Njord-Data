@@ -1,5 +1,6 @@
 package com.sep3yg9.njorddata.testclient;
 
+import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
 import com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser;
@@ -34,10 +35,12 @@ public class TestUserClient
     System.out.println("Pre-update:");
     User ent1 = stub.getById(Int32Value.newBuilder().setValue(14).build());
     System.out.println(ent1);
-//    System.out.println("Type in new username");
-//    Scanner scanner = new Scanner(System.in);
-//    String username = scanner.nextLine();
-//    stub.updateUser(UpdatingUser.newBuilder().setUserName(username).build());
-
+    System.out.println("Type in new username");
+    Scanner scanner = new Scanner(System.in);
+    String username = scanner.nextLine();
+    var ent2 = stub.updateUser(UpdatingUser.newBuilder().setId(14).setUserName(username).build());
+    System.out.println("Pos-update:");
+    User ent3 = stub.getById(Int32Value.newBuilder().setValue(14).build());
+    System.out.println(ent3);
   }
 }
