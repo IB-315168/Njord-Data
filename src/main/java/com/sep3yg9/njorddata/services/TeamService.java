@@ -1,5 +1,7 @@
 package com.sep3yg9.njorddata.services;
 
+import com.google.protobuf.Int32Value;
+import com.google.protobuf.Int32ValueOrBuilder;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.repos.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +24,8 @@ public class TeamService
 
     public TeamEntity getByName(String name){
         return teamRepository.findByName(name);
+    }
+    public void removeTeam(int id){
+        teamRepository.deleteById(id);
     }
 }

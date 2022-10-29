@@ -1,5 +1,7 @@
 package com.sep3yg9.njorddata.grpc;
 
+import com.google.protobuf.Empty;
+import com.google.protobuf.EmptyOrBuilder;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.team.CreatingTeam;
 import com.sep3yg9.njorddata.grpc.protobuf.team.Team;
@@ -11,6 +13,7 @@ import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.services.TeamService;
 import com.sep3yg9.njorddata.services.UserService;
 import io.grpc.stub.StreamObserver;
+import net.bytebuddy.description.type.TypeList;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -55,6 +58,13 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
                 .build();
 
         responseObserver.onNext(team1);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void deleteTeam(Int32Value id, StreamObserver<Empty> responseObserver) {
+        teamService.removeTeam(id.getValue());
+        responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
 }
