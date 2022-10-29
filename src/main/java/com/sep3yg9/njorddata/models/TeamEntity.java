@@ -1,6 +1,9 @@
 package com.sep3yg9.njorddata.models;
 
+import com.sep3yg9.njorddata.grpc.protobuf.team.User;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity @Table(name = "team", schema = "sep3ygroup9")
 public class TeamEntity {
