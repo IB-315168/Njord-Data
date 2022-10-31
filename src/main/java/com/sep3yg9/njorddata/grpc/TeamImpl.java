@@ -18,9 +18,7 @@ import org.hibernate.Hibernate;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @GRpcService
 public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
@@ -92,4 +90,20 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
+
+//    @Override
+//    public void getByUserId(Int32Value id, StreamObserver<TeamList> responseObserver) {
+//        Optional<TeamMember> teams = teamService.getByUserId(id.getValue());
+//
+//        List<Team> teamsUser = new ArrayList<>();
+//        if(teams.isPresent()) {
+//            for(TeamMember teamMember : teams.stream().toList()){
+//                teamsUser.add(teamMember.getTeamEntity().convertToTeam());
+//            }
+//        }
+//
+//        TeamList list = TeamList.newBuilder().addAllTeam(teamsUser).build();
+//        responseObserver.onNext(list);
+//        responseObserver.onCompleted();
+//    }
 }

@@ -4,10 +4,13 @@ import com.google.protobuf.Int32Value;
 import com.google.protobuf.Int32ValueOrBuilder;
 import com.sep3yg9.njorddata.grpc.protobuf.team.UpdatingTeam;
 import com.sep3yg9.njorddata.models.TeamEntity;
+import com.sep3yg9.njorddata.models.TeamMember;
+import com.sep3yg9.njorddata.models.TeamMemberId;
 import com.sep3yg9.njorddata.repos.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 
 @Service
 public class TeamService

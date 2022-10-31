@@ -28,13 +28,7 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
     UserEntity userCreated = userService.getByUserName(
         user.getUserName());
 
-    User user1 = User.newBuilder()
-        .setId(userCreated.getIdmember())
-        .setFullName(userCreated.getFullName())
-        .setEmail(userCreated.getEmail())
-        .setUserName(userCreated.getUserName())
-        .setPassword(userCreated.getPassword())
-        .build();
+    User user1 = userCreated.convertToUser();
 
     responseObserver.onNext(user1);
     responseObserver.onCompleted();
@@ -55,15 +49,24 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
   public void getById(Int32Value id, StreamObserver<User> responseObserver) {
     UserEntity user = userService.getById(id.getValue());
 
-    User user1 = User.newBuilder()
-        .setId(user.getIdmember())
-        .setFullName(user.getFullName())
-        .setEmail(user.getEmail())
-        .setUserName(user.getUserName())
-        .setPassword(user.getPassword())
-        .build();
+//    User user1 = User.newBuilder()
+//        .setId(user.getIdmember())
+//        .setFullName(user.getFullName())
+//        .setEmail(user.getEmail())
+//        .setUserName(user.getUserName())
+//        .setPassword(user.getPassword())
+//        .build();
 
+    User user1 = user.convertToUser();
     responseObserver.onNext(user1);
+    responseObserver.onCompleted();
+  }
+
+  @Override
+  public void getByEmail(com.google.protobuf.StringValue email, StreamObserver<User> responseObserver) {
+    User user = userService.getByEmail(email.getValue()).convertToUser();
+
+    responseObserver.onNext(user);
     responseObserver.onCompleted();
   }
 
@@ -73,7 +76,6 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
 
     if(!query.getFullName().isEmpty())
     {
-      ;
       userList.removeIf(user -> !user.getFullName().toLowerCase().contains(query.getFullName().toLowerCase()));
     }
 

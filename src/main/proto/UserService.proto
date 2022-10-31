@@ -31,12 +31,19 @@ message BasicUser {
   string email = 3;
 }
 
+message BasicTeam {
+  int32 id = 1;
+  string name = 2;
+  string teamLeaderName = 3;
+}
+
 message User {
   int32 id = 1;
   string fullName = 2;
   string email = 3;
   string userName = 4;
   string password = 5;
+  repeated BasicTeam userTeams = 6;
 }
 
 message UserList {

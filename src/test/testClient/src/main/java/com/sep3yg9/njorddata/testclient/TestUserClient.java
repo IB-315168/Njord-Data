@@ -21,26 +21,26 @@ public class TestUserClient
         .build();
         UserServiceGrpc.UserServiceBlockingStub stub
             = UserServiceGrpc.newBlockingStub(channel);
-//        User user = stub.createUser(CreatingUser.newBuilder()
-//            .setFullName("Igor Test")
-//            .setEmail("test_acc@gmail.com")
-//            .setUserName("igor_test")
-//            .setPassword("Test1!")
-//            .build());
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Type in id:");
-//        int id = Integer.parseInt(scanner.nextLine());
-//        User ent = stub.getById(Int32Value.newBuilder().setValue(id).build());
-//        System.out.println(ent);
-    System.out.println("Pre-update:");
-    User ent1 = stub.getById(Int32Value.newBuilder().setValue(14).build());
-    System.out.println(ent1);
-    System.out.println("Type in new username");
-    Scanner scanner = new Scanner(System.in);
-    String username = scanner.nextLine();
-    var ent2 = stub.updateUser(UpdatingUser.newBuilder().setId(14).setUserName(username).build());
-    System.out.println("Pos-update:");
-    User ent3 = stub.getById(Int32Value.newBuilder().setValue(14).build());
-    System.out.println(ent3);
+        User user = stub.createUser(CreatingUser.newBuilder()
+            .setFullName("Test User 2")
+            .setEmail("test_acc2@gmail.com")
+            .setUserName("user_test2")
+            .setPassword("Test1!")
+            .build());
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type in id:");
+        int id = Integer.parseInt(scanner.nextLine());
+        User ent = stub.getById(Int32Value.newBuilder().setValue(id).build());
+        System.out.println(ent);
+//    System.out.println("Pre-update:");
+//    User ent1 = stub.getById(Int32Value.newBuilder().setValue(14).build());
+//    System.out.println(ent1);
+//    System.out.println("Type in new username");
+//    Scanner scanner = new Scanner(System.in);
+//    String username = scanner.nextLine();
+//    var ent2 = stub.updateUser(UpdatingUser.newBuilder().setId(14).setUserName(username).build());
+//    System.out.println("Pos-update:");
+//    User ent3 = stub.getById(Int32Value.newBuilder().setValue(14).build());
+//    System.out.println(ent3);
   }
 }

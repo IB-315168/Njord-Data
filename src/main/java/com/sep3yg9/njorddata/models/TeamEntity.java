@@ -1,6 +1,9 @@
 package com.sep3yg9.njorddata.models;
 
 
+import com.sep3yg9.njorddata.grpc.protobuf.team.Team;
+import com.sep3yg9.njorddata.grpc.protobuf.user.BasicTeam;
+import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.NaturalId;
 
@@ -20,7 +23,7 @@ public class TeamEntity
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "idteam", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TeamMember> members = new ArrayList<>();
+    private List<TeamMember> member = new ArrayList<>();
 
     public TeamEntity() {
 
@@ -57,22 +60,22 @@ public class TeamEntity
 
     public List<TeamMember> getMembers()
     {
-        return members;
+        return member;
     }
 
     public void setMembers(List<TeamMember> members)
     {
-        this.members = members;
+        this.member = members;
     }
 
     public void addMember(UserEntity p) {
         TeamMember teamMember = new TeamMember(this, p);
-        members.add(teamMember);
+        member.add(teamMember);
         p.getTeams().add(teamMember);
     }
 
     public void removeMember(UserEntity p) {
-        for(Iterator<TeamMember> i = members.iterator();
+        for(Iterator<TeamMember> i = member.iterator();
         i.hasNext();) {
             TeamMember teamMember = i.next();
 
@@ -84,6 +87,14 @@ public class TeamEntity
                 teamMember.setUserEntity(null);
             }
         }
+    }
+
+    public BasicTeam convertToBasicTeam() {
+        return BasicTeam.newBuilder()
+            .setId(idteam)
+            .setTeamLeaderName(String.valueOf(teamleader))
+            .setName(name)
+            .build();
     }
 
     @Override
@@ -99,12 +110,12 @@ public class TeamEntity
             return false;
         TeamEntity that = (TeamEntity) o;
         return idteam == that.idteam && teamleader == that.teamleader
-            && Objects.equals(name, that.name) && Objects.equals(members,
-            that.members);
+            && Objects.equals(name, that.name) && Objects.equals(member,
+            that.member);
     }
 
     @Override public int hashCode()
     {
-        return Objects.hash(idteam, teamleader, name, members);
+        return Objects.hash(idteam, teamleader, name, member);
     }
 }
