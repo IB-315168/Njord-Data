@@ -5,14 +5,22 @@ import com.google.protobuf.EmptyOrBuilder;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.team.*;
 import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
+import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.TeamEntity;
+import com.sep3yg9.njorddata.models.TeamMember;
+import com.sep3yg9.njorddata.models.TeamMemberId;
 import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.services.TeamService;
 import com.sep3yg9.njorddata.services.UserService;
 import io.grpc.stub.StreamObserver;
 import net.bytebuddy.description.type.TypeList;
+import org.hibernate.Hibernate;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @GRpcService
 public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
@@ -48,10 +56,23 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
 
     @Override public void getById(Int32Value id, StreamObserver<Team> responseObserver){
         TeamEntity team = teamService.getById(id.getValue());
+//        ArrayList<User> members = new ArrayList<>();
+//        for(UserEntity user : team.getMembers()) {
+//            members.add(user.convertToUser());
+//        }
+
+        List<TeamMember> members = team.getMembers();
+        System.out.println(members.size());
+
+        List<User> users = new ArrayList<>();
+        for(TeamMember member : members) {
+            users.add(member.getUserEntity().convertToUser());
+        }
 
         Team team1 = Team.newBuilder()
                 .setId(team.getIdTeam())
                 .setName(team.getName())
+                .addAllMembers(users)
                 .build();
 
         responseObserver.onNext(team1);

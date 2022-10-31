@@ -1,6 +1,7 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
+import "UserService.proto";
 option java_multiple_files = true;
 option csharp_namespace = "GRPCTeamClient";
 package com.sep3yg9.njorddata.grpc.protobuf.team;
@@ -13,8 +14,8 @@ message CreatingTeam {
 message UpdatingTeam {
   int32 id = 1;
   string name = 2;
-  User teamLeader = 3;
-  repeated User members = 4;
+  com.sep3yg9.njorddata.grpc.protobuf.user.User teamLeader = 3;
+  repeated com.sep3yg9.njorddata.grpc.protobuf.user.User members = 4;
 }
 
 message BasicTeam{
@@ -26,16 +27,8 @@ message BasicTeam{
 message Team {
   int32 id = 1;
   string name = 2;
-  User teamLeader = 3;
-  repeated User members = 4;
-}
-
-message User {
-  int32 id = 1;
-  string fullName = 2;
-  string email = 3;
-  string userName = 4;
-  string password = 5;
+  com.sep3yg9.njorddata.grpc.protobuf.user.User teamLeader = 3;
+  repeated com.sep3yg9.njorddata.grpc.protobuf.user.User members = 4;
 }
 
 message TeamList {

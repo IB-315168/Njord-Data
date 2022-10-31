@@ -2,7 +2,7 @@ package com.sep3yg9.njorddata.grpc;
 
 import com.sep3yg9.njorddata.grpc.protobuf.auth.AuthServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.auth.LoginRequest;
-import com.sep3yg9.njorddata.grpc.protobuf.auth.User;
+import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.services.UserService;
 import io.grpc.stub.StreamObserver;

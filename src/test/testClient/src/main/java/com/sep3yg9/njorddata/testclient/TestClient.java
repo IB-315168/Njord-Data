@@ -43,6 +43,11 @@ public class TestClient
     int id = Integer.parseInt(scanner.nextLine());
     Team ent = stub.getById(Int32Value.newBuilder().setValue(id).build());
     System.out.println(ent);
+    for (User user : ent.getMembersList())
+    {
+      System.out.println(user);
+    }
+    System.out.println(ent.getMembersList().size());
 
 
     channel.shutdown();
