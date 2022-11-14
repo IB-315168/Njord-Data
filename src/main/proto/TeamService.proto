@@ -32,7 +32,7 @@ message Team {
 }
 
 message TeamList {
-  repeated Team team = 1;
+  repeated BasicTeam team = 1;
 }
 
 service TeamService {
