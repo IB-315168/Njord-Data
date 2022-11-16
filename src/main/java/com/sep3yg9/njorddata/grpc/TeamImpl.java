@@ -3,7 +3,7 @@ package com.sep3yg9.njorddata.grpc;
 import com.google.protobuf.Empty;
 import com.google.protobuf.EmptyOrBuilder;
 import com.google.protobuf.Int32Value;
-import com.google.protobuf.StringValue;
+//import com.google.protobuf.StringValue;
 import com.sep3yg9.njorddata.grpc.protobuf.team.*;
 import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
@@ -19,7 +19,7 @@ import org.hibernate.Hibernate;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Basic;
+//import javax.persistence.Basic;
 import java.util.*;
 
 @GRpcService
@@ -32,21 +32,21 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
 
     @Override public void createTeam(CreatingTeam team, StreamObserver<Team> responseObserver)
     {
-        TeamEntity nameCheck = teamService.getByName(team.getName());
-
-        if(nameCheck != null) {
-            System.out.println("Name is in use");
-
-            User teamLeader = userService.getById(nameCheck.getTeamLeader()).convertToUser();
-
-            responseObserver.onNext(Team.newBuilder()
-                .setId(nameCheck.getIdTeam())
-                .setTeamLeader(teamLeader)
-                .build());
-            responseObserver.onCompleted();
-        }
-
-
+//        TeamEntity nameCheck = teamService.getByName(team.getName());
+//
+//        if(nameCheck != null) {
+//            System.out.println("Name is in use");
+//
+//            User teamLeader = userService.getById(nameCheck.getTeamLeader()).convertToUser();
+//
+//            responseObserver.onNext(Team.newBuilder()
+//                .setId(nameCheck.getIdTeam())
+//                .setTeamLeader(teamLeader)
+//                .build());
+//            responseObserver.onCompleted();
+//        }
+//
+//
         teamService.addTeam(new TeamEntity(team.getTeamLeaderId(), team.getName()));
 
         TeamEntity teamCreated = teamService.getByName(team.getName());
@@ -84,12 +84,12 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
             users.add(member.getUserEntity().convertToUser());
         }
 
-        User teamLeader = userService.getById(team.getTeamLeader()).convertToUser();
-
+//        User teamLeader = userService.getById(team.getTeamLeader()).convertToUser();
+//
         Team team1 = Team.newBuilder()
                 .setId(team.getIdTeam())
                 .setName(team.getName())
-                .setTeamLeader(teamLeader)
+//                .setTeamLeader(teamLeader)
                 .addAllMembers(users)
                 .build();
 
@@ -111,8 +111,8 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
         responseObserver.onCompleted();
     }
 
-    @Override
-    public void getByName(StringValue name, StreamObserver<Team> responseObserver) {
+//    @Override
+//    public void getByName(StringValue name, StreamObserver<Team> responseObserver) {
 //        TeamEntity team = teamService.getByName(name.getValue());
     }
 
@@ -141,4 +141,4 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
 //        responseObserver.onNext(list);
 //        responseObserver.onCompleted();
 //    }
-}
+//}

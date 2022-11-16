@@ -22,6 +22,7 @@ public class UserEntity
   private int idmember;
   private String fullname;
   private String email;
+  @NaturalId
   private String username;
   private String password;
   private String recurringavailability;
