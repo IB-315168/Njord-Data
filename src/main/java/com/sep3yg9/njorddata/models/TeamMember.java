@@ -10,11 +10,11 @@ public class TeamMember
   @EmbeddedId
   private TeamMemberId id;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @MapsId("teamId")
   private TeamEntity idteam;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @MapsId("memberId")
   private UserEntity idmember;
 

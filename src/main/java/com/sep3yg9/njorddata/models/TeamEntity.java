@@ -22,7 +22,7 @@ public class TeamEntity
 
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "idteam", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idteam", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TeamMember> member = new ArrayList<>();
 
     public TeamEntity() {

@@ -3,6 +3,10 @@ package com.sep3yg9.njorddata.grpc;
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.user.*;
+import com.sep3yg9.njorddata.models.TeamEntity;
+import com.sep3yg9.njorddata.models.TeamMember;
+import com.sep3yg9.njorddata.models.TeamMemberId;
+import com.sep3yg9.njorddata.services.TeamService;
 import com.sep3yg9.njorddata.services.UserService;
 import com.sep3yg9.njorddata.models.UserEntity;
 import io.grpc.stub.StreamObserver;
@@ -19,6 +23,8 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
 {
   @Autowired
   private UserService userService;
+  @Autowired
+  private TeamService teamService;
 
   @Override public void createUser(CreatingUser user, StreamObserver<User> responseObserver)
   {
@@ -49,15 +55,27 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
   public void getById(Int32Value id, StreamObserver<User> responseObserver) {
     UserEntity user = userService.getById(id.getValue());
 
-//    User user1 = User.newBuilder()
-//        .setId(user.getIdmember())
-//        .setFullName(user.getFullName())
-//        .setEmail(user.getEmail())
-//        .setUserName(user.getUserName())
-//        .setPassword(user.getPassword())
-//        .build();
+    ArrayList<BasicTeam> teamMembership = new ArrayList<>();
+    for(TeamMember member : user.getTeams()) {
+      teamMembership.add(member.getTeamEntity().convertToBasicTeam());
+    }
 
-    User user1 = user.convertToUser();
+    ArrayList<BasicTeam> teamsLeaders = new ArrayList<>();
+    for(TeamEntity teamEntity : teamService.getByTeamLeaderId(user.getIdmember())) {
+      teamsLeaders.add(teamEntity.convertToBasicTeam());
+    }
+
+    User user1 = User.newBuilder()
+        .setId(user.getIdmember())
+        .setFullName(user.getFullName())
+        .setEmail(user.getEmail())
+        .setUserName(user.getUserName())
+        .setPassword(user.getPassword())
+        .addAllUserTeams(teamMembership)
+        .addAllUserTeams(teamsLeaders)
+        .build();
+//
+//    User user1 = user.convertToUser();
     responseObserver.onNext(user1);
     responseObserver.onCompleted();
   }

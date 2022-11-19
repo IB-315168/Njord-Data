@@ -77,7 +77,6 @@ public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
 //        }
 
         List<TeamMember> members = team.getMembers();
-        System.out.println(members.size());
 
         List<User> users = new ArrayList<>();
         for(TeamMember member : members) {

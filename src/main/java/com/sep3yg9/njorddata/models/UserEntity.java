@@ -26,7 +26,7 @@ public class UserEntity
   private String password;
   private String recurringavailability;
 
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "idmember", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "idmember", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<TeamMember> teams = new ArrayList<>();
   public UserEntity() {
 
