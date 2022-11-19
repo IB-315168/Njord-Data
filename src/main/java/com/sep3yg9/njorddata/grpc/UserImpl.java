@@ -5,39 +5,59 @@ import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.user.*;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
-import com.sep3yg9.njorddata.models.TeamMemberId;
+import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.services.TeamService;
 import com.sep3yg9.njorddata.services.UserService;
-import com.sep3yg9.njorddata.models.UserEntity;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.lognet.springboot.grpc.recovery.GRpcRuntimeExceptionWrapper;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Pattern;
 
 @GRpcService
 public class UserImpl extends UserServiceGrpc.UserServiceImplBase
 {
-  @Autowired
-  private UserService userService;
-  @Autowired
-  private TeamService teamService;
+  private final UserService userService;
+  private final TeamService teamService;
+
+  public UserImpl(UserService userService, TeamService teamService)
+  {
+    this.userService = userService;
+    this.teamService = teamService;
+  }
 
   @Override public void createUser(CreatingUser user, StreamObserver<User> responseObserver)
   {
-    userService.addUser(new UserEntity(user.getFullName(),
-        user.getEmail(), user.getUserName(), user.getPassword()));
+    try
+    {
+      if(userService.getByEmail(user.getEmail()) != null) {
+        throw new IllegalArgumentException("Email address already in use");
+      }
 
-    UserEntity userCreated = userService.getByUserName(
-        user.getUserName());
+      if(userService.getByUserName(user.getUserName()) != null) {
+        throw new IllegalArgumentException("Username already in use");
+      }
+      userService.addUser(new UserEntity(user.getFullName(), user.getEmail(),
+          user.getUserName(), user.getPassword()));
 
-    User user1 = userCreated.convertToUser();
+      UserEntity userCreated = userService.getByUserName(user.getUserName());
 
-    responseObserver.onNext(user1);
-    responseObserver.onCompleted();
+      User user1 = userCreated.convertToUser();
+
+      responseObserver.onNext(user1);
+      responseObserver.onCompleted();
+    }
+    catch (Exception e)
+    {
+      Status status;
+      if(e instanceof IllegalArgumentException) {
+        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+      } else {
+        status = Status.INTERNAL.withDescription(e.getMessage());
+      }
+      responseObserver.onError(status.asRuntimeException());
+    }
   }
 
   @Override
@@ -82,9 +102,16 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
 
   @Override
   public void getByEmail(com.google.protobuf.StringValue email, StreamObserver<User> responseObserver) {
-    User user = userService.getByEmail(email.getValue()).convertToUser();
+    UserEntity user = userService.getByEmail(email.getValue());
 
-    responseObserver.onNext(user);
+    if(user == null) {
+      System.out.println("No user with this email has been found");
+      responseObserver.onNext(null);
+      responseObserver.onCompleted();
+      return;
+    }
+    User user1 = user.convertToUser();
+    responseObserver.onNext(user1);
     responseObserver.onCompleted();
   }
 

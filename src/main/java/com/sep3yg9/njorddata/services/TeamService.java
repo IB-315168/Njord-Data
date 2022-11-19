@@ -6,10 +6,7 @@ import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
 import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.repos.TeamRepository;
-import com.sep3yg9.njorddata.repos.TeammemberRepository;
 import com.sep3yg9.njorddata.repos.UserRepository;
-import org.checkerframework.checker.units.qual.A;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,13 +17,11 @@ public class TeamService
 {
     private final TeamRepository teamRepository;
     private final UserRepository userRepository;
-    private final TeammemberRepository teammemberRepository;
 
-    public TeamService(TeamRepository teamRepository, UserRepository userRepository, TeammemberRepository teammemberRepository)
+    public TeamService(TeamRepository teamRepository, UserRepository userRepository)
     {
         this.teamRepository = teamRepository;
         this.userRepository = userRepository;
-        this.teammemberRepository = teammemberRepository;
     }
 
     public void addTeam(TeamEntity teamEntityRecord){
@@ -64,12 +59,6 @@ public class TeamService
                 newMembers.add(userRepository.findById(user.getId()));
             }
 
-            ArrayList<UserEntity> oldMembers = new ArrayList<>();
-            for(TeamMember teamMember : teamEntity.getMembers()) {
-                oldMembers.add(userRepository.findById(teamMember.getUserEntity()
-                    .getIdmember()));
-            }
-
             teamEntity.setMembers(new ArrayList<TeamMember>());
             teamRepository.save(teamEntity);
 
@@ -79,7 +68,6 @@ public class TeamService
 
         }
 
-        System.out.println(teamEntity.getMembers().size());
         teamRepository.save(teamEntity);
     }
 }
