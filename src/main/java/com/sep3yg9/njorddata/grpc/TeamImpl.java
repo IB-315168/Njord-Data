@@ -33,15 +33,8 @@ import java.util.List;
   @Override public void createTeam(CreatingTeam team,
       StreamObserver<Team> responseObserver)
   {
-    TeamEntity nameCheck = teamService.getByName(team.getName());
-
     try
     {
-      if (nameCheck != null)
-      {
-        throw new IllegalArgumentException("Name is in use");
-      }
-
       teamService.addTeam(
           new TeamEntity(team.getTeamLeaderId(), team.getName()));
 
@@ -76,15 +69,9 @@ import java.util.List;
   @Override public void getById(Int32Value id,
       StreamObserver<Team> responseObserver)
   {
-    TeamEntity team = teamService.getById(id.getValue());
-
     try
     {
-      if (team == null)
-      {
-        throw new IllegalArgumentException("Team does not exist");
-      }
-
+      TeamEntity team = teamService.getById(id.getValue());
       List<TeamMember> members = team.getMembers();
 
       List<User> users = new ArrayList<>();
