@@ -6,15 +6,21 @@ import com.sep3yg9.njorddata.models.ProjectEntity;
 import com.sep3yg9.njorddata.repos.ProjectRepository;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
+@Service
 public class ProjectServiceImpl implements ProjectService {
-    @Autowired
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
+
+    public ProjectServiceImpl(ProjectRepository projectRepository)
+    {
+        this.projectRepository = projectRepository;
+    }
 
     @Override
     public void addProject(ProjectEntity projectEntityRecord) {

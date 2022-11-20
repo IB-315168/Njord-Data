@@ -11,39 +11,54 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class UserServiceImpl implements UserService
+@Service public class UserServiceImpl implements UserService
 {
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
+
   public List<User> getAllUsers()
   {
     List<User> userEntityRecords = new ArrayList<>();
-    userRepository.findAll().forEach(userEntity -> userEntityRecords.add(userEntity.convertToUser()));
+    userRepository.findAll().forEach(
+        userEntity -> userEntityRecords.add(userEntity.convertToUser()));
     return userEntityRecords;
   }
+
   public void addUser(UserEntity userEntityRecord)
   {
+    if(getByEmail(userEntityRecord.getEmail()) != null) {
+      throw new IllegalArgumentException("Email address already in use");
+    }
+
+    if(getByUserName(userEntityRecord.getUserName()) != null) {
+      throw new IllegalArgumentException("Username already in use");
+    }
+
     userRepository.save(userEntityRecord);
   }
 
-  public void updateUser(UpdatingUser user) {
+  public void updateUser(UpdatingUser user)
+  {
     UserEntity userEntity = userRepository.findById(user.getId());
 
-    if(userEntity == null) {
-      System.out.println("User does not exist");
-    } else
+    if (userEntity == null)
     {
-      if (!user.getEmail().isEmpty() && !user.getEmail().equals(userEntity.getEmail()))
+      System.out.println("User does not exist");
+    }
+    else
+    {
+      if (!user.getEmail().isEmpty() && !user.getEmail()
+          .equals(userEntity.getEmail()))
       {
         userEntity.setEmail(user.getEmail());
       }
 
-      if (!user.getUserName().isEmpty() && !user.getUserName().equals(userEntity.getUserName()))
+      if (!user.getUserName().isEmpty() && !user.getUserName()
+          .equals(userEntity.getUserName()))
       {
         userEntity.setUserName(user.getUserName());
       }
-      if (!user.getPassword().isEmpty() && !user.getPassword().equals(userEntity.getPassword()))
+      if (!user.getPassword().isEmpty() && !user.getPassword()
+          .equals(userEntity.getPassword()))
       {
         userEntity.setPassword(user.getPassword());
       }
@@ -52,23 +67,28 @@ public class UserServiceImpl implements UserService
     }
   }
 
-  public void deleteUser(int id) {
+  public void deleteUser(int id)
+  {
     userRepository.deleteById(id);
   }
 
-  public UserEntity getById(int id) {
+  public UserEntity getById(int id)
+  {
     return userRepository.findById(id);
   }
 
-  public UserEntity getByUserName(String username) {
+  public UserEntity getByUserName(String username)
+  {
     return userRepository.findByUsername(username);
   }
 
-  public UserEntity getByEmail(String email) {
+  public UserEntity getByEmail(String email)
+  {
     return userRepository.findByEmail(email);
   }
 
-  public Iterable<UserEntity> getAll() {
+  public Iterable<UserEntity> getAll()
+  {
     return userRepository.findAll();
   }
 }
