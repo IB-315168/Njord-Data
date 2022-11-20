@@ -9,13 +9,13 @@ message CreatingProject {
   string name = 1;
   int32 teamId = 2;
   SpecificTime deadline = 3;
-  repeated string requirements = 4;
+  repeated Requirement requirements = 4;
 }
 
 message UpdatingProject {
   string name = 1;
   SpecificTime deadline = 2;
-  repeated string requirements = 3;
+  repeated Requirement requirements = 3;
 }
 
 message SpecificTime {
