@@ -10,8 +10,8 @@ import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
 import com.sep3yg9.njorddata.models.UserEntity;
-import com.sep3yg9.njorddata.services.TeamServiceImpl;
-import com.sep3yg9.njorddata.services.UserServiceImpl;
+import com.sep3yg9.njorddata.services.interfaces.TeamService;
+import com.sep3yg9.njorddata.services.interfaces.UserService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
@@ -21,10 +21,10 @@ import java.util.List;
 
 @GRpcService public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
 {
-  private final TeamServiceImpl teamService;
-  private final UserServiceImpl userService;
+  private final TeamService teamService;
+  private final UserService userService;
 
-  public TeamImpl(TeamServiceImpl teamService, UserServiceImpl userService)
+  public TeamImpl(TeamService teamService, UserService userService)
   {
     this.teamService = teamService;
     this.userService = userService;

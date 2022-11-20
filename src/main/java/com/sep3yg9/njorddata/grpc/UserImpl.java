@@ -30,13 +30,6 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
   {
     try
     {
-      if(userService.getByEmail(user.getEmail()) != null) {
-        throw new IllegalArgumentException("Email address already in use");
-      }
-
-      if(userService.getByUserName(user.getUserName()) != null) {
-        throw new IllegalArgumentException("Username already in use");
-      }
       userService.addUser(new UserEntity(user.getFullName(), user.getEmail(),
           user.getUserName(), user.getPassword()));
 
