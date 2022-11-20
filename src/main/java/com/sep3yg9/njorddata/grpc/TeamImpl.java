@@ -19,10 +19,14 @@ import java.util.*;
 @GRpcService
 public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
 {
-    @Autowired
-    private TeamServiceImpl teamService;
-    @Autowired
-    private UserServiceImpl userService;
+    private final TeamServiceImpl teamService;
+    private final UserServiceImpl userService;
+
+    public TeamImpl(TeamServiceImpl teamService, UserServiceImpl userService)
+    {
+        this.teamService = teamService;
+        this.userService = userService;
+    }
 
     @Override public void createTeam(CreatingTeam team, StreamObserver<Team> responseObserver)
     {

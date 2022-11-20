@@ -12,8 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 @GRpcService
 public class AuthImpl extends AuthServiceGrpc.AuthServiceImplBase
 {
-  @Autowired
-  private UserServiceImpl userService;
+  private final UserServiceImpl userService;
+
+  public AuthImpl(UserServiceImpl userService)
+  {
+    this.userService = userService;
+  }
 
   @Override
   public void login(LoginRequest request, StreamObserver<User> responseObserver) {
