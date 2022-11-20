@@ -40,7 +40,7 @@ import java.util.ArrayList;
       responseObserver.onNext(user1);
       responseObserver.onCompleted();
     }
-    catch (Exception e)
+      catch (Exception e)
     {
       Status status;
       if (e instanceof IllegalArgumentException)
