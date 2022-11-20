@@ -27,7 +27,8 @@ import java.util.List;
 
   public void addTeam(TeamEntity teamEntityRecord)
   {
-    TeamEntity nameCheck = getByName(teamEntityRecord.getName());
+    TeamEntity nameCheck = teamRepository.findByName(
+        teamEntityRecord.getName());
 
     if (nameCheck != null)
     {
@@ -41,7 +42,8 @@ import java.util.List;
   {
     TeamEntity teamEntity = teamRepository.findByIdteam(id);
 
-    if(teamEntity == null) {
+    if (teamEntity == null)
+    {
       throw new IllegalArgumentException("Team not found");
     }
 
@@ -55,51 +57,51 @@ import java.util.List;
 
   public TeamEntity getByName(String name)
   {
-    return teamRepository.findByName(name);
-  }
-
-  public void removeTeam(int id)
-  {
-    teamRepository.deleteById(id);
-  }
-
-  public void updateTeam(UpdatingTeam team)
-  {
-    TeamEntity teamEntity = teamRepository.findByIdteam(team.getId());
+    TeamEntity teamEntity = teamRepository.findByName(name);
 
     if (teamEntity == null)
     {
       throw new IllegalArgumentException("Team not found");
     }
-    else
+
+    return teamEntity;
+  }
+
+  public void removeTeam(int id)
+  {
+    getById(id);
+    teamRepository.deleteById(id);
+  }
+
+  public void updateTeam(UpdatingTeam team)
+  {
+    TeamEntity teamEntity = getById(team.getId());
+
+    if (!team.getName().isEmpty() && !team.getName()
+        .equals(teamEntity.getName()))
     {
-      if (!team.getName().isEmpty() && !team.getName()
-          .equals(teamEntity.getName()))
+      TeamEntity nameCheck = teamRepository.findByName(team.getName());
+
+      if (nameCheck != null)
       {
-        TeamEntity nameCheck = getByName(team.getName());
-
-        if (nameCheck != null)
-        {
-          throw new IllegalArgumentException("Name is in use");
-        }
-
-        teamEntity.setName(team.getName());
+        throw new IllegalArgumentException("Name is in use");
       }
 
-      ArrayList<UserEntity> newMembers = new ArrayList<>();
-      for (User user : team.getMembersList())
-      {
-        newMembers.add(userRepository.findById(user.getId()));
-      }
+      teamEntity.setName(team.getName());
+    }
 
-      teamEntity.setMembers(new ArrayList<TeamMember>());
-      teamRepository.save(teamEntity);
+    ArrayList<UserEntity> newMembers = new ArrayList<>();
+    for (User user : team.getMembersList())
+    {
+      newMembers.add(userRepository.findById(user.getId()));
+    }
 
-      for (UserEntity user : newMembers)
-      {
-        teamEntity.addMember(user);
-      }
+    teamEntity.setMembers(new ArrayList<TeamMember>());
+    teamRepository.save(teamEntity);
 
+    for (UserEntity user : newMembers)
+    {
+      teamEntity.addMember(user);
     }
 
     teamRepository.save(teamEntity);

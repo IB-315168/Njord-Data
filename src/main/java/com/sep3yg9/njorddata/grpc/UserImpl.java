@@ -14,8 +14,7 @@ import org.lognet.springboot.grpc.GRpcService;
 
 import java.util.ArrayList;
 
-@GRpcService
-public class UserImpl extends UserServiceGrpc.UserServiceImplBase
+@GRpcService public class UserImpl extends UserServiceGrpc.UserServiceImplBase
 {
   private final UserServiceImpl userService;
   private final TeamServiceImpl teamService;
@@ -26,7 +25,8 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
     this.teamService = teamService;
   }
 
-  @Override public void createUser(CreatingUser user, StreamObserver<User> responseObserver)
+  @Override public void createUser(CreatingUser user,
+      StreamObserver<User> responseObserver)
   {
     try
     {
@@ -43,85 +43,156 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase
     catch (Exception e)
     {
       Status status;
-      if(e instanceof IllegalArgumentException) {
+      if (e instanceof IllegalArgumentException)
+      {
         status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
-      } else {
+      }
+      else
+      {
         status = Status.INTERNAL.withDescription(e.getMessage());
       }
       responseObserver.onError(status.asRuntimeException());
     }
   }
 
-  @Override
-  public void updateUser(UpdatingUser user, StreamObserver<Empty> responseObserver) {
-    userService.updateUser(user);
-    responseObserver.onNext(Empty.newBuilder().build());
-    responseObserver.onCompleted();
-  }
-
-  @Override public void deleteUser(Int32Value id, StreamObserver<Empty> responseObserver) {
-    userService.deleteUser(id.getValue());
-  }
-
-  @Override
-  public void getById(Int32Value id, StreamObserver<User> responseObserver) {
-    UserEntity user = userService.getById(id.getValue());
-
-    ArrayList<BasicTeam> teamMembership = new ArrayList<>();
-    for(TeamMember member : user.getTeams()) {
-      teamMembership.add(member.getTeamEntity().convertToBasicTeam());
-    }
-
-    ArrayList<BasicTeam> teamsLeaders = new ArrayList<>();
-    for(TeamEntity teamEntity : teamService.getByTeamLeaderId(user.getIdmember())) {
-      teamsLeaders.add(teamEntity.convertToBasicTeam());
-    }
-
-    User user1 = User.newBuilder()
-        .setId(user.getIdmember())
-        .setFullName(user.getFullName())
-        .setEmail(user.getEmail())
-        .setUserName(user.getUserName())
-        .setPassword(user.getPassword())
-        .addAllUserTeams(teamMembership)
-        .addAllUserTeams(teamsLeaders)
-        .build();
-//
-//    User user1 = user.convertToUser();
-    responseObserver.onNext(user1);
-    responseObserver.onCompleted();
-  }
-
-  @Override
-  public void getByEmail(com.google.protobuf.StringValue email, StreamObserver<User> responseObserver) {
-    UserEntity user = userService.getByEmail(email.getValue());
-
-    if(user == null) {
-      System.out.println("No user with this email has been found");
-      responseObserver.onNext(null);
+  @Override public void updateUser(UpdatingUser user,
+      StreamObserver<Empty> responseObserver)
+  {
+    try
+    {
+      userService.updateUser(user);
+      responseObserver.onNext(Empty.newBuilder().build());
       responseObserver.onCompleted();
-      return;
     }
-    User user1 = user.convertToUser();
-    responseObserver.onNext(user1);
-    responseObserver.onCompleted();
+    catch (Exception e)
+    {
+      Status status;
+      if (e instanceof IllegalArgumentException)
+      {
+        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+      }
+      else
+      {
+        status = Status.INTERNAL.withDescription(e.getMessage());
+      }
+      responseObserver.onError(status.asRuntimeException());
+    }
   }
 
-  @Override
-  public void searchUser(SearchingUser query, StreamObserver<UserList> responseObserver) {
+  @Override public void deleteUser(Int32Value id,
+      StreamObserver<Empty> responseObserver)
+  {
+    try
+    {
+      userService.deleteUser(id.getValue());
+    }
+    catch (Exception e)
+    {
+      Status status;
+      if (e instanceof IllegalArgumentException)
+      {
+        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+      }
+      else
+      {
+        status = Status.INTERNAL.withDescription(e.getMessage());
+      }
+      responseObserver.onError(status.asRuntimeException());
+    }
+  }
+
+  @Override public void getById(Int32Value id,
+      StreamObserver<User> responseObserver)
+  {
+    try
+    {
+      UserEntity user = userService.getById(id.getValue());
+
+      ArrayList<BasicTeam> teamMembership = new ArrayList<>();
+      for (TeamMember member : user.getTeams())
+      {
+        teamMembership.add(member.getTeamEntity().convertToBasicTeam());
+      }
+
+      ArrayList<BasicTeam> teamsLeaders = new ArrayList<>();
+      for (TeamEntity teamEntity : teamService.getByTeamLeaderId(
+          user.getIdmember()))
+      {
+        teamsLeaders.add(teamEntity.convertToBasicTeam());
+      }
+
+      User user1 = User.newBuilder().setId(user.getIdmember())
+          .setFullName(user.getFullName()).setEmail(user.getEmail())
+          .setUserName(user.getUserName()).setPassword(user.getPassword())
+          .addAllUserTeams(teamMembership).addAllUserTeams(teamsLeaders)
+          .build();
+      //
+      //    User user1 = user.convertToUser();
+      responseObserver.onNext(user1);
+      responseObserver.onCompleted();
+    }
+    catch (Exception e)
+    {
+      Status status;
+      if (e instanceof IllegalArgumentException)
+      {
+        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+      }
+      else
+      {
+        status = Status.INTERNAL.withDescription(e.getMessage());
+      }
+      responseObserver.onError(status.asRuntimeException());
+    }
+  }
+
+  @Override public void getByEmail(com.google.protobuf.StringValue email,
+      StreamObserver<User> responseObserver)
+  {
+    try
+    {
+      UserEntity user = userService.getByEmail(email.getValue());
+
+      User user1 = user.convertToUser();
+      responseObserver.onNext(user1);
+      responseObserver.onCompleted();
+    }
+    catch (Exception e)
+    {
+      Status status;
+      if (e instanceof IllegalArgumentException)
+      {
+        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+      }
+      else
+      {
+        status = Status.INTERNAL.withDescription(e.getMessage());
+      }
+      responseObserver.onError(status.asRuntimeException());
+    }
+  }
+
+  @Override public void searchUser(SearchingUser query,
+      StreamObserver<UserList> responseObserver)
+  {
     ArrayList<User> userList = new ArrayList<>(userService.getAllUsers());
 
-    if(!query.getFullName().isEmpty())
+    if (!query.getFullName().isEmpty())
     {
-      userList.removeIf(user -> !user.getFullName().toLowerCase().contains(query.getFullName().toLowerCase()));
+      userList.removeIf(user -> !user.getFullName().toLowerCase()
+          .contains(query.getFullName().toLowerCase()));
     }
 
-    if(!query.getUserName().isEmpty()) {
-      userList.removeIf(user -> !user.getUserName().toLowerCase().contains(query.getUserName().toLowerCase()));
+    if (!query.getUserName().isEmpty())
+    {
+      userList.removeIf(user -> !user.getUserName().toLowerCase()
+          .contains(query.getUserName().toLowerCase()));
     }
 
-    if(!query.getEmail().isEmpty()) {
-      userList.removeIf(user -> !user.getEmail().toLowerCase().contains(query.getEmail().toLowerCase()));
+    if (!query.getEmail().isEmpty())
+    {
+      userList.removeIf(user -> !user.getEmail().toLowerCase()
+          .contains(query.getEmail().toLowerCase()));
     }
 
     UserList searchResults = UserList.newBuilder().addAllUser(userList).build();
