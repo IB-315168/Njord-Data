@@ -44,7 +44,7 @@ public class ProjectServiceImpl implements ProjectService {
             projectEntity.setRequirements(new LinkedHashSet<>());
             projectRepository.save(projectEntity);
 
-            Set<RequirementEntity> requirementSet = new LinkedHashSet<>();
+//            Set<RequirementEntity> requirementSet = new LinkedHashSet<>();
             for(Requirement requirement : project.getRequirementsList()) {
                 projectEntity.addRequirement(new RequirementEntity(requirement.getId(), projectEntity, requirement.getContent()));
             }
@@ -55,6 +55,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void removeProject(int id) {
+        getById(id);
+
         projectRepository.deleteById(id);
     }
 
