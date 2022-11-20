@@ -8,13 +8,13 @@ package com.sep3yg9.njorddata.grpc.protobuf.project;
 message CreatingProject {
   string name = 1;
   int32 teamId = 2;
-  google.protobuf.Timestamp deadline = 3;
+  SpecificTime deadline = 3;
   repeated string requirements = 4;
 }
 
 message UpdatingProject {
   string name = 1;
-  google.protobuf.Timestamp deadline = 2;
+  SpecificTime deadline = 2;
   repeated string requirements = 3;
 }
 
