@@ -22,12 +22,12 @@ public class ProjectEntity
     private LocalDateTime startDate;
     private LocalDateTime  deadline;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idproject", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<RequirementEntity> requirements = new ArrayList<>();
+    private Set<RequirementEntity> requirements = new LinkedHashSet<>();
 
     public ProjectEntity(){
     }
 
-    public ProjectEntity(int teamAssigned, String name, LocalDateTime  startDate, LocalDateTime  deadline, ArrayList<RequirementEntity> requirements){
+    public ProjectEntity(int teamAssigned, String name, LocalDateTime  startDate, LocalDateTime  deadline, Set<RequirementEntity> requirements){
         this.teamAssigned = teamAssigned;
         this.name = name;
         this.startDate = startDate;
@@ -75,7 +75,7 @@ public class ProjectEntity
         this.deadline = deadline;
     }
 
-    public ArrayList<RequirementEntity> getRequirements() {
+    public Set<RequirementEntity> getRequirements() {
         return requirements;
     }
 
@@ -86,7 +86,7 @@ public class ProjectEntity
     public void removeRequirement(RequirementEntity requirement){
         this.requirements.remove(requirement);
     }
-    public void setRequirements(ArrayList<RequirementEntity> requirements) {
+    public void setRequirements(Set<RequirementEntity> requirements) {
         this.requirements = requirements;
     }
 

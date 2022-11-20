@@ -29,7 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void updateProject(UpdatingProject project) {
-        Optional<ProjectEntity> projectEntity1 = projectRepository.findById(project.getId());
+        Optional<ProjectEntity> projectEntity1 = projectRepository.findById(1);
 
         ProjectEntity projectEntity = projectEntity1.get();
         if (projectEntity == null) {

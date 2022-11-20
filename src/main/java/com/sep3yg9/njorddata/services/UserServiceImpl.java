@@ -25,12 +25,12 @@ import java.util.List;
 
   public void addUser(UserEntity userEntityRecord)
   {
-    if (getByEmail(userEntityRecord.getEmail()) != null)
+    if (userRepository.findByEmail(userEntityRecord.getEmail()) != null)
     {
       throw new IllegalArgumentException("Email address already in use");
     }
 
-    if (getByUserName(userEntityRecord.getUserName()) != null)
+    if (userRepository.findByUsername(userEntityRecord.getUserName()) != null)
     {
       throw new IllegalArgumentException("Username already in use");
     }
