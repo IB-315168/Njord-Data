@@ -7,7 +7,6 @@ import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.services.UserServiceImpl;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @GRpcService
 public class AuthImpl extends AuthServiceGrpc.AuthServiceImplBase

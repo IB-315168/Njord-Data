@@ -3,7 +3,10 @@ package com.sep3yg9.njorddata.grpc;
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.google.protobuf.StringValue;
-import com.sep3yg9.njorddata.grpc.protobuf.team.*;
+import com.sep3yg9.njorddata.grpc.protobuf.team.CreatingTeam;
+import com.sep3yg9.njorddata.grpc.protobuf.team.Team;
+import com.sep3yg9.njorddata.grpc.protobuf.team.TeamServiceGrpc;
+import com.sep3yg9.njorddata.grpc.protobuf.team.UpdatingTeam;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
@@ -12,9 +15,9 @@ import com.sep3yg9.njorddata.services.TeamServiceImpl;
 import com.sep3yg9.njorddata.services.UserServiceImpl;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @GRpcService
 public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
