@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 option java_multiple_files = true;
@@ -28,21 +29,23 @@ message SpecificTime {
 
 message Requirement {
   int32 id = 1;
-  string content = 2;
+  int32 idproject = 2;
+  string content = 3;
 }
 
 message Project {
   int32 id = 1;
   string name = 2;
   int32 teamId = 3;
-  SpecificTime deadline = 4;
-  repeated Requirement requirements = 5;
+  SpecificTime startDate = 4;
+  SpecificTime deadline = 5;
+  repeated Requirement requirements = 6;
 }
 
 service ProjectService {
   rpc CreateProject(CreatingProject) returns (Project);
   rpc UpdateProject(UpdatingProject) returns (Project);
-  rpc DeleteProject(google.protobuf.Int32Value) returns (Project);
+  rpc DeleteProject(google.protobuf.Int32Value) returns (google.protobuf.Empty);
   rpc GetById(google.protobuf.Int32Value) returns (Project);
 }
 

@@ -1,5 +1,6 @@
 package com.sep3yg9.njorddata.models;
 
+import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,6 +15,18 @@ public class RequirementEntity {
     @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "idproject") private ProjectEntity idproject;
 
     @Column(name = "requirement", nullable = false, length = 400) private String requirement;
+
+    public RequirementEntity()
+    {
+    }
+
+    public RequirementEntity(int idrequirement, ProjectEntity idproject,
+        String requirement)
+    {
+        this.idrequirement = idrequirement;
+        this.idproject = idproject;
+        this.requirement = requirement;
+    }
 
     public String getRequirement()
     {
@@ -33,5 +46,13 @@ public class RequirementEntity {
     public void setIdproject(ProjectEntity idproject)
     {
         this.idproject = idproject;
+    }
+
+    public Requirement convertToRequirement() {
+        return Requirement.newBuilder()
+            .setId(idrequirement)
+            .setIdproject(idproject.getIdproject())
+            .setContent(requirement)
+            .build();
     }
 }
