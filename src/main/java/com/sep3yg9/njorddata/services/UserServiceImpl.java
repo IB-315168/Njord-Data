@@ -1,6 +1,5 @@
 package com.sep3yg9.njorddata.services;
 
-import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser;
 import com.sep3yg9.njorddata.models.UserEntity;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService
+public class UserServiceImpl
 {
   @Autowired
   private UserRepository userRepository;

@@ -4,7 +4,7 @@ import com.sep3yg9.njorddata.grpc.protobuf.auth.AuthServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.auth.LoginRequest;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.UserEntity;
-import com.sep3yg9.njorddata.services.UserService;
+import com.sep3yg9.njorddata.services.UserServiceImpl;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AuthImpl extends AuthServiceGrpc.AuthServiceImplBase
 {
   @Autowired
-  private UserService userService;
+  private UserServiceImpl userService;
 
   @Override
   public void login(LoginRequest request, StreamObserver<User> responseObserver) {

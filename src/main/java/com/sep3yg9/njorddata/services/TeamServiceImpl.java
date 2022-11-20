@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TeamService
+public class TeamServiceImpl
 {
     private final TeamRepository teamRepository;
     private final UserRepository userRepository;
 
-    public TeamService(TeamRepository teamRepository, UserRepository userRepository)
+    public TeamServiceImpl(TeamRepository teamRepository, UserRepository userRepository)
     {
         this.teamRepository = teamRepository;
         this.userRepository = userRepository;

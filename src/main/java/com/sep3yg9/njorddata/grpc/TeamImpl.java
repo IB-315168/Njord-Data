@@ -1,34 +1,28 @@
 package com.sep3yg9.njorddata.grpc;
 
 import com.google.protobuf.Empty;
-import com.google.protobuf.EmptyOrBuilder;
 import com.google.protobuf.Int32Value;
 import com.google.protobuf.StringValue;
 import com.sep3yg9.njorddata.grpc.protobuf.team.*;
-import com.sep3yg9.njorddata.grpc.protobuf.user.CreatingUser;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
-import com.sep3yg9.njorddata.models.TeamMemberId;
 import com.sep3yg9.njorddata.models.UserEntity;
-import com.sep3yg9.njorddata.services.TeamService;
-import com.sep3yg9.njorddata.services.UserService;
+import com.sep3yg9.njorddata.services.TeamServiceImpl;
+import com.sep3yg9.njorddata.services.UserServiceImpl;
 import io.grpc.stub.StreamObserver;
-import net.bytebuddy.description.type.TypeList;
-import org.hibernate.Hibernate;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Basic;
 import java.util.*;
 
 @GRpcService
 public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
 {
     @Autowired
-    private TeamService teamService;
+    private TeamServiceImpl teamService;
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Override public void createTeam(CreatingTeam team, StreamObserver<Team> responseObserver)
     {
