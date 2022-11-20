@@ -4,6 +4,7 @@ import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser;
 import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.repos.UserRepository;
+import com.sep3yg9.njorddata.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl
+public class UserServiceImpl implements UserService
 {
   @Autowired
   private UserRepository userRepository;

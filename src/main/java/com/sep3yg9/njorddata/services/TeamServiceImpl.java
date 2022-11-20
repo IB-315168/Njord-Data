@@ -7,13 +7,14 @@ import com.sep3yg9.njorddata.models.TeamMember;
 import com.sep3yg9.njorddata.models.UserEntity;
 import com.sep3yg9.njorddata.repos.TeamRepository;
 import com.sep3yg9.njorddata.repos.UserRepository;
+import com.sep3yg9.njorddata.services.interfaces.TeamService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TeamServiceImpl
+public class TeamServiceImpl implements TeamService
 {
     private final TeamRepository teamRepository;
     private final UserRepository userRepository;
