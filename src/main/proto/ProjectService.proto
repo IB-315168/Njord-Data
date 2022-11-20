@@ -18,12 +18,25 @@ message UpdatingProject {
   repeated string requirements = 3;
 }
 
+message SpecificTime {
+  int32 day = 1;
+  int32 month = 2;
+  int32 year = 3;
+  int32 hour = 4;
+  int32 minute = 5;
+}
+
+message Requirement {
+  int32 id = 1;
+  string content = 2;
+}
+
 message Project {
   int32 id = 1;
   string name = 2;
   int32 teamId = 3;
-  google.protobuf.Timestamp deadline = 4;
-  repeated string requirements = 5;
+  SpecificTime deadline = 4;
+  repeated Requirement requirements = 5;
 }
 
 service ProjectService {
