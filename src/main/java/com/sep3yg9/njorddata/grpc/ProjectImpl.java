@@ -15,6 +15,7 @@ import org.lognet.springboot.grpc.GRpcService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 @GRpcService public class ProjectImpl
     extends ProjectServiceGrpc.ProjectServiceImplBase
@@ -37,8 +38,9 @@ import java.time.LocalTime;
       TeamEntity teamEntity = teamService.getById(project.getTeamId());
 
       ProjectEntity projectCreated = projectService.addProject(
-          new ProjectEntity(teamEntity, project.getName(),
-              LocalDateTime.now(), SpecificTimeConverter.convertToLocalDateTime(project.getDeadline())));
+          new ProjectEntity(teamEntity, project.getName(), LocalDateTime.now(),
+              SpecificTimeConverter.convertToLocalDateTime(
+                  project.getDeadline())));
 
       Project project1 = projectCreated.convertToProject();
 
@@ -123,6 +125,37 @@ import java.time.LocalTime;
       Project project1 = project.convertToProject();
 
       responseObserver.onNext(project1);
+      responseObserver.onCompleted();
+    }
+    catch (Exception e)
+    {
+      Status status;
+      if (e instanceof IllegalArgumentException)
+      {
+        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+      }
+      else
+      {
+        status = Status.INTERNAL.withDescription(e.getMessage());
+      }
+      responseObserver.onError(status.asRuntimeException());
+    }
+  }
+
+  @Override public void getByUserId(Int32Value id,
+      StreamObserver<BasicProjectList> responseObserver)
+  {
+    try
+    {
+      ArrayList<BasicProject> basicProjectsOfUser = new ArrayList<>();
+
+      for(ProjectEntity project : projectService.getByUserId(id.getValue())) {
+        basicProjectsOfUser.add(project.convertToBasicProject());
+      }
+
+      responseObserver.onNext(BasicProjectList.newBuilder()
+          .addAllProjects(basicProjectsOfUser)
+          .build());
       responseObserver.onCompleted();
     }
     catch (Exception e)
