@@ -80,7 +80,7 @@ public class ProjectServiceImpl implements ProjectService {
         UserEntity user=userService.getById(id);
         for(TeamMember team : user.getTeams())
         {
-            List<ProjectEntity> teamProjects=projectRepository.findByTeamAssigned(team.getId().getTeamId());
+            List<ProjectEntity> teamProjects=projectRepository.findByTeamAssigned(team.getTeamEntity());
             for(ProjectEntity project : teamProjects)
             {
                 listOfProjects.add(project);
