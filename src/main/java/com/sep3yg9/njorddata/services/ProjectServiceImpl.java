@@ -2,7 +2,6 @@ package com.sep3yg9.njorddata.services;
 
 import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.grpc.protobuf.project.UpdatingProject;
-import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.*;
 import com.sep3yg9.njorddata.repos.ProjectRepository;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
@@ -25,8 +24,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void addProject(ProjectEntity projectEntityRecord) {
-        projectRepository.save(projectEntityRecord);
+    public ProjectEntity addProject(ProjectEntity projectEntityRecord) {
+        return projectRepository.save(projectEntityRecord);
     }
 
     @Override
@@ -80,7 +79,7 @@ public class ProjectServiceImpl implements ProjectService {
         UserEntity user=userService.getById(id);
         for(TeamMember team : user.getTeams())
         {
-            List<ProjectEntity> teamProjects=projectRepository.findByTeamAssigned(team.getTeamEntity());
+            List<ProjectEntity> teamProjects=projectRepository.findByTeamassigned(team.getTeamEntity());
             for(ProjectEntity project : teamProjects)
             {
                 listOfProjects.add(project);

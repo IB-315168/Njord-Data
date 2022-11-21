@@ -36,12 +36,9 @@ import java.time.LocalTime;
     {
       TeamEntity teamEntity = teamService.getById(project.getTeamId());
 
-      projectService.addProject(
+      ProjectEntity projectCreated = projectService.addProject(
           new ProjectEntity(teamEntity, project.getName(),
               LocalDateTime.now(), SpecificTimeConverter.convertToLocalDateTime(project.getDeadline())));
-
-      ProjectEntity projectCreated = projectService.getById(
-          project.getTeamId());
 
       Project project1 = projectCreated.convertToProject();
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface ProjectService
 {
-    void addProject(ProjectEntity projectEntityRecord);
+    ProjectEntity addProject(ProjectEntity projectEntityRecord);
     void updateProject(UpdatingProject project);
     void removeProject(int id);
     ProjectEntity getById(int id);
