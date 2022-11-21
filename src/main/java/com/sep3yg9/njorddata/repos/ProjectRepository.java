@@ -9,6 +9,6 @@ import java.util.List;
 public interface ProjectRepository extends CrudRepository<ProjectEntity, Integer>
 {
     ProjectEntity findByIdproject(int id);
-    List<ProjectEntity> findByTeamassigned(TeamEntity teamassigned);
+    List<ProjectEntity> findByTeamassigned_Idteam(int idteam);
 
 }

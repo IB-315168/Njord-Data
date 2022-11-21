@@ -4,7 +4,10 @@ import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.grpc.protobuf.project.UpdatingProject;
 import com.sep3yg9.njorddata.models.*;
 import com.sep3yg9.njorddata.repos.ProjectRepository;
+import com.sep3yg9.njorddata.repos.TeamRepository;
+import com.sep3yg9.njorddata.repos.UserRepository;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
+import com.sep3yg9.njorddata.services.interfaces.TeamService;
 import com.sep3yg9.njorddata.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +18,15 @@ import java.util.List;
 @Service public class ProjectServiceImpl implements ProjectService
 {
   private final ProjectRepository projectRepository;
-  private UserService userService;
+  private final TeamRepository teamRepository;
+  private final UserRepository userRepository;
 
   public ProjectServiceImpl(ProjectRepository projectRepository,
-      UserService userService)
+      TeamRepository teamRepository, UserRepository userRepository)
   {
     this.projectRepository = projectRepository;
-    this.userService = userService;
+    this.teamRepository = teamRepository;
+    this.userRepository = userRepository;
   }
 
   @Override public ProjectEntity addProject(ProjectEntity projectEntityRecord)
@@ -90,12 +95,16 @@ import java.util.List;
   @Override public ArrayList<ProjectEntity> getByUserId(int id)
   {
     ArrayList<ProjectEntity> listOfProjects = new ArrayList<>();
-    UserEntity user = userService.getById(id);
+    UserEntity user = userRepository.findById(id);
 
     for (TeamMember team : user.getTeams())
     {
-      listOfProjects.addAll(projectRepository.findByTeamassigned(
-          team.getTeamEntity()));
+      listOfProjects.addAll(projectRepository.findByTeamassigned_Idteam(
+          team.getTeamEntity().getIdTeam()));
+    }
+
+    for (TeamEntity teamEntity : teamRepository.findByTeamleader(user)) {
+      listOfProjects.addAll(projectRepository.findByTeamassigned_Idteam(teamEntity.getIdTeam()));
     }
 
     return listOfProjects;
