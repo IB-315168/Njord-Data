@@ -2,22 +2,26 @@ package com.sep3yg9.njorddata.services;
 
 import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.grpc.protobuf.project.UpdatingProject;
-import com.sep3yg9.njorddata.models.ProjectEntity;
-import com.sep3yg9.njorddata.models.RequirementEntity;
-import com.sep3yg9.njorddata.models.SpecificTimeConverter;
+import com.sep3yg9.njorddata.grpc.protobuf.user.User;
+import com.sep3yg9.njorddata.models.*;
 import com.sep3yg9.njorddata.repos.ProjectRepository;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
+import com.sep3yg9.njorddata.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
+    private UserService userService;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository)
+    public ProjectServiceImpl(ProjectRepository projectRepository, UserService userService)
     {
         this.projectRepository = projectRepository;
+        this.userService=userService;
     }
 
     @Override
@@ -68,5 +72,20 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         return projectRepository.findByIdproject(id);
+    }
+
+    @Override
+    public ArrayList<ProjectEntity> getByUserId(int id) {
+        ArrayList<ProjectEntity> listOfProjects=new ArrayList<>();
+        UserEntity user=userService.getById(id);
+        for(TeamMember team : user.getTeams())
+        {
+            List<ProjectEntity> teamProjects=projectRepository.findByTeamAssigned(team.getId().getTeamId());
+            for(ProjectEntity project : teamProjects)
+            {
+                listOfProjects.add(project);
+            }
+        }
+        return listOfProjects;
     }
 }

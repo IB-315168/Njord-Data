@@ -1,8 +1,11 @@
 package com.sep3yg9.njorddata.models;
 
+import com.sep3yg9.njorddata.grpc.protobuf.project.BasicProject;
 import com.sep3yg9.njorddata.grpc.protobuf.project.Project;
 import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.grpc.protobuf.project.SpecificTime;
+import com.sep3yg9.njorddata.repos.ProjectRepository;
+import com.sep3yg9.njorddata.repos.TeamRepository;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,6 +21,7 @@ import java.util.*;
   private LocalDateTime deadline;
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "idproject", cascade = CascadeType.ALL, orphanRemoval = true) private Set<RequirementEntity> requirements = new LinkedHashSet<>();
 
+  //private final TeamRepository repository;    //todo: How would putting this into class work?
   public ProjectEntity()
   {
   }
@@ -116,6 +120,14 @@ import java.util.*;
         .setDeadline(SpecificTimeConverter.convertToSpecificTime(deadline))
         .addAllRequirements(requirements1)
         .build();
+  }
+
+  public BasicProject convertToBasicProject()
+  {
+    return BasicProject.newBuilder()
+            .setId(idproject)
+            .setProjectName(name)
+            .setTeamName(teamAssigned);     //todo: How do I find the value for the team name without team repository.
   }
 
   @Override public String toString()
