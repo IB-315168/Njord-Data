@@ -42,10 +42,21 @@ message Project {
   repeated Requirement requirements = 6;
 }
 
+message BasicProject {
+  int32 id = 1;
+  string projectName = 2;
+  string teamName = 3;
+}
+
+message BasicProjectList {
+  repeated BasicProject projects = 1;
+}
+
 service ProjectService {
   rpc CreateProject(CreatingProject) returns (Project);
   rpc UpdateProject(UpdatingProject) returns (Project);
   rpc DeleteProject(google.protobuf.Int32Value) returns (google.protobuf.Empty);
   rpc GetById(google.protobuf.Int32Value) returns (Project);
+  rpc GetByUserId(google.protobuf.Int32Value) returns (BasicProjectList);
 }
 
