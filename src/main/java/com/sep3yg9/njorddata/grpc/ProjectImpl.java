@@ -35,7 +35,7 @@ import java.time.LocalTime;
               LocalDateTime.now(), SpecificTimeConverter.convertToLocalDateTime(project.getDeadline())));
 
       ProjectEntity projectCreated = projectService.getById(
-          project.getId());
+          project.getTeamId());
 
       Project project1 = projectCreated.convertToProject();
 
