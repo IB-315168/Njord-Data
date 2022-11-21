@@ -1,15 +1,10 @@
 package com.sep3yg9.njorddata.models;
 
-import com.google.type.DateTime;
 import com.sep3yg9.njorddata.grpc.protobuf.project.Project;
 import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.grpc.protobuf.project.SpecificTime;
-import com.sep3yg9.njorddata.grpc.protobuf.user.BasicTeam;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -117,8 +112,8 @@ import java.util.*;
 
     return Project.newBuilder().setId(idproject).setName(name)
         .setTeamId(teamAssigned)
-        .setStartDate(SpecifcTimeConverter.convertToSpecificTime(startDate))
-        .setDeadline(SpecifcTimeConverter.convertToSpecificTime(deadline))
+        .setStartDate(SpecificTimeConverter.convertToSpecificTime(startDate))
+        .setDeadline(SpecificTimeConverter.convertToSpecificTime(deadline))
         .addAllRequirements(requirements1)
         .build();
   }

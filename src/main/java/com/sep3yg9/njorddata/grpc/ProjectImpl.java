@@ -2,24 +2,17 @@ package com.sep3yg9.njorddata.grpc;
 
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
-import com.google.protobuf.Timestamp;
 import com.sep3yg9.njorddata.grpc.protobuf.project.*;
-import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.ProjectEntity;
-import com.sep3yg9.njorddata.models.RequirementEntity;
-import com.sep3yg9.njorddata.models.SpecifcTimeConverter;
+import com.sep3yg9.njorddata.models.SpecificTimeConverter;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Set;
 
 @GRpcService public class ProjectImpl
     extends ProjectServiceGrpc.ProjectServiceImplBase
@@ -37,18 +30,12 @@ import java.util.Set;
   {
     try
     {
-      LocalDateTime deadline = LocalDateTime.of(
-          LocalDate.of(project.getDeadline().getYear(),
-              project.getDeadline().getMonth(), project.getDeadline().getDay()),
-          LocalTime.of(project.getDeadline().getHour(),
-              project.getDeadline().getMinute()));
-
       projectService.addProject(
           new ProjectEntity(project.getTeamId(), project.getName(),
-              LocalDateTime.now(), deadline));
+              LocalDateTime.now(), SpecificTimeConverter.convertToLocalDateTime(project.getDeadline())));
 
       ProjectEntity projectCreated = projectService.getById(
-          project.getTeamId());
+          project.getId());
 
       Project project1 = projectCreated.convertToProject();
 

@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
-public class SpecifcTimeConverter
+public class SpecificTimeConverter
 {
-  public SpecifcTimeConverter()
+  public SpecificTimeConverter()
   {
   }
 

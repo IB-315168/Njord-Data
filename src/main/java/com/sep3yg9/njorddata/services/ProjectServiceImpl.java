@@ -4,13 +4,12 @@ import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.grpc.protobuf.project.UpdatingProject;
 import com.sep3yg9.njorddata.models.ProjectEntity;
 import com.sep3yg9.njorddata.models.RequirementEntity;
-import com.sep3yg9.njorddata.models.SpecifcTimeConverter;
+import com.sep3yg9.njorddata.models.SpecificTimeConverter;
 import com.sep3yg9.njorddata.repos.ProjectRepository;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -37,8 +36,8 @@ public class ProjectServiceImpl implements ProjectService {
                 projectEntity.setName(project.getName());
             }
 
-            if (!projectEntity.getDeadline().equals(SpecifcTimeConverter.convertToLocalDateTime(project.getDeadline()))) {
-                projectEntity.setDeadline(SpecifcTimeConverter.convertToLocalDateTime(project.getDeadline()));
+            if (!projectEntity.getDeadline().equals(SpecificTimeConverter.convertToLocalDateTime(project.getDeadline()))) {
+                projectEntity.setDeadline(SpecificTimeConverter.convertToLocalDateTime(project.getDeadline()));
             }
 
             projectEntity.setRequirements(new LinkedHashSet<>());
