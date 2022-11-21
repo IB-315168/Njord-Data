@@ -35,18 +35,15 @@ import java.util.List;
   {
     try
     {
+      UserEntity user = userService.getById(team.getTeamLeaderId());
+
       teamService.addTeam(
-          new TeamEntity(team.getTeamLeaderId(), team.getName()));
+          new TeamEntity(user, team.getName()));
 
       TeamEntity teamCreated = teamService.getByName(team.getName());
-      UserEntity userLeader = userService.getById(teamCreated.getTeamLeader());
-
-      User teamLeader = User.newBuilder().setId(userLeader.getIdmember())
-          .setFullName(userLeader.getFullName()).setEmail(userLeader.getEmail())
-          .setPassword(userLeader.getPassword()).build();
 
       Team team1 = Team.newBuilder().setId(teamCreated.getIdTeam())
-          .setTeamLeader(teamLeader).setName(teamCreated.getName()).build();
+          .setTeamLeader(user.convertToUser()).setName(teamCreated.getName()).build();
 
       responseObserver.onNext(team1);
       responseObserver.onCompleted();
@@ -80,11 +77,8 @@ import java.util.List;
         users.add(member.getUserEntity().convertToUser());
       }
 
-      User teamLeader = userService.getById(team.getTeamLeader())
-          .convertToUser();
-
       Team team1 = Team.newBuilder().setId(team.getIdTeam())
-          .setName(team.getName()).setTeamLeader(teamLeader)
+          .setName(team.getName()).setTeamLeader(team.getTeamLeader().convertToUser())
           .addAllMembers(users).build();
 
       responseObserver.onNext(team1);

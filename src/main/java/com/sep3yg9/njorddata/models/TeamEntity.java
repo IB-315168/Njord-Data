@@ -6,6 +6,8 @@ import com.sep3yg9.njorddata.grpc.protobuf.user.BasicTeam;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.*;
@@ -18,18 +20,28 @@ public class TeamEntity
     @Column(name = "idteam")
     private int idteam;
 
-    private int teamleader;
-
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idteam", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TeamMember> member = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "teamleader") private UserEntity teamleader;
+
+    public UserEntity getTeamleader()
+    {
+        return teamleader;
+    }
+
+    public void setTeamleader(UserEntity teamleader)
+    {
+        this.teamleader = teamleader;
+    }
+
     public TeamEntity() {
 
     }
 
-    public TeamEntity(int teamLeader, String name) {
+    public TeamEntity(UserEntity teamLeader, String name) {
         this.teamleader = teamLeader;
         this.name = name;
     }
@@ -42,11 +54,11 @@ public class TeamEntity
         this.idteam = idTeam;
     }
 
-    public int getTeamLeader() {
+    public UserEntity getTeamLeader() {
         return teamleader;
     }
 
-    public void setTeamLeader(int teamLeader) {
+    public void setTeamLeader(UserEntity teamLeader) {
         this.teamleader = teamLeader;
     }
 
@@ -92,7 +104,7 @@ public class TeamEntity
     public BasicTeam convertToBasicTeam() {
         return BasicTeam.newBuilder()
             .setId(idteam)
-            .setTeamLeaderName(String.valueOf(teamleader))
+            .setTeamLeaderName(teamleader.getFullName())
             .setName(name)
             .build();
     }
@@ -109,7 +121,7 @@ public class TeamEntity
         if (o == null || getClass() != o.getClass())
             return false;
         TeamEntity that = (TeamEntity) o;
-        return idteam == that.idteam && teamleader == that.teamleader
+        return idteam == that.idteam && teamleader.equals(that.teamleader)
             && Objects.equals(name, that.name) && Objects.equals(member,
             that.member);
     }
