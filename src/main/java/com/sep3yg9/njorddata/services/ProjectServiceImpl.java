@@ -1,17 +1,16 @@
 package com.sep3yg9.njorddata.services;
 
-import com.google.type.DateTime;
+import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.grpc.protobuf.project.UpdatingProject;
 import com.sep3yg9.njorddata.models.ProjectEntity;
+import com.sep3yg9.njorddata.models.RequirementEntity;
+import com.sep3yg9.njorddata.models.SpecifcTimeConverter;
 import com.sep3yg9.njorddata.repos.ProjectRepository;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Optional;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -29,30 +28,46 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void updateProject(UpdatingProject project) {
-        Optional<ProjectEntity> projectEntity1 = projectRepository.findById(project.getId());
+        ProjectEntity projectEntity = projectRepository.findByIdproject(project.getId());
 
-        ProjectEntity projectEntity = projectEntity1.get();
         if (projectEntity == null) {
-            System.out.println("Project does not exist");
+            throw new IllegalArgumentException("Project not found");
         } else {
             if (!project.getName().isEmpty() && !projectEntity.getName().equals(project.getName())) {
                 projectEntity.setName(project.getName());
             }
-            if (!projectEntity.getDeadline().equals(project.getDeadline())) {
-                projectEntity.setDeadline(LocalDateTime.of(LocalDate.of(project.getDeadline().getYear(), project.getDeadline().getMonth(), project.getDeadline().getDay()),
-                        LocalTime.of(project.getDeadline().getHour(), project.getDeadline().getMinute())));
+
+            if (!projectEntity.getDeadline().equals(SpecifcTimeConverter.convertToLocalDateTime(project.getDeadline()))) {
+                projectEntity.setDeadline(SpecifcTimeConverter.convertToLocalDateTime(project.getDeadline()));
             }
+
+            projectEntity.setRequirements(new LinkedHashSet<>());
+            projectRepository.save(projectEntity);
+
+//            Set<RequirementEntity> requirementSet = new LinkedHashSet<>();
+            for(Requirement requirement : project.getRequirementsList()) {
+                projectEntity.addRequirement(new RequirementEntity(requirement.getId(), projectEntity, requirement.getContent()));
+            }
+
             projectRepository.save(projectEntity);
         }
     }
 
     @Override
     public void removeProject(int id) {
+        getById(id);
+
         projectRepository.deleteById(id);
     }
 
     @Override
     public ProjectEntity getById(int id) {
+        ProjectEntity projectEntity = projectRepository.findByIdproject(id);
+
+        if(projectEntity == null) {
+            throw new IllegalArgumentException("Project not found");
+        }
+
         return projectRepository.findByIdproject(id);
     }
 }

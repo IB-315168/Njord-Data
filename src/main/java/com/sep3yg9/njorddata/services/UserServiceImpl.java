@@ -13,7 +13,12 @@ import java.util.List;
 
 @Service public class UserServiceImpl implements UserService
 {
-  @Autowired private UserRepository userRepository;
+  private final UserRepository userRepository;
+
+  public UserServiceImpl(UserRepository userRepository)
+  {
+    this.userRepository = userRepository;
+  }
 
   public List<User> getAllUsers()
   {
@@ -25,11 +30,13 @@ import java.util.List;
 
   public void addUser(UserEntity userEntityRecord)
   {
-    if(getByEmail(userEntityRecord.getEmail()) != null) {
+    if (userRepository.findByEmail(userEntityRecord.getEmail()) != null)
+    {
       throw new IllegalArgumentException("Email address already in use");
     }
 
-    if(getByUserName(userEntityRecord.getUserName()) != null) {
+    if (userRepository.findByUsername(userEntityRecord.getUserName()) != null)
+    {
       throw new IllegalArgumentException("Username already in use");
     }
 
@@ -38,52 +45,65 @@ import java.util.List;
 
   public void updateUser(UpdatingUser user)
   {
-    UserEntity userEntity = userRepository.findById(user.getId());
+    UserEntity userEntity = getById(user.getId());
 
-    if (userEntity == null)
+    if (!user.getEmail().isEmpty() && !user.getEmail()
+        .equals(userEntity.getEmail()))
     {
-      System.out.println("User does not exist");
+      userEntity.setEmail(user.getEmail());
     }
-    else
+
+    if (!user.getUserName().isEmpty() && !user.getUserName()
+        .equals(userEntity.getUserName()))
     {
-      if (!user.getEmail().isEmpty() && !user.getEmail()
-          .equals(userEntity.getEmail()))
-      {
-        userEntity.setEmail(user.getEmail());
-      }
-
-      if (!user.getUserName().isEmpty() && !user.getUserName()
-          .equals(userEntity.getUserName()))
-      {
-        userEntity.setUserName(user.getUserName());
-      }
-      if (!user.getPassword().isEmpty() && !user.getPassword()
-          .equals(userEntity.getPassword()))
-      {
-        userEntity.setPassword(user.getPassword());
-      }
-
-      userRepository.save(userEntity);
+      userEntity.setUserName(user.getUserName());
     }
+    if (!user.getPassword().isEmpty() && !user.getPassword()
+        .equals(userEntity.getPassword()))
+    {
+      userEntity.setPassword(user.getPassword());
+    }
+
+    userRepository.save(userEntity);
   }
 
   public void deleteUser(int id)
   {
+    getById(id);
     userRepository.deleteById(id);
   }
 
   public UserEntity getById(int id)
   {
-    return userRepository.findById(id);
+    UserEntity userEntity = userRepository.findById(id);
+
+    if (userEntity == null)
+    {
+      throw new IllegalArgumentException("User not found");
+    }
+
+    return userEntity;
   }
 
   public UserEntity getByUserName(String username)
   {
+    UserEntity userEntity = userRepository.findByUsername(username);
+
+    if(userEntity == null) {
+      throw new IllegalArgumentException("User not found");
+    }
+
     return userRepository.findByUsername(username);
   }
 
   public UserEntity getByEmail(String email)
   {
+    UserEntity userEntity = userRepository.findByEmail(email);
+
+    if(userEntity == null) {
+      throw new IllegalArgumentException("User not found");
+    }
+
     return userRepository.findByEmail(email);
   }
 
