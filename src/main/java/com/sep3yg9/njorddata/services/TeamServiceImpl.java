@@ -52,7 +52,7 @@ import java.util.List;
 
   public List<TeamEntity> getByTeamLeaderId(int id)
   {
-    return teamRepository.findByTeamleader(id);
+    return teamRepository.findByTeamleader(userRepository.findById(id));
   }
 
   public TeamEntity getByName(String name)
