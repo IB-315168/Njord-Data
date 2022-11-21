@@ -5,7 +5,9 @@ import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.project.*;
 import com.sep3yg9.njorddata.models.ProjectEntity;
 import com.sep3yg9.njorddata.models.SpecificTimeConverter;
+import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
+import com.sep3yg9.njorddata.services.interfaces.TeamService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
@@ -19,10 +21,12 @@ import java.time.LocalTime;
 {
 
   private final ProjectService projectService;
+  private final TeamService teamService;
 
-  public ProjectImpl(ProjectService projectService)
+  public ProjectImpl(ProjectService projectService, TeamService teamService)
   {
     this.projectService = projectService;
+    this.teamService = teamService;
   }
 
   @Override public void createProject(CreatingProject project,
@@ -30,8 +34,10 @@ import java.time.LocalTime;
   {
     try
     {
+      TeamEntity teamEntity = teamService.getById(project.getTeamId());
+
       projectService.addProject(
-          new ProjectEntity(project.getTeamId(), project.getName(),
+          new ProjectEntity(teamEntity, project.getName(),
               LocalDateTime.now(), SpecificTimeConverter.convertToLocalDateTime(project.getDeadline())));
 
       ProjectEntity projectCreated = projectService.getById(
