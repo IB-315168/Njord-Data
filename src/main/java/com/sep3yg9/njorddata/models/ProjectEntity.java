@@ -1,8 +1,10 @@
 package com.sep3yg9.njorddata.models;
 
+import com.sep3yg9.njorddata.grpc.protobuf.project.BasicProject;
 import com.sep3yg9.njorddata.grpc.protobuf.project.Project;
 import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
-import com.sep3yg9.njorddata.grpc.protobuf.project.SpecificTime;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,23 +13,33 @@ import java.util.*;
 @Entity(name = "Project") @Table(name = "project", schema = "sep3ygroup9") public class ProjectEntity
 {
   @Id @GeneratedValue @Column(name = "idproject") private int idproject;
-
-  private int teamAssigned;
   private String name;
-  private LocalDateTime startDate;
+  private LocalDateTime startdate;
   private LocalDateTime deadline;
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "idproject", cascade = CascadeType.ALL, orphanRemoval = true) private Set<RequirementEntity> requirements = new LinkedHashSet<>();
+
+  @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "teamassigned") private TeamEntity teamassigned;
+
+  public TeamEntity getTeamassigned()
+  {
+    return teamassigned;
+  }
+
+  public void setTeamassigned(TeamEntity teamassigned)
+  {
+    this.teamassigned = teamassigned;
+  }
 
   public ProjectEntity()
   {
   }
 
-  public ProjectEntity(int teamAssigned, String name, LocalDateTime startDate,
+  public ProjectEntity(TeamEntity teamAssigned, String name, LocalDateTime startdate,
       LocalDateTime deadline)
   {
-    this.teamAssigned = teamAssigned;
+    this.teamassigned = teamAssigned;
     this.name = name;
-    this.startDate = startDate;
+    this.startdate = startdate;
     this.deadline = deadline;
   }
 
@@ -41,14 +53,14 @@ import java.util.*;
     this.idproject = idproject;
   }
 
-  public int getTeamAssigned()
+  public TeamEntity getTeamAssigned()
   {
-    return teamAssigned;
+    return teamassigned;
   }
 
-  public void setTeamAssigned(int teamAssigned)
+  public void setTeamAssigned(TeamEntity teamAssigned)
   {
-    this.teamAssigned = teamAssigned;
+    this.teamassigned = teamAssigned;
   }
 
   public String getName()
@@ -61,14 +73,14 @@ import java.util.*;
     this.name = name;
   }
 
-  public LocalDateTime getStartDate()
+  public LocalDateTime getStartdate()
   {
-    return startDate;
+    return startdate;
   }
 
-  public void setStartDate(LocalDateTime startDate)
+  public void setStartdate(LocalDateTime startdate)
   {
-    this.startDate = startDate;
+    this.startdate = startdate;
   }
 
   public LocalDateTime getDeadline()
@@ -111,17 +123,26 @@ import java.util.*;
     }
 
     return Project.newBuilder().setId(idproject).setName(name)
-        .setTeamId(teamAssigned)
-        .setStartDate(SpecificTimeConverter.convertToSpecificTime(startDate))
+        .setTeamId(teamassigned.getIdTeam())
+        .setStartDate(SpecificTimeConverter.convertToSpecificTime(startdate))
         .setDeadline(SpecificTimeConverter.convertToSpecificTime(deadline))
         .addAllRequirements(requirements1)
         .build();
   }
 
+  public BasicProject convertToBasicProject()
+  {
+    return BasicProject.newBuilder()
+            .setId(idproject)
+            .setProjectName(name)
+            .setTeamName(teamassigned.getName())
+        .build();     //todo: How do I find the value for the team name without team repository.
+  }
+
   @Override public String toString()
   {
     return "Project: " + name + "_" + idproject + "; /n Team Assigned ID:"
-        + teamAssigned + "; Started at " + startDate.toString()
+        + teamassigned + "; Started at " + startdate.toString()
         + " with deadline of " + deadline.toString();
   }
 
@@ -132,15 +153,15 @@ import java.util.*;
     if (o == null || getClass() != o.getClass())
       return false;
     ProjectEntity that = (ProjectEntity) o;
-    return idproject == that.idproject && teamAssigned == that.teamAssigned
-        && startDate.equals(that.startDate) && deadline.equals(that.deadline)
+    return idproject == that.idproject && teamassigned == that.teamassigned
+        && startdate.equals(that.startdate) && deadline.equals(that.deadline)
         && Objects.equals(name, that.name) && Objects.equals(requirements,
         that.requirements);
   }
 
   @Override public int hashCode()
   {
-    return Objects.hash(idproject, teamAssigned, name, startDate, deadline,
+    return Objects.hash(idproject, teamassigned, name, startdate, deadline,
         requirements);
   }
 }
