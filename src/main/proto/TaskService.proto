@@ -51,7 +51,7 @@ message BasicTaskList {
   repeated BasicTask meetings = 1;
 }
 
-service ProjectService {
+service TaskService {
   rpc CreateTask(CreatingTask) returns (Task);
   rpc UpdateTask(UpdatingTask) returns (Task);
   rpc DeleteTask(google.protobuf.Int32Value) returns (google.protobuf.Empty);
