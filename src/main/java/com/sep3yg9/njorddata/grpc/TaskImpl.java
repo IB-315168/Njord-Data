@@ -5,10 +5,7 @@ import com.sep3yg9.njorddata.grpc.protobuf.task.CreatingTask;
 import com.sep3yg9.njorddata.grpc.protobuf.task.Task;
 import com.sep3yg9.njorddata.grpc.protobuf.task.TaskServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.task.UpdatingTask;
-import com.sep3yg9.njorddata.models.ProjectEntity;
-import com.sep3yg9.njorddata.models.SpecificTimeConverter;
-import com.sep3yg9.njorddata.models.TaskEntity;
-import com.sep3yg9.njorddata.models.UserEntity;
+import com.sep3yg9.njorddata.models.*;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import com.sep3yg9.njorddata.services.interfaces.TaskService;
 import com.sep3yg9.njorddata.services.interfaces.UserService;
@@ -35,7 +32,9 @@ import java.time.LocalDateTime;
             UserEntity userEntity = userService.getById(task.getMemberassigned());
 
             TaskEntity taskCreated = taskService.addTask(
-                    new TaskEntity()
+                    new TaskEntity(userEntity, task.getTitle(), task.getDescription(),
+                            task.getStatus().charAt(0), SpecificHourConverter.convertToLocalDateTime(task.getTimeestimation()),
+                            SpecificTimeConverter.convertToLocalDateTime(task.getCreationdate()))
             );
 
             Task task1 = taskCreated.convertToTask();
