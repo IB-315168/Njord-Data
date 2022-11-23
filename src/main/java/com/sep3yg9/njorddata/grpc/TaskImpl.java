@@ -1,5 +1,7 @@
 package com.sep3yg9.njorddata.grpc;
 
+import com.google.protobuf.Empty;
+import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.project.ProjectServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.task.CreatingTask;
 import com.sep3yg9.njorddata.grpc.protobuf.task.Task;
@@ -60,6 +62,55 @@ import java.time.LocalDateTime;
             taskService.updateTask(task);
 
             Task task1 = taskService.getById(task.getId()).convertToTask();
+            responseObserver.onNext(task1);
+            responseObserver.onCompleted();
+        }
+        catch (Exception e)
+        {
+            Status status;
+            if(e instanceof IllegalArgumentException)
+            {
+                status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+            }
+            else
+            {
+                status = Status.INTERNAL.withDescription(e.getMessage());
+            }
+            responseObserver.onError(status.asRuntimeException());
+        }
+    }
+
+    @Override public void deleteTask(Int32Value id, StreamObserver<Empty> responseObserver)
+    {
+        try
+        {
+            taskService.removeTask(id.getValue());
+
+            responseObserver.onNext(Empty.newBuilder().build());
+            responseObserver.onCompleted();
+        }
+        catch (Exception e)
+        {
+            Status status;
+            if(e instanceof IllegalArgumentException)
+            {
+                status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+            }
+            else
+            {
+                status = Status.INTERNAL.withDescription(e.getMessage());
+            }
+            responseObserver.onError(status.asRuntimeException());
+        }
+    }
+
+    @Override public void getById(Int32Value id, StreamObserver<Task> responseObserver)
+    {
+        try {
+            TaskEntity task = taskService.getById(id.getValue());
+
+            Task task1 = task.convertToTask();
+
             responseObserver.onNext(task1);
             responseObserver.onCompleted();
         }
