@@ -24,16 +24,39 @@ import org.springframework.stereotype.Service;
 
     @Override
     public void updateTask(UpdatingTask task) {
+        TaskEntity taskEntity = taskRepository.findByIdtask(task.getId());
 
+        if (taskEntity == null){
+            throw new IllegalArgumentException("Task not found");
+        }else
+        {
+            if (!task.getTitle().isEmpty() && !taskEntity.getTitle().equals(task.getTitle()))
+            {
+                taskEntity.setTitle(task.getTitle());
+            }
+            if (!taskEntity.getDescription().isEmpty() && !taskEntity.getDescription().equals(task.getDescription()))
+            {
+                taskEntity.setDescription(task.getDescription());
+            }
+            //what can be updated?
+
+            taskRepository.save(taskEntity);
+        }
     }
 
     @Override
     public void removeTask(int id) {
-
+        getById(id);
+        taskRepository.deleteById(id);
     }
 
     @Override
     public TaskEntity getById(int id) {
-        return null;
+        TaskEntity taskEntity = taskRepository.findByIdtask(id);
+        if(taskEntity == null)
+        {
+            throw new IllegalArgumentException("Task not found");
+        }
+        return taskRepository.findByIdtask(id);
     }
 }
