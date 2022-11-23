@@ -2,8 +2,9 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
+import "ProjectService.proto";
 option java_multiple_files = true;
-option csharp_namespace = "GRPCProjectClient";
+option csharp_namespace = "GRPCTaskClient";
 package com.sep3yg9.njorddata.grpc.protobuf.task;
 
 message CreatingTask {
@@ -12,7 +13,7 @@ message CreatingTask {
   string description = 3;
   string status = 4;
   SpecificHour timeestimation = 5;
-  SpecificTime creationdate = 6;
+  com.sep3yg9.njorddata.grpc.protobuf.project.SpecificTime creationdate = 6;
 }
 
 message UpdatingTask {
@@ -22,14 +23,6 @@ message UpdatingTask {
   string description = 4;
   string status = 5;
   SpecificHour timeestimation = 6;
-}
-
-message SpecificTime {
-  int32 day = 1;
-  int32 month = 2;
-  int32 year = 3;
-  int32 hour = 4;
-  int32 minute = 5;
 }
 
 message SpecificHour {
@@ -44,14 +37,14 @@ message Task {
   string description = 4;
   string status = 5;
   SpecificHour timeestimation = 6;
-  SpecificTime creationdate = 7;
+  com.sep3yg9.njorddata.grpc.protobuf.project.SpecificTime creationdate = 7;
 }
 
 message BasicTask {
   int32 id = 1;
   string title = 2;
   string status = 3;
-  SpecificTime creationdate = 4;
+  com.sep3yg9.njorddata.grpc.protobuf.project.SpecificTime creationdate = 4;
 }
 
 message BasicTaskList {
