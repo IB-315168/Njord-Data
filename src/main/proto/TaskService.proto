@@ -1,0 +1,67 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+option java_multiple_files = true;
+option csharp_namespace = "GRPCProjectClient";
+package com.sep3yg9.njorddata.grpc.protobuf.task;
+
+message CreatingTask {
+  int32 memberassigned = 1;
+  string title = 2;
+  string description = 3;
+  string status = 4;
+  SpecificHour timeestimation = 5;
+  SpecificTime creationdate = 6;
+}
+
+message UpdatingTask {
+  int32 id = 1;
+  int32 memberassigned = 2;
+  string title = 3;
+  string description = 4;
+  string status = 5;
+  SpecificHour timeestimation = 6;
+}
+
+message SpecificTime {
+  int32 day = 1;
+  int32 month = 2;
+  int32 year = 3;
+  int32 hour = 4;
+  int32 minute = 5;
+}
+
+message SpecificHour {
+  int32 hour = 4;
+  int32 minute = 5;
+}
+
+message Task {
+  int32 id = 1;
+  int32 memberassigned = 2;
+  string title = 3;
+  string description = 4;
+  string status = 5;
+  SpecificHour timeestimation = 6;
+  SpecificTime creationdate = 7;
+}
+
+message BasicTask {
+  int32 id = 1;
+  string title = 2;
+  string status = 3;
+  SpecificTime creationdate = 4;
+}
+
+message BasicTaskList {
+  repeated BasicTask meetings = 1;
+}
+
+service ProjectService {
+  rpc CreateTask(CreatingTask) returns (Task);
+  rpc UpdateTask(UpdatingTask) returns (Task);
+  rpc DeleteTask(google.protobuf.Int32Value) returns (google.protobuf.Empty);
+  rpc GetById(google.protobuf.Int32Value) returns (Task);
+  rpc GetByUserId(google.protobuf.Int32Value) returns (BasicTaskList);
+}
