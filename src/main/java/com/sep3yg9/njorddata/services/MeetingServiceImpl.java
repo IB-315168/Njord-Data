@@ -6,8 +6,9 @@ import com.sep3yg9.njorddata.models.SpecificTimeConverter;
 import com.sep3yg9.njorddata.repos.MeetingRepository;
 import com.sep3yg9.njorddata.repos.UserRepository;
 import com.sep3yg9.njorddata.services.interfaces.MeetingService;
+import org.springframework.stereotype.Service;
 
-public class MeetingServiceImpl implements MeetingService {
+@Service public class MeetingServiceImpl implements MeetingService {
 
     private final UserRepository userRepository;
     private final MeetingRepository meetingRepository;
@@ -20,8 +21,8 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public void addMeeting(MeetingEntity meetingEntityRecord) {
-        meetingRepository.save(meetingEntityRecord);
+    public MeetingEntity addMeeting(MeetingEntity meetingEntityRecord) {
+        return meetingRepository.save(meetingEntityRecord);
     }
 
     @Override
