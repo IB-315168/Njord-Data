@@ -6,7 +6,7 @@ import com.sep3yg9.njorddata.models.TeamEntity;
 
 public interface MeetingService
 {
-    void addMeeting(MeetingEntity meetingEntityRecord);
+    MeetingEntity addMeeting(MeetingEntity meetingEntityRecord);
     void updateMeeting(UpdatingMeeting meeting);
     void removeMeeting(int id);
     MeetingEntity getById(int id);

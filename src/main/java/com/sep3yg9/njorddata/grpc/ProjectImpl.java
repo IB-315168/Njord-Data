@@ -39,8 +39,7 @@ import java.util.ArrayList;
 
       ProjectEntity projectCreated = projectService.addProject(
           new ProjectEntity(teamEntity, project.getName(), LocalDateTime.now(),
-              SpecificTimeConverter.convertToLocalDateTime(
-                  project.getDeadline())));
+              SpecificTimeConverter.convertToLocalDateTime(project.getDeadline())));
 
       Project project1 = projectCreated.convertToProject();
 
