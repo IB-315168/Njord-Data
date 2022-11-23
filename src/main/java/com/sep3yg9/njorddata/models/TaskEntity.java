@@ -1,5 +1,7 @@
 package com.sep3yg9.njorddata.models;
 
+//import com.sep3yg9.njorddata.grpc.protobuf.task.Task;
+import com.sep3yg9.njorddata.grpc.protobuf.task.BasicTask;
 import com.sep3yg9.njorddata.grpc.protobuf.task.Task;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -100,16 +102,28 @@ public class TaskEntity {
         return status + "";
     }
 
-    /*public Task convertToTask()
-    {
-        return Task.newBuilder()
-                .setId(idtask)
-                .setMemberassigned(memberassigned.getIdmember())
-                .setTitle(title)
-                .setDescription(description)
-                .setStatus(getStatusAsString())
-                .setTimeestimation(SpecificHourConverter.convertToSpecificHour(timeestimation))
-                .setCreationdate(SpecificTimeConverter.convertToSpecificTime(creationdate))
-                .build();
-    }*/
+//    public Task convertToTask()
+//    {
+//        return Task.newBuilder()
+//                .setId(idtask)
+//                .setMemberassigned(memberassigned.getIdmember())
+//                .setTitle(title)
+//                .setDescription(description)
+//                .setStatus(getStatusAsString())
+//                .setTimeestimation(SpecificHourConverter.convertToSpecificHour(timeestimation))
+//                .setCreationdate(SpecificTimeConverter.convertToSpecificTime(creationdate))
+//                .build();
+//    }
+
+//    public BasicTask convertToTask(){
+//        return Task.newBuilder()
+//                .setId(idtask)
+//                .setMemberassigned(memberassigned.getIdmember())
+//                .setTitle(title)
+//                .setDescription(description)
+//                .setStatus(getStatusAsString())
+//                .setTimeestimation(SpecificHourConverter.convertToSpecificHour(timeestimation))
+//                .setCreationdate(SpecificTimeConverter.convertToSpecificTime(creationdate))
+//                .build();
+//    }
 }
