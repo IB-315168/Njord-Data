@@ -1,11 +1,7 @@
 package com.sep3yg9.njorddata.models;
 
 
-import com.sep3yg9.njorddata.grpc.protobuf.team.Team;
 import com.sep3yg9.njorddata.grpc.protobuf.user.BasicTeam;
-import com.sep3yg9.njorddata.grpc.protobuf.user.User;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -25,14 +21,14 @@ public class TeamEntity
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idteam", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TeamMember> member = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "teamleader") private UserEntity teamleader;
+    @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "teamleader") private MemberEntity teamleader;
 
-    public UserEntity getTeamleader()
+    public MemberEntity getTeamleader()
     {
         return teamleader;
     }
 
-    public void setTeamleader(UserEntity teamleader)
+    public void setTeamleader(MemberEntity teamleader)
     {
         this.teamleader = teamleader;
     }
@@ -41,7 +37,7 @@ public class TeamEntity
 
     }
 
-    public TeamEntity(UserEntity teamLeader, String name) {
+    public TeamEntity(MemberEntity teamLeader, String name) {
         this.teamleader = teamLeader;
         this.name = name;
     }
@@ -54,11 +50,11 @@ public class TeamEntity
         this.idteam = idTeam;
     }
 
-    public UserEntity getTeamLeader() {
+    public MemberEntity getTeamLeader() {
         return teamleader;
     }
 
-    public void setTeamLeader(UserEntity teamLeader) {
+    public void setTeamLeader(MemberEntity teamLeader) {
         this.teamleader = teamLeader;
     }
 
@@ -80,13 +76,13 @@ public class TeamEntity
         this.member = members;
     }
 
-    public void addMember(UserEntity p) {
+    public void addMember(MemberEntity p) {
         TeamMember teamMember = new TeamMember(this, p);
         member.add(teamMember);
         p.getTeams().add(teamMember);
     }
 
-    public void removeMember(UserEntity p) {
+    public void removeMember(MemberEntity p) {
         for(Iterator<TeamMember> i = member.iterator();
         i.hasNext();) {
             TeamMember teamMember = i.next();

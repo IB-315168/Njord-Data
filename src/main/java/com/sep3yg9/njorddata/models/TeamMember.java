@@ -16,17 +16,17 @@ public class TeamMember
 
   @ManyToOne(fetch = FetchType.LAZY)
   @MapsId("memberId")
-  private UserEntity idmember;
+  private MemberEntity idmember;
 
   public TeamMember() {
 
   }
 
-  public TeamMember(TeamEntity teamEntity, UserEntity userEntity)
+  public TeamMember(TeamEntity teamEntity, MemberEntity memberEntity)
   {
     this.idteam = teamEntity;
-    this.idmember = userEntity;
-    this.id = new TeamMemberId(teamEntity.getIdTeam(), userEntity.getIdmember());
+    this.idmember = memberEntity;
+    this.id = new TeamMemberId(teamEntity.getIdTeam(), memberEntity.getIdmember());
   }
 
   public TeamMemberId getId()
@@ -49,14 +49,14 @@ public class TeamMember
     this.idteam = teamEntity;
   }
 
-  public UserEntity getUserEntity()
+  public MemberEntity getUserEntity()
   {
     return idmember;
   }
 
-  public void setUserEntity(UserEntity userEntity)
+  public void setUserEntity(MemberEntity memberEntity)
   {
-    this.idmember = userEntity;
+    this.idmember = memberEntity;
   }
 
   @Override public boolean equals(Object o)

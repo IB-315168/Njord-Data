@@ -5,28 +5,25 @@ import com.sep3yg9.njorddata.grpc.protobuf.project.UpdatingProject;
 import com.sep3yg9.njorddata.models.*;
 import com.sep3yg9.njorddata.repos.ProjectRepository;
 import com.sep3yg9.njorddata.repos.TeamRepository;
-import com.sep3yg9.njorddata.repos.UserRepository;
+import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
-import com.sep3yg9.njorddata.services.interfaces.TeamService;
-import com.sep3yg9.njorddata.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 @Service public class ProjectServiceImpl implements ProjectService
 {
   private final ProjectRepository projectRepository;
   private final TeamRepository teamRepository;
-  private final UserRepository userRepository;
+  private final MemberRepository memberRepository;
 
   public ProjectServiceImpl(ProjectRepository projectRepository,
-      TeamRepository teamRepository, UserRepository userRepository)
+      TeamRepository teamRepository, MemberRepository memberRepository)
   {
     this.projectRepository = projectRepository;
     this.teamRepository = teamRepository;
-    this.userRepository = userRepository;
+    this.memberRepository = memberRepository;
   }
 
   @Override public ProjectEntity addProject(ProjectEntity projectEntityRecord)
@@ -95,7 +92,7 @@ import java.util.List;
   @Override public ArrayList<ProjectEntity> getByUserId(int id)
   {
     ArrayList<ProjectEntity> listOfProjects = new ArrayList<>();
-    UserEntity user = userRepository.findById(id);
+    MemberEntity user = memberRepository.findById(id);
 
     for (TeamMember team : user.getTeams())
     {

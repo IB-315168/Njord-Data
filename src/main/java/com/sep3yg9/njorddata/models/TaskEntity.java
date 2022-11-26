@@ -16,7 +16,7 @@ public class TaskEntity {
     private int idtask;
 
     @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.NO_ACTION) @JoinColumn(name="memberassigned")
-    private UserEntity memberassigned;
+    private MemberEntity memberassigned;
 
     //Need calendar entity here when its later added
 
@@ -31,7 +31,7 @@ public class TaskEntity {
 
     };
 
-    public TaskEntity(UserEntity memberassigned, String title, String description, char status, LocalTime timeestimation, LocalDateTime creationdate) {
+    public TaskEntity(MemberEntity memberassigned, String title, String description, char status, LocalTime timeestimation, LocalDateTime creationdate) {
         this.memberassigned = memberassigned;
         this.title = title;
         this.description = description;
@@ -48,11 +48,11 @@ public class TaskEntity {
         this.idtask = idtask;
     }
 
-    public UserEntity getMemberassigned() {
+    public MemberEntity getMemberassigned() {
         return memberassigned;
     }
 
-    public void setMemberassigned(UserEntity memberassigned) {
+    public void setMemberassigned(MemberEntity memberassigned) {
         this.memberassigned = memberassigned;
     }
 

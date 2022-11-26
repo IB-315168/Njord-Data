@@ -8,27 +8,28 @@ import com.sep3yg9.njorddata.grpc.protobuf.meeting.MeetingServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.meeting.UpdatingMeeting;
 import com.sep3yg9.njorddata.models.MeetingEntity;
 import com.sep3yg9.njorddata.models.SpecificTimeConverter;
-import com.sep3yg9.njorddata.models.UserEntity;
+import com.sep3yg9.njorddata.models.MemberEntity;
 import com.sep3yg9.njorddata.services.interfaces.MeetingService;
-import com.sep3yg9.njorddata.services.interfaces.UserService;
+import com.sep3yg9.njorddata.services.interfaces.MemberService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 
 public class MeetingImpl extends MeetingServiceGrpc.MeetingServiceImplBase {
     private final MeetingService meetingService;
-    private final UserService userService;
+    private final MemberService memberService;
 
-    public MeetingImpl(MeetingService meetingService, UserService userService){
+    public MeetingImpl(MeetingService meetingService, MemberService memberService){
         this.meetingService = meetingService;
-        this.userService = userService;
+        this.memberService = memberService;
     }
 
     @Override
     public void createMeeting(CreatingMeeting meeting, StreamObserver<Meeting> responseObserver) {
         try{
-            UserEntity userEntity = userService.getById(meeting.getAssignedleader());
+            MemberEntity memberEntity = memberService.getById(meeting.getAssignedleader());
 
-            MeetingEntity meetingEntity = meetingService.addMeeting(new MeetingEntity(userEntity,meeting.getTitle(),meeting.getDescription(), SpecificTimeConverter.convertToLocalDateTime(meeting.getStartdate()),SpecificTimeConverter.convertToLocalDateTime(meeting.getEnddate())));
+            MeetingEntity meetingEntity = meetingService.addMeeting(new MeetingEntity(
+                memberEntity,meeting.getTitle(),meeting.getDescription(), SpecificTimeConverter.convertToLocalDateTime(meeting.getStartdate()),SpecificTimeConverter.convertToLocalDateTime(meeting.getEnddate())));
 
             Meeting meeting1 = meetingEntity.convertToMeeting();
 

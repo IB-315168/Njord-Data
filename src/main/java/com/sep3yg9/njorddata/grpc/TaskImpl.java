@@ -2,39 +2,35 @@ package com.sep3yg9.njorddata.grpc;
 
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
-import com.sep3yg9.njorddata.grpc.protobuf.project.ProjectServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.task.CreatingTask;
 import com.sep3yg9.njorddata.grpc.protobuf.task.Task;
 import com.sep3yg9.njorddata.grpc.protobuf.task.TaskServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.task.UpdatingTask;
 import com.sep3yg9.njorddata.models.*;
-import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import com.sep3yg9.njorddata.services.interfaces.TaskService;
-import com.sep3yg9.njorddata.services.interfaces.UserService;
+import com.sep3yg9.njorddata.services.interfaces.MemberService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 
-import java.time.LocalDateTime;
-
 @GRpcService public class TaskImpl extends TaskServiceGrpc.TaskServiceImplBase {
 
     private final TaskService taskService;
-    private final UserService userService;
+    private final MemberService memberService;
 
-    public TaskImpl(TaskService taskService, UserService userService) {
+    public TaskImpl(TaskService taskService, MemberService memberService) {
         this.taskService = taskService;
-        this.userService = userService;
+        this.memberService = memberService;
     }
 
     //needs fix
     @Override public void createTask(CreatingTask task, StreamObserver<Task> responseObserver){
         try
         {
-            UserEntity userEntity = userService.getById(task.getMemberassigned());
+            MemberEntity memberEntity = memberService.getById(task.getMemberassigned());
 
             TaskEntity taskCreated = taskService.addTask(
-                    new TaskEntity(userEntity, task.getTitle(), task.getDescription(),
+                    new TaskEntity(memberEntity, task.getTitle(), task.getDescription(),
                             task.getStatus().charAt(0), SpecificHourConverter.convertToLocalDateTime(task.getTimeestimation()),
                             SpecificTimeConverter.convertToLocalDateTime(task.getCreationdate()))
             );

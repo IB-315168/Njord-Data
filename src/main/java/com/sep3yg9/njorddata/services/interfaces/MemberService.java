@@ -2,19 +2,19 @@ package com.sep3yg9.njorddata.services.interfaces;
 
 import com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
-import com.sep3yg9.njorddata.models.UserEntity;
+import com.sep3yg9.njorddata.models.MemberEntity;
 
 import java.util.List;
 
-public interface UserService
+public interface MemberService
 {
-    void addUser(UserEntity userEntityRecord);
+    void addUser(MemberEntity memberEntityRecord);
     void updateUser(UpdatingUser user);
     void deleteUser(int id);
     List<User> getAllUsers();
-    UserEntity getById(int id);
-    UserEntity getByUserName(String username);
-    UserEntity getByEmail(String email);
-    Iterable<UserEntity> getAll();
+    MemberEntity getById(int id);
+    MemberEntity getByUserName(String username);
+    MemberEntity getByEmail(String email);
+    Iterable<MemberEntity> getAll();
 
 }

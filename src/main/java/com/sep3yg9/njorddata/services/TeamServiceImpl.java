@@ -4,9 +4,9 @@ import com.sep3yg9.njorddata.grpc.protobuf.team.UpdatingTeam;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
-import com.sep3yg9.njorddata.models.UserEntity;
+import com.sep3yg9.njorddata.models.MemberEntity;
 import com.sep3yg9.njorddata.repos.TeamRepository;
-import com.sep3yg9.njorddata.repos.UserRepository;
+import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.TeamService;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +16,13 @@ import java.util.List;
 @Service public class TeamServiceImpl implements TeamService
 {
   private final TeamRepository teamRepository;
-  private final UserRepository userRepository;
+  private final MemberRepository memberRepository;
 
   public TeamServiceImpl(TeamRepository teamRepository,
-      UserRepository userRepository)
+      MemberRepository memberRepository)
   {
     this.teamRepository = teamRepository;
-    this.userRepository = userRepository;
+    this.memberRepository = memberRepository;
   }
 
   public void addTeam(TeamEntity teamEntityRecord)
@@ -52,7 +52,7 @@ import java.util.List;
 
   public List<TeamEntity> getByTeamLeaderId(int id)
   {
-    return teamRepository.findByTeamleader(userRepository.findById(id));
+    return teamRepository.findByTeamleader(memberRepository.findById(id));
   }
 
   public TeamEntity getByName(String name)
@@ -90,16 +90,16 @@ import java.util.List;
       teamEntity.setName(team.getName());
     }
 
-    ArrayList<UserEntity> newMembers = new ArrayList<>();
+    ArrayList<MemberEntity> newMembers = new ArrayList<>();
     for (User user : team.getMembersList())
     {
-      newMembers.add(userRepository.findById(user.getId()));
+      newMembers.add(memberRepository.findById(user.getId()));
     }
 
     teamEntity.setMembers(new ArrayList<TeamMember>());
     teamRepository.save(teamEntity);
 
-    for (UserEntity user : newMembers)
+    for (MemberEntity user : newMembers)
     {
       teamEntity.addMember(user);
     }

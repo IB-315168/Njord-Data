@@ -1,19 +1,12 @@
 package com.sep3yg9.njorddata.models;
 
 
-import com.google.protobuf.Int32Value;
-import com.google.protobuf.Timestamp;
 import com.sep3yg9.njorddata.grpc.protobuf.meeting.Meeting;
-import com.sep3yg9.njorddata.grpc.protobuf.project.Project;
-import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
-import com.sep3yg9.njorddata.grpc.protobuf.project.SpecificTime;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity(name="Meeting") @Table(name = "meeting", schema = "sep3ygroup9")
 public class MeetingEntity
@@ -23,7 +16,7 @@ public class MeetingEntity
     @Column(name = "idmeeting")
     private int idmeeting;
 
-    @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "assignedleader") private UserEntity assignedleader;
+    @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "assignedleader") private MemberEntity assignedleader;
 
     private String title;
     private String description;
@@ -35,7 +28,7 @@ public class MeetingEntity
 
     }
 
-    public MeetingEntity(UserEntity assignedleader, String title, String description, LocalDateTime startdatetime, LocalDateTime enddatetime) {
+    public MeetingEntity(MemberEntity assignedleader, String title, String description, LocalDateTime startdatetime, LocalDateTime enddatetime) {
         this.assignedleader = assignedleader;
         this.title = title;
         this.description = description;
@@ -51,11 +44,11 @@ public class MeetingEntity
         this.idmeeting = idmeeting;
     }
 
-    public UserEntity getAssignedleader() {
+    public MemberEntity getAssignedleader() {
         return assignedleader;
     }
 
-    public void setAssignedleader(UserEntity assignedleader) {
+    public void setAssignedleader(MemberEntity assignedleader) {
         this.assignedleader = assignedleader;
     }
 

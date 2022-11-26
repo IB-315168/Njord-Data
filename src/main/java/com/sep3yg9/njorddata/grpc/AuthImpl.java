@@ -3,17 +3,17 @@ package com.sep3yg9.njorddata.grpc;
 import com.sep3yg9.njorddata.grpc.protobuf.auth.AuthServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.auth.LoginRequest;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
-import com.sep3yg9.njorddata.models.UserEntity;
-import com.sep3yg9.njorddata.services.UserServiceImpl;
+import com.sep3yg9.njorddata.models.MemberEntity;
+import com.sep3yg9.njorddata.services.MemberServiceImpl;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 
 @GRpcService public class AuthImpl extends AuthServiceGrpc.AuthServiceImplBase
 {
-  private final UserServiceImpl userService;
+  private final MemberServiceImpl userService;
 
-  public AuthImpl(UserServiceImpl userService)
+  public AuthImpl(MemberServiceImpl userService)
   {
     this.userService = userService;
   }
@@ -21,7 +21,7 @@ import org.lognet.springboot.grpc.GRpcService;
   @Override public void login(LoginRequest request,
       StreamObserver<User> responseObserver)
   {
-    UserEntity record = userService.getByEmail(request.getEmail());
+    MemberEntity record = userService.getByEmail(request.getEmail());
 
     try
     {

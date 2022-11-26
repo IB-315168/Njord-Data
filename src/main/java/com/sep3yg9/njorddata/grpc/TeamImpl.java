@@ -9,9 +9,9 @@ import com.sep3yg9.njorddata.grpc.protobuf.team.UpdatingTeam;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
-import com.sep3yg9.njorddata.models.UserEntity;
+import com.sep3yg9.njorddata.models.MemberEntity;
 import com.sep3yg9.njorddata.services.interfaces.TeamService;
-import com.sep3yg9.njorddata.services.interfaces.UserService;
+import com.sep3yg9.njorddata.services.interfaces.MemberService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
@@ -22,12 +22,12 @@ import java.util.List;
 @GRpcService public class TeamImpl extends TeamServiceGrpc.TeamServiceImplBase
 {
   private final TeamService teamService;
-  private final UserService userService;
+  private final MemberService memberService;
 
-  public TeamImpl(TeamService teamService, UserService userService)
+  public TeamImpl(TeamService teamService, MemberService memberService)
   {
     this.teamService = teamService;
-    this.userService = userService;
+    this.memberService = memberService;
   }
 
   @Override public void createTeam(CreatingTeam team,
@@ -35,7 +35,7 @@ import java.util.List;
   {
     try
     {
-      UserEntity user = userService.getById(team.getTeamLeaderId());
+      MemberEntity user = memberService.getById(team.getTeamLeaderId());
 
       teamService.addTeam(
           new TeamEntity(user, team.getName()));

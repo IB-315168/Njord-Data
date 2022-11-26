@@ -3,18 +3,18 @@ package com.sep3yg9.njorddata.services;
 import com.sep3yg9.njorddata.grpc.protobuf.task.UpdatingTask;
 import com.sep3yg9.njorddata.models.TaskEntity;
 import com.sep3yg9.njorddata.repos.TaskRepository;
-import com.sep3yg9.njorddata.repos.UserRepository;
+import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.TaskService;
 import org.springframework.stereotype.Service;
 
 @Service public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
-    public TaskServiceImpl(TaskRepository taskRepository, UserRepository userRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, MemberRepository memberRepository) {
         this.taskRepository = taskRepository;
-        this.userRepository = userRepository;
+        this.memberRepository = memberRepository;
     }
 
     public TaskEntity addTask(TaskEntity taskEntityRecord) {

@@ -4,18 +4,18 @@ import com.sep3yg9.njorddata.grpc.protobuf.meeting.UpdatingMeeting;
 import com.sep3yg9.njorddata.models.MeetingEntity;
 import com.sep3yg9.njorddata.models.SpecificTimeConverter;
 import com.sep3yg9.njorddata.repos.MeetingRepository;
-import com.sep3yg9.njorddata.repos.UserRepository;
+import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.MeetingService;
 import org.springframework.stereotype.Service;
 
 @Service public class MeetingServiceImpl implements MeetingService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final MeetingRepository meetingRepository;
     private SpecificTimeConverter specificTimeConverter;
 
-    public MeetingServiceImpl(UserRepository userRepository, MeetingRepository meetingRepository) {
-        this.userRepository = userRepository;
+    public MeetingServiceImpl(MemberRepository memberRepository, MeetingRepository meetingRepository) {
+        this.memberRepository = memberRepository;
         this.meetingRepository = meetingRepository;
         specificTimeConverter=new SpecificTimeConverter();
     }

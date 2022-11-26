@@ -3,7 +3,6 @@ package com.sep3yg9.njorddata.models;
 import com.sep3yg9.njorddata.grpc.protobuf.user.BasicTeam;
 import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import java.util.*;
 @org.hibernate.annotations.Cache(
     usage = CacheConcurrencyStrategy.READ_WRITE
 )
-public class UserEntity
+public class MemberEntity
 {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -28,11 +27,11 @@ public class UserEntity
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "idmember", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<TeamMember> teams = new ArrayList<>();
-  public UserEntity() {
+  public MemberEntity() {
 
   }
 
-  public UserEntity(String fullName, String email, String userName, String password) {
+  public MemberEntity(String fullName, String email, String userName, String password) {
     this.fullname = fullName;
     this.email = email;
     this.username = userName;
@@ -126,7 +125,7 @@ public class UserEntity
       return true;
     if (o == null || getClass() != o.getClass())
       return false;
-    UserEntity that = (UserEntity) o;
+    MemberEntity that = (MemberEntity) o;
     return idmember == that.idmember && Objects.equals(fullname, that.fullname)
         && Objects.equals(email, that.email) && Objects.equals(username,
         that.username) && Objects.equals(password, that.password)

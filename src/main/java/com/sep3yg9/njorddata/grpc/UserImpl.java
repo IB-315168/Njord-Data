@@ -5,9 +5,9 @@ import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.user.*;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
-import com.sep3yg9.njorddata.models.UserEntity;
+import com.sep3yg9.njorddata.models.MemberEntity;
 import com.sep3yg9.njorddata.services.TeamServiceImpl;
-import com.sep3yg9.njorddata.services.UserServiceImpl;
+import com.sep3yg9.njorddata.services.MemberServiceImpl;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 @GRpcService public class UserImpl extends UserServiceGrpc.UserServiceImplBase
 {
-  private final UserServiceImpl userService;
+  private final MemberServiceImpl userService;
   private final TeamServiceImpl teamService;
 
-  public UserImpl(UserServiceImpl userService, TeamServiceImpl teamService)
+  public UserImpl(MemberServiceImpl userService, TeamServiceImpl teamService)
   {
     this.userService = userService;
     this.teamService = teamService;
@@ -30,10 +30,10 @@ import java.util.ArrayList;
   {
     try
     {
-      userService.addUser(new UserEntity(user.getFullName(), user.getEmail(),
+      userService.addUser(new MemberEntity(user.getFullName(), user.getEmail(),
           user.getUserName(), user.getPassword()));
 
-      UserEntity userCreated = userService.getByUserName(user.getUserName());
+      MemberEntity userCreated = userService.getByUserName(user.getUserName());
 
       User user1 = userCreated.convertToUser();
 
@@ -106,7 +106,7 @@ import java.util.ArrayList;
   {
     try
     {
-      UserEntity user = userService.getById(id.getValue());
+      MemberEntity user = userService.getById(id.getValue());
 
       ArrayList<BasicTeam> teamMembership = new ArrayList<>();
       for (TeamMember member : user.getTeams())
@@ -152,7 +152,7 @@ import java.util.ArrayList;
   {
     try
     {
-      UserEntity user = userService.getByEmail(email.getValue());
+      MemberEntity user = userService.getByEmail(email.getValue());
 
       User user1 = user.convertToUser();
       responseObserver.onNext(user1);
