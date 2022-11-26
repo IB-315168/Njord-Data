@@ -2,11 +2,11 @@ package com.sep3yg9.njorddata.grpc;
 
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
+import com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.team.CreatingTeam;
-import com.sep3yg9.njorddata.grpc.protobuf.team.Team;
+import com.sep3yg9.njorddata.grpc.protobuf.team.TeamGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.team.TeamServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.team.UpdatingTeam;
-import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
 import com.sep3yg9.njorddata.models.MemberEntity;
@@ -31,19 +31,19 @@ import java.util.List;
   }
 
   @Override public void createTeam(CreatingTeam team,
-      StreamObserver<Team> responseObserver)
+      StreamObserver<TeamGrpc> responseObserver)
   {
     try
     {
-      MemberEntity user = memberService.getById(team.getTeamLeaderId());
+      MemberEntity member = memberService.getById(team.getTeamLeaderId());
 
       teamService.addTeam(
-          new TeamEntity(user, team.getName()));
+          new TeamEntity(member, team.getName()));
 
       TeamEntity teamCreated = teamService.getByName(team.getName());
 
-      Team team1 = Team.newBuilder().setId(teamCreated.getIdTeam())
-          .setTeamLeader(user.convertToUser()).setName(teamCreated.getName()).build();
+      TeamGrpc team1 = TeamGrpc.newBuilder().setId(teamCreated.getIdTeam())
+          .setTeamLeader(member.convertToMemberGrpc()).setName(teamCreated.getName()).build();
 
       responseObserver.onNext(team1);
       responseObserver.onCompleted();
@@ -64,22 +64,22 @@ import java.util.List;
   }
 
   @Override public void getById(Int32Value id,
-      StreamObserver<Team> responseObserver)
+      StreamObserver<TeamGrpc> responseObserver)
   {
     try
     {
       TeamEntity team = teamService.getById(id.getValue());
-      List<TeamMember> members = team.getMembers();
+      List<TeamMember> teamMembers = team.getMembers();
 
-      List<User> users = new ArrayList<>();
-      for (TeamMember member : members)
+      List<MemberGrpc> memberGrpcs = new ArrayList<>();
+      for (TeamMember member : teamMembers)
       {
-        users.add(member.getUserEntity().convertToUser());
+        memberGrpcs.add(member.getUserEntity().convertToMemberGrpc());
       }
 
-      Team team1 = Team.newBuilder().setId(team.getIdTeam())
-          .setName(team.getName()).setTeamLeader(team.getTeamLeader().convertToUser())
-          .addAllMembers(users).build();
+      TeamGrpc team1 = TeamGrpc.newBuilder().setId(team.getIdTeam())
+          .setName(team.getName()).setTeamLeader(team.getTeamLeader().convertToMemberGrpc())
+          .addAllMembers(memberGrpcs).build();
 
       responseObserver.onNext(team1);
       responseObserver.onCompleted();

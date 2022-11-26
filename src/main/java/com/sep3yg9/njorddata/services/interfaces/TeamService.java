@@ -1,6 +1,5 @@
 package com.sep3yg9.njorddata.services.interfaces;
 
-import com.sep3yg9.njorddata.grpc.protobuf.team.Team;
 import com.sep3yg9.njorddata.grpc.protobuf.team.UpdatingTeam;
 import com.sep3yg9.njorddata.models.TeamEntity;
 
