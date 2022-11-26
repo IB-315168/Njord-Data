@@ -1,7 +1,7 @@
 package com.sep3yg9.njorddata.models;
 
 
-import com.sep3yg9.njorddata.grpc.protobuf.user.BasicTeam;
+import com.sep3yg9.njorddata.grpc.protobuf.member.BasicTeam;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

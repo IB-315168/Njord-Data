@@ -2,7 +2,7 @@ package com.sep3yg9.njorddata.grpc;
 
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
-import com.sep3yg9.njorddata.grpc.protobuf.user.*;
+import com.sep3yg9.njorddata.grpc.protobuf.member.*;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
 import com.sep3yg9.njorddata.models.MemberEntity;
@@ -14,30 +14,30 @@ import org.lognet.springboot.grpc.GRpcService;
 
 import java.util.ArrayList;
 
-@GRpcService public class UserImpl extends UserServiceGrpc.UserServiceImplBase
+@GRpcService public class MemberImpl extends MemberServiceGrpc.MemberServiceImplBase
 {
-  private final MemberServiceImpl userService;
+  private final MemberServiceImpl memberService;
   private final TeamServiceImpl teamService;
 
-  public UserImpl(MemberServiceImpl userService, TeamServiceImpl teamService)
+  public MemberImpl(MemberServiceImpl memberService, TeamServiceImpl teamService)
   {
-    this.userService = userService;
+    this.memberService = memberService;
     this.teamService = teamService;
   }
 
-  @Override public void createUser(CreatingUser user,
-      StreamObserver<User> responseObserver)
+  @Override public void createMember(CreatingMember member,
+      StreamObserver<MemberGrpc> responseObserver)
   {
     try
     {
-      userService.addUser(new MemberEntity(user.getFullName(), user.getEmail(),
-          user.getUserName(), user.getPassword()));
+      memberService.addMember(new MemberEntity(member.getFullName(), member.getEmail(),
+          member.getUserName(), member.getPassword()));
 
-      MemberEntity userCreated = userService.getByUserName(user.getUserName());
+      MemberEntity userCreated = memberService.getByUserName(member.getUserName());
 
-      User user1 = userCreated.convertToUser();
+      MemberGrpc member1 = userCreated.convertToMemberGrpc();
 
-      responseObserver.onNext(user1);
+      responseObserver.onNext(member1);
       responseObserver.onCompleted();
     }
       catch (Exception e)
@@ -55,12 +55,12 @@ import java.util.ArrayList;
     }
   }
 
-  @Override public void updateUser(UpdatingUser user,
+  @Override public void updateMember(UpdatingMember member,
       StreamObserver<Empty> responseObserver)
   {
     try
     {
-      userService.updateUser(user);
+      memberService.updateMember(member);
       responseObserver.onNext(Empty.newBuilder().build());
       responseObserver.onCompleted();
     }
@@ -79,12 +79,12 @@ import java.util.ArrayList;
     }
   }
 
-  @Override public void deleteUser(Int32Value id,
+  @Override public void deleteMember(Int32Value id,
       StreamObserver<Empty> responseObserver)
   {
     try
     {
-      userService.deleteUser(id.getValue());
+      memberService.deleteMember(id.getValue());
     }
     catch (Exception e)
     {
@@ -102,33 +102,32 @@ import java.util.ArrayList;
   }
 
   @Override public void getById(Int32Value id,
-      StreamObserver<User> responseObserver)
+      StreamObserver<MemberGrpc> responseObserver)
   {
     try
     {
-      MemberEntity user = userService.getById(id.getValue());
+      MemberEntity member = memberService.getById(id.getValue());
 
       ArrayList<BasicTeam> teamMembership = new ArrayList<>();
-      for (TeamMember member : user.getTeams())
+      for (TeamMember teamMember : member.getTeams())
       {
-        teamMembership.add(member.getTeamEntity().convertToBasicTeam());
+        teamMembership.add(teamMember.getTeamEntity().convertToBasicTeam());
       }
 
       ArrayList<BasicTeam> teamsLeaders = new ArrayList<>();
       for (TeamEntity teamEntity : teamService.getByTeamLeaderId(
-          user.getIdmember()))
+          member.getIdmember()))
       {
         teamsLeaders.add(teamEntity.convertToBasicTeam());
       }
 
-      User user1 = User.newBuilder().setId(user.getIdmember())
-          .setFullName(user.getFullName()).setEmail(user.getEmail())
-          .setUserName(user.getUserName()).setPassword(user.getPassword())
-          .addAllUserTeams(teamMembership).addAllUserTeams(teamsLeaders)
+      MemberGrpc memberGrpc = MemberGrpc.newBuilder().setId(member.getIdmember())
+          .setFullName(member.getFullName()).setEmail(member.getEmail())
+          .setUserName(member.getUserName()).setPassword(member.getPassword())
+          .addAllMemberTeams(teamMembership).addAllMemberTeams(teamsLeaders)
           .build();
-      //
-      //    User user1 = user.convertToUser();
-      responseObserver.onNext(user1);
+
+      responseObserver.onNext(memberGrpc);
       responseObserver.onCompleted();
     }
     catch (Exception e)
@@ -148,13 +147,13 @@ import java.util.ArrayList;
   }
 
   @Override public void getByEmail(com.google.protobuf.StringValue email,
-      StreamObserver<User> responseObserver)
+      StreamObserver<MemberGrpc> responseObserver)
   {
     try
     {
-      MemberEntity user = userService.getByEmail(email.getValue());
+      MemberEntity user = memberService.getByEmail(email.getValue());
 
-      User user1 = user.convertToUser();
+      MemberGrpc user1 = user.convertToMemberGrpc();
       responseObserver.onNext(user1);
       responseObserver.onCompleted();
     }
@@ -173,30 +172,30 @@ import java.util.ArrayList;
     }
   }
 
-  @Override public void searchUser(SearchingUser query,
-      StreamObserver<UserList> responseObserver)
+  @Override public void searchMember(SearchingMember query,
+      StreamObserver<MemberList> responseObserver)
   {
-    ArrayList<User> userList = new ArrayList<>(userService.getAllUsers());
+    ArrayList<MemberGrpc> memberList = new ArrayList<>(memberService.getAllMembers());
 
     if (!query.getFullName().isEmpty())
     {
-      userList.removeIf(user -> !user.getFullName().toLowerCase()
+      memberList.removeIf(member -> !member.getFullName().toLowerCase()
           .contains(query.getFullName().toLowerCase()));
     }
 
     if (!query.getUserName().isEmpty())
     {
-      userList.removeIf(user -> !user.getUserName().toLowerCase()
+      memberList.removeIf(member -> !member.getUserName().toLowerCase()
           .contains(query.getUserName().toLowerCase()));
     }
 
     if (!query.getEmail().isEmpty())
     {
-      userList.removeIf(user -> !user.getEmail().toLowerCase()
+      memberList.removeIf(member -> !member.getEmail().toLowerCase()
           .contains(query.getEmail().toLowerCase()));
     }
 
-    UserList searchResults = UserList.newBuilder().addAllUser(userList).build();
+    MemberList searchResults = MemberList.newBuilder().addAllMember(memberList).build();
 
     responseObserver.onNext(searchResults);
     responseObserver.onCompleted();

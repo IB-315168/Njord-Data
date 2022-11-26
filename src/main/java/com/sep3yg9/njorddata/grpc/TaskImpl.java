@@ -3,7 +3,7 @@ package com.sep3yg9.njorddata.grpc;
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.task.CreatingTask;
-import com.sep3yg9.njorddata.grpc.protobuf.task.Task;
+import com.sep3yg9.njorddata.grpc.protobuf.task.TaskGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.task.TaskServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.task.UpdatingTask;
 import com.sep3yg9.njorddata.models.*;
@@ -24,18 +24,18 @@ import org.lognet.springboot.grpc.GRpcService;
     }
 
     //needs fix
-    @Override public void createTask(CreatingTask task, StreamObserver<Task> responseObserver){
+    @Override public void createTask(CreatingTask task, StreamObserver<TaskGrpc> responseObserver){
         try
         {
             MemberEntity memberEntity = memberService.getById(task.getMemberassigned());
 
             TaskEntity taskCreated = taskService.addTask(
                     new TaskEntity(memberEntity, task.getTitle(), task.getDescription(),
-                            task.getStatus().charAt(0), SpecificHourConverter.convertToLocalDateTime(task.getTimeestimation()),
-                            SpecificTimeConverter.convertToLocalDateTime(task.getCreationdate()))
+                            task.getStatus().charAt(0), SpecificDateTimeConverter.convertToLocalTime(task.getTimeestimation()),
+                            SpecificDateTimeConverter.convertToLocalDateTime(task.getCreationdate()))
             );
 
-            Task task1 = taskCreated.convertToTask();
+            TaskGrpc task1 = taskCreated.convertToTaskGrpc();
             responseObserver.onNext(task1);
             responseObserver.onCompleted();
         }
@@ -53,11 +53,11 @@ import org.lognet.springboot.grpc.GRpcService;
         }
     }
 
-    @Override public void updateTask(UpdatingTask task, StreamObserver<Task> responseObserver){
+    @Override public void updateTask(UpdatingTask task, StreamObserver<TaskGrpc> responseObserver){
         try{
             taskService.updateTask(task);
 
-            Task task1 = taskService.getById(task.getId()).convertToTask();
+            TaskGrpc task1 = taskService.getById(task.getId()).convertToTaskGrpc();
             responseObserver.onNext(task1);
             responseObserver.onCompleted();
         }
@@ -100,12 +100,12 @@ import org.lognet.springboot.grpc.GRpcService;
         }
     }
 
-    @Override public void getById(Int32Value id, StreamObserver<Task> responseObserver)
+    @Override public void getById(Int32Value id, StreamObserver<TaskGrpc> responseObserver)
     {
         try {
             TaskEntity task = taskService.getById(id.getValue());
 
-            Task task1 = task.convertToTask();
+            TaskGrpc task1 = task.convertToTaskGrpc();
 
             responseObserver.onNext(task1);
             responseObserver.onCompleted();

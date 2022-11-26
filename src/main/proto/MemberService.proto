@@ -1,0 +1,60 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+option java_multiple_files = true;
+option csharp_namespace = "GrpcNjordClient.Member";
+package com.sep3yg9.njorddata.grpc.protobuf.member;
+
+message CreatingMember {
+  string fullName = 1;
+  string userName = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message UpdatingMember {
+  int32 id = 1;
+  string userName = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message SearchingMember {
+  string userName = 1;
+  string email = 2;
+  string fullName = 3;
+}
+
+message BasicMember {
+  string fullName = 1;
+  string userName = 2;
+  string email = 3;
+}
+
+message BasicTeam {
+  int32 id = 1;
+  string name = 2;
+  string teamLeaderName = 3;
+}
+
+message MemberGrpc {
+  int32 id = 1;
+  string fullName = 2;
+  string email = 3;
+  string userName = 4;
+  string password = 5;
+  repeated BasicTeam memberTeams = 6;
+}
+
+message MemberList {
+  repeated MemberGrpc member = 1;
+}
+
+service MemberService {
+  rpc CreateMember(CreatingMember) returns (MemberGrpc);
+  rpc UpdateMember(UpdatingMember) returns (google.protobuf.Empty);
+  rpc DeleteMember(google.protobuf.Int32Value) returns (google.protobuf.Empty);
+  rpc GetByEmail(google.protobuf.StringValue) returns (MemberGrpc);
+  rpc GetById(google.protobuf.Int32Value) returns (MemberGrpc);
+  rpc SearchMember(SearchingMember) returns (MemberList);
+}

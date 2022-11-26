@@ -1,7 +1,7 @@
 package com.sep3yg9.njorddata.models;
 
 import com.sep3yg9.njorddata.grpc.protobuf.project.BasicProject;
-import com.sep3yg9.njorddata.grpc.protobuf.project.Project;
+import com.sep3yg9.njorddata.grpc.protobuf.project.ProjectGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -114,7 +114,7 @@ import java.util.*;
     requirement.setIdproject(null);
   }
 
-  public Project convertToProject()
+  public ProjectGrpc convertToProjectGrpc()
   {
     Set<Requirement> requirements1 = new LinkedHashSet<>();
 
@@ -122,10 +122,10 @@ import java.util.*;
       requirements1.add(requirement.convertToRequirement());
     }
 
-    return Project.newBuilder().setId(idproject).setName(name)
+    return ProjectGrpc.newBuilder().setId(idproject).setName(name)
         .setTeamId(teamassigned.getIdTeam())
-        .setStartDate(SpecificTimeConverter.convertToSpecificTime(startdate))
-        .setDeadline(SpecificTimeConverter.convertToSpecificTime(deadline))
+        .setStartDate(SpecificDateTimeConverter.convertToSpecificDateTime(startdate))
+        .setDeadline(SpecificDateTimeConverter.convertToSpecificDateTime(deadline))
         .addAllRequirements(requirements1)
         .build();
   }

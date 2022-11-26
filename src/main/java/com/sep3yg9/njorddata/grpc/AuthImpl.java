@@ -2,7 +2,7 @@ package com.sep3yg9.njorddata.grpc;
 
 import com.sep3yg9.njorddata.grpc.protobuf.auth.AuthServiceGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.auth.LoginRequest;
-import com.sep3yg9.njorddata.grpc.protobuf.user.User;
+import com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc;
 import com.sep3yg9.njorddata.models.MemberEntity;
 import com.sep3yg9.njorddata.services.MemberServiceImpl;
 import io.grpc.Status;
@@ -19,7 +19,7 @@ import org.lognet.springboot.grpc.GRpcService;
   }
 
   @Override public void login(LoginRequest request,
-      StreamObserver<User> responseObserver)
+      StreamObserver<MemberGrpc> responseObserver)
   {
     MemberEntity record = userService.getByEmail(request.getEmail());
 
@@ -27,7 +27,7 @@ import org.lognet.springboot.grpc.GRpcService;
     {
       if (record != null && record.getPassword().equals(request.getPassword()))
       {
-        User user = User.newBuilder().setId(record.getIdmember())
+        MemberGrpc user = MemberGrpc.newBuilder().setId(record.getIdmember())
             .setFullName(record.getFullName()).setEmail(record.getEmail())
             .setUserName(record.getUserName()).setPassword(record.getPassword())
             .build();

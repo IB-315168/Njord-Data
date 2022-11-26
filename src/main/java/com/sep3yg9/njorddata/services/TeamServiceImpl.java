@@ -1,7 +1,7 @@
 package com.sep3yg9.njorddata.services;
 
+import com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.team.UpdatingTeam;
-import com.sep3yg9.njorddata.grpc.protobuf.user.User;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.models.TeamMember;
 import com.sep3yg9.njorddata.models.MemberEntity;
@@ -91,9 +91,9 @@ import java.util.List;
     }
 
     ArrayList<MemberEntity> newMembers = new ArrayList<>();
-    for (User user : team.getMembersList())
+    for (MemberGrpc member : team.getMembersList())
     {
-      newMembers.add(memberRepository.findById(user.getId()));
+      newMembers.add(memberRepository.findById(member.getId()));
     }
 
     teamEntity.setMembers(new ArrayList<TeamMember>());

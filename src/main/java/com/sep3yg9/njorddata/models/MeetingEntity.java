@@ -1,7 +1,7 @@
 package com.sep3yg9.njorddata.models;
 
 
-import com.sep3yg9.njorddata.grpc.protobuf.meeting.Meeting;
+import com.sep3yg9.njorddata.grpc.protobuf.meeting.MeetingGrpc;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -84,15 +84,15 @@ public class MeetingEntity
         this.enddatetime = enddatetime;
     }
 
-    public Meeting convertToMeeting()
+    public MeetingGrpc convertToMeetingGrpc()
     {
-        return Meeting.newBuilder()
+        return MeetingGrpc.newBuilder()
                 .setId(idmeeting)
                 .setAssignedleader(assignedleader.getIdmember())
                 .setTitle(title)
                 .setDescription(description)
-                .setStartdate(SpecificTimeConverter.convertToSpecificTime(startdatetime))
-                .setEnddate(SpecificTimeConverter.convertToSpecificTime(enddatetime))
+                .setStartdate(SpecificDateTimeConverter.convertToSpecificDateTime(startdatetime))
+                .setEnddate(SpecificDateTimeConverter.convertToSpecificDateTime(enddatetime))
                 .build();
     }
 }

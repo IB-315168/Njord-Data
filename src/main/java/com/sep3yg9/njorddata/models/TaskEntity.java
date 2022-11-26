@@ -1,6 +1,6 @@
 package com.sep3yg9.njorddata.models;
 
-import com.sep3yg9.njorddata.grpc.protobuf.task.Task;
+import com.sep3yg9.njorddata.grpc.protobuf.task.TaskGrpc;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -100,16 +100,16 @@ public class TaskEntity {
         return status + "";
     }
 
-    public Task convertToTask()
+    public TaskGrpc convertToTaskGrpc()
     {
-        return Task.newBuilder()
+        return TaskGrpc.newBuilder()
                 .setId(idtask)
                 .setMemberassigned(memberassigned.getIdmember())
                 .setTitle(title)
                 .setDescription(description)
                 .setStatus(getStatusAsString())
-                .setTimeestimation(SpecificHourConverter.convertToSpecificHour(timeestimation))
-                .setCreationdate(SpecificTimeConverter.convertToSpecificTime(creationdate))
+                .setTimeestimation(SpecificDateTimeConverter.convertToSpecificTime(timeestimation))
+                .setCreationdate(SpecificDateTimeConverter.convertToSpecificDateTime(creationdate))
                 .build();
     }
 }

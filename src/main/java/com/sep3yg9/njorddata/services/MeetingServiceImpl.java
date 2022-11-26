@@ -2,68 +2,74 @@ package com.sep3yg9.njorddata.services;
 
 import com.sep3yg9.njorddata.grpc.protobuf.meeting.UpdatingMeeting;
 import com.sep3yg9.njorddata.models.MeetingEntity;
-import com.sep3yg9.njorddata.models.SpecificTimeConverter;
+import com.sep3yg9.njorddata.models.SpecificDateTimeConverter;
 import com.sep3yg9.njorddata.repos.MeetingRepository;
 import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.MeetingService;
 import org.springframework.stereotype.Service;
 
-@Service public class MeetingServiceImpl implements MeetingService {
+@Service public class MeetingServiceImpl implements MeetingService
+{
 
-    private final MemberRepository memberRepository;
-    private final MeetingRepository meetingRepository;
-    private SpecificTimeConverter specificTimeConverter;
+  private final MemberRepository memberRepository;
+  private final MeetingRepository meetingRepository;
 
-    public MeetingServiceImpl(MemberRepository memberRepository, MeetingRepository meetingRepository) {
-        this.memberRepository = memberRepository;
-        this.meetingRepository = meetingRepository;
-        specificTimeConverter=new SpecificTimeConverter();
+  public MeetingServiceImpl(MemberRepository memberRepository,
+      MeetingRepository meetingRepository)
+  {
+    this.memberRepository = memberRepository;
+    this.meetingRepository = meetingRepository;
+  }
+
+  @Override public MeetingEntity addMeeting(MeetingEntity meetingEntityRecord)
+  {
+    return meetingRepository.save(meetingEntityRecord);
+  }
+
+  @Override public void updateMeeting(UpdatingMeeting meeting)
+  {
+    MeetingEntity meetingEntity = getById(meeting.getId());
+
+    if (!meetingEntity.getTitle().isEmpty() && !meeting.getTitle()
+        .equals(meetingEntity.getTitle()))
+    {
+      meetingEntity.setTitle(meeting.getTitle());
+    }
+    if (!meetingEntity.getDescription().isEmpty() && !meeting.getDescription()
+        .equals(meetingEntity.getDescription()))
+    {
+      meetingEntity.setDescription(meeting.getDescription());
+    }
+    //TODO: Re-do
+    if (!meeting.getStartdate().equals(meetingEntity.getStartdatetime()))
+    {
+      meetingEntity.setStartdatetime(
+          SpecificDateTimeConverter.convertToLocalDateTime(meeting.getStartdate()));
+    }
+    if (!meeting.getEnddate().equals(meetingEntity.getEnddatetime()))
+    {
+      meetingEntity.setEnddatetime(
+          SpecificDateTimeConverter.convertToLocalDateTime(meeting.getEnddate()));
     }
 
-    @Override
-    public MeetingEntity addMeeting(MeetingEntity meetingEntityRecord) {
-        return meetingRepository.save(meetingEntityRecord);
+    meetingRepository.save(meetingEntity);
+  }
+
+  @Override public void removeMeeting(int id)
+  {
+    getById(id);
+    meetingRepository.deleteById(id);
+  }
+
+  @Override public MeetingEntity getById(int id)
+  {
+    MeetingEntity meetingEntity = meetingRepository.findByIdmeeting(id);
+
+    if (meetingEntity == null)
+    {
+      throw new IllegalArgumentException("Meeting not found!");
     }
 
-    @Override
-    public void updateMeeting(UpdatingMeeting meeting) {
-        MeetingEntity meetingEntity=getById(meeting.getId());
-
-        if(!meetingEntity.getTitle().isEmpty() && !meeting.getTitle().equals(meetingEntity.getTitle()))
-        {
-            meetingEntity.setTitle(meeting.getTitle());
-        }
-        if(!meetingEntity.getDescription().isEmpty() && !meeting.getDescription().equals(meetingEntity.getDescription()))
-        {
-            meetingEntity.setDescription(meeting.getDescription());
-        }
-        if(!meeting.getStartdate().equals(meetingEntity.getStartdatetime()))
-        {
-            meetingEntity.setStartdatetime(specificTimeConverter.convertToLocalDateTime(meeting.getStartdate()));
-        }
-        if(!meeting.getEnddate().equals(meetingEntity.getEnddatetime()))
-        {
-            meetingEntity.setEnddatetime(specificTimeConverter.convertToLocalDateTime(meeting.getEnddate()));
-        }
-
-        meetingRepository.save(meetingEntity);
-    }
-
-    @Override
-    public void removeMeeting(int id) {
-        getById(id);
-        meetingRepository.deleteById(id);
-    }
-
-    @Override
-    public MeetingEntity getById(int id) {
-        MeetingEntity meetingEntity=meetingRepository.findByIdmeeting(id);
-
-        if(meetingEntity==null)
-        {
-            throw new IllegalArgumentException("Meeting not found!");
-        }
-
-        return meetingEntity;
-    }
+    return meetingEntity;
+  }
 }

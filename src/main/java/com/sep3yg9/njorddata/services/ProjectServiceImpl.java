@@ -49,9 +49,9 @@ import java.util.LinkedHashSet;
       }
 
       if (!projectEntity.getDeadline().equals(
-          SpecificTimeConverter.convertToLocalDateTime(project.getDeadline())))
+          SpecificDateTimeConverter.convertToLocalDateTime(project.getDeadline())))
       {
-        projectEntity.setDeadline(SpecificTimeConverter.convertToLocalDateTime(
+        projectEntity.setDeadline(SpecificDateTimeConverter.convertToLocalDateTime(
             project.getDeadline()));
       }
 

@@ -4,7 +4,7 @@ import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.project.*;
 import com.sep3yg9.njorddata.models.ProjectEntity;
-import com.sep3yg9.njorddata.models.SpecificTimeConverter;
+import com.sep3yg9.njorddata.models.SpecificDateTimeConverter;
 import com.sep3yg9.njorddata.models.TeamEntity;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import com.sep3yg9.njorddata.services.interfaces.TeamService;
@@ -12,9 +12,7 @@ import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 @GRpcService public class ProjectImpl
@@ -31,7 +29,7 @@ import java.util.ArrayList;
   }
 
   @Override public void createProject(CreatingProject project,
-      StreamObserver<Project> responseObserver)
+      StreamObserver<ProjectGrpc> responseObserver)
   {
     try
     {
@@ -39,9 +37,9 @@ import java.util.ArrayList;
 
       ProjectEntity projectCreated = projectService.addProject(
           new ProjectEntity(teamEntity, project.getName(), LocalDateTime.now(),
-              SpecificTimeConverter.convertToLocalDateTime(project.getDeadline())));
+              SpecificDateTimeConverter.convertToLocalDateTime(project.getDeadline())));
 
-      Project project1 = projectCreated.convertToProject();
+      ProjectGrpc project1 = projectCreated.convertToProjectGrpc();
 
       responseObserver.onNext(project1);
       responseObserver.onCompleted();
@@ -62,14 +60,14 @@ import java.util.ArrayList;
   }
 
   @Override public void updateProject(UpdatingProject project,
-      StreamObserver<Project> responseObserver)
+      StreamObserver<ProjectGrpc> responseObserver)
   {
     try
     {
       projectService.updateProject(project);
 
-      Project project1 = projectService.getById(project.getId())
-          .convertToProject();
+      ProjectGrpc project1 = projectService.getById(project.getId())
+          .convertToProjectGrpc();
       responseObserver.onNext(project1);
       responseObserver.onCompleted();
     }
@@ -115,13 +113,13 @@ import java.util.ArrayList;
   }
 
   @Override public void getById(Int32Value id,
-      StreamObserver<Project> responseObserver)
+      StreamObserver<ProjectGrpc> responseObserver)
   {
     try
     {
       ProjectEntity project = projectService.getById(id.getValue());
 
-      Project project1 = project.convertToProject();
+      ProjectGrpc project1 = project.convertToProjectGrpc();
 
       responseObserver.onNext(project1);
       responseObserver.onCompleted();

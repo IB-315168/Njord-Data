@@ -1,7 +1,7 @@
 package com.sep3yg9.njorddata.services;
 
-import com.sep3yg9.njorddata.grpc.protobuf.user.User;
-import com.sep3yg9.njorddata.grpc.protobuf.user.UpdatingUser;
+import com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc;
+import com.sep3yg9.njorddata.grpc.protobuf.member.UpdatingMember;
 import com.sep3yg9.njorddata.models.MemberEntity;
 import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.MemberService;
@@ -19,15 +19,15 @@ import java.util.List;
     this.memberRepository = memberRepository;
   }
 
-  public List<User> getAllUsers()
+  @Override public List<MemberGrpc> getAllMembers()
   {
-    List<User> userEntityRecords = new ArrayList<>();
+    List<MemberGrpc> userEntityRecords = new ArrayList<>();
     memberRepository.findAll().forEach(
-        userEntity -> userEntityRecords.add(userEntity.convertToUser()));
+        memberEntity -> userEntityRecords.add(memberEntity.convertToMemberGrpc()));
     return userEntityRecords;
   }
 
-  public void addUser(MemberEntity memberEntityRecord)
+  @Override public void addMember(MemberEntity memberEntityRecord)
   {
     if (memberRepository.findByEmail(memberEntityRecord.getEmail()) != null)
     {
@@ -42,31 +42,31 @@ import java.util.List;
     memberRepository.save(memberEntityRecord);
   }
 
-  public void updateUser(UpdatingUser user)
+  @Override public void updateMember(UpdatingMember member)
   {
-    MemberEntity memberEntity = getById(user.getId());
+    MemberEntity memberEntity = getById(member.getId());
 
-    if (!user.getEmail().isEmpty() && !user.getEmail()
+    if (!member.getEmail().isEmpty() && !member.getEmail()
         .equals(memberEntity.getEmail()))
     {
-      memberEntity.setEmail(user.getEmail());
+      memberEntity.setEmail(member.getEmail());
     }
 
-    if (!user.getUserName().isEmpty() && !user.getUserName()
+    if (!member.getUserName().isEmpty() && !member.getUserName()
         .equals(memberEntity.getUserName()))
     {
-      memberEntity.setUserName(user.getUserName());
+      memberEntity.setUserName(member.getUserName());
     }
-    if (!user.getPassword().isEmpty() && !user.getPassword()
+    if (!member.getPassword().isEmpty() && !member.getPassword()
         .equals(memberEntity.getPassword()))
     {
-      memberEntity.setPassword(user.getPassword());
+      memberEntity.setPassword(member.getPassword());
     }
 
     memberRepository.save(memberEntity);
   }
 
-  public void deleteUser(int id)
+  @Override public void deleteMember(int id)
   {
     getById(id);
     memberRepository.deleteById(id);
@@ -78,7 +78,7 @@ import java.util.List;
 
     if (memberEntity == null)
     {
-      throw new IllegalArgumentException("User not found");
+      throw new IllegalArgumentException("Member not found");
     }
 
     return memberEntity;
@@ -89,7 +89,7 @@ import java.util.List;
     MemberEntity memberEntity = memberRepository.findByUsername(username);
 
     if(memberEntity == null) {
-      throw new IllegalArgumentException("User not found");
+      throw new IllegalArgumentException("Member not found");
     }
 
     return memberRepository.findByUsername(username);
@@ -100,7 +100,7 @@ import java.util.List;
     MemberEntity memberEntity = memberRepository.findByEmail(email);
 
     if(memberEntity == null) {
-      throw new IllegalArgumentException("User not found");
+      throw new IllegalArgumentException("Member not found");
     }
 
     return memberRepository.findByEmail(email);

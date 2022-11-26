@@ -1,7 +1,7 @@
 package com.sep3yg9.njorddata.models;
 
-import com.sep3yg9.njorddata.grpc.protobuf.user.BasicTeam;
-import com.sep3yg9.njorddata.grpc.protobuf.user.User;
+import com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc;
+import com.sep3yg9.njorddata.grpc.protobuf.member.BasicTeam;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -104,18 +104,18 @@ public class MemberEntity
     return "User [fullName=" + fullname + ", email=" + email + "]";
   }
 
-  public User convertToUser() {
-    List<BasicTeam> user = new ArrayList<>();
+  public MemberGrpc convertToMemberGrpc() {
+    List<BasicTeam> teams1 = new ArrayList<>();
     for(TeamMember teamMember : teams) {
-      user.add(teamMember.getTeamEntity().convertToBasicTeam());
+      teams1.add(teamMember.getTeamEntity().convertToBasicTeam());
     }
-    return User.newBuilder()
+    return MemberGrpc.newBuilder()
         .setId(idmember)
         .setFullName(fullname)
         .setEmail(email)
         .setUserName(username)
         .setPassword(password)
-        .addAllUserTeams(user)
+        .addAllMemberTeams(teams1)
         .build();
   }
 
