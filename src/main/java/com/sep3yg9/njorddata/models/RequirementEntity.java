@@ -20,10 +20,9 @@ public class RequirementEntity {
     {
     }
 
-    public RequirementEntity(int idrequirement, ProjectEntity idproject,
+    public RequirementEntity(ProjectEntity idproject,
         String requirement)
     {
-        this.idrequirement = idrequirement;
         this.idproject = idproject;
         this.requirement = requirement;
     }

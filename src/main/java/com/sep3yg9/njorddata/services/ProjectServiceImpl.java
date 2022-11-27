@@ -4,6 +4,7 @@ import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.grpc.protobuf.project.UpdatingProject;
 import com.sep3yg9.njorddata.models.*;
 import com.sep3yg9.njorddata.repos.ProjectRepository;
+import com.sep3yg9.njorddata.repos.RequirementEntityRepository;
 import com.sep3yg9.njorddata.repos.TeamRepository;
 import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
@@ -17,13 +18,16 @@ import java.util.LinkedHashSet;
   private final ProjectRepository projectRepository;
   private final TeamRepository teamRepository;
   private final MemberRepository memberRepository;
+  private final RequirementEntityRepository requirementRepository;
 
   public ProjectServiceImpl(ProjectRepository projectRepository,
-      TeamRepository teamRepository, MemberRepository memberRepository)
+      TeamRepository teamRepository, MemberRepository memberRepository,
+      RequirementEntityRepository requirementRepository)
   {
     this.projectRepository = projectRepository;
     this.teamRepository = teamRepository;
     this.memberRepository = memberRepository;
+    this.requirementRepository = requirementRepository;
   }
 
   @Override public ProjectEntity addProject(ProjectEntity projectEntityRecord)
@@ -61,9 +65,10 @@ import java.util.LinkedHashSet;
       //            Set<RequirementEntity> requirementSet = new LinkedHashSet<>();
       for (Requirement requirement : project.getRequirementsList())
       {
-        projectEntity.addRequirement(
-            new RequirementEntity(requirement.getId(), projectEntity,
-                requirement.getContent()));
+        RequirementEntity requirement1 = new RequirementEntity(projectEntity,
+            requirement.getContent());
+        projectEntity.addRequirement(requirement1);
+        requirementRepository.save(requirement1);
       }
 
       projectRepository.save(projectEntity);
