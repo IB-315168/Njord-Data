@@ -27,13 +27,16 @@ import org.lognet.springboot.grpc.GRpcService;
     @Override public void createTask(CreatingTask task, StreamObserver<TaskGrpc> responseObserver){
         try
         {
-            MemberEntity memberEntity = memberService.getById(task.getMemberassigned());
+            TaskEntity taskToCreate = new TaskEntity(task.getTitle(), task.getDescription(),
+                    task.getStatus().charAt(0), SpecificDateTimeConverter.convertToLocalTime(task.getTimeestimation()),
+                    SpecificDateTimeConverter.convertToLocalDateTime(task.getCreationdate()));
 
-            TaskEntity taskCreated = taskService.addTask(
-                    new TaskEntity(memberEntity, task.getTitle(), task.getDescription(),
-                            task.getStatus().charAt(0), SpecificDateTimeConverter.convertToLocalTime(task.getTimeestimation()),
-                            SpecificDateTimeConverter.convertToLocalDateTime(task.getCreationdate()))
-            );
+            if(task.getMemberassigned() != 0) {
+                MemberEntity memberEntity = memberService.getById(task.getMemberassigned());
+                taskToCreate.setMemberassigned(memberEntity);
+            }
+
+            TaskEntity taskCreated = taskService.addTask(taskToCreate);
 
             TaskGrpc task1 = taskCreated.convertToTaskGrpc();
             responseObserver.onNext(task1);

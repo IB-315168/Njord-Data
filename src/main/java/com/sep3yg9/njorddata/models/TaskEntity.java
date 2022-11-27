@@ -31,8 +31,7 @@ public class TaskEntity {
 
     };
 
-    public TaskEntity(MemberEntity memberassigned, String title, String description, char status, LocalTime timeestimation, LocalDateTime creationdate) {
-        this.memberassigned = memberassigned;
+    public TaskEntity(String title, String description, char status, LocalTime timeestimation, LocalDateTime creationdate) {
         this.title = title;
         this.description = description;
         this.status = status;
