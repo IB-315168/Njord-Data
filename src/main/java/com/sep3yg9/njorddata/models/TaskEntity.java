@@ -18,13 +18,25 @@ public class TaskEntity {
     @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.NO_ACTION) @JoinColumn(name="memberassigned")
     private MemberEntity memberassigned;
 
-    //Need calendar entity here when its later added
+
 
     private String title;
     private String description;
     private char status;
     private LocalTime timeestimation;
     private LocalDateTime creationdate;
+
+    @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "assignedproject") private ProjectEntity assignedproject;
+
+    public ProjectEntity getAssignedproject()
+    {
+        return assignedproject;
+    }
+
+    public void setAssignedproject(ProjectEntity assignedproject)
+    {
+        this.assignedproject = assignedproject;
+    }
 
     public TaskEntity()
     {
