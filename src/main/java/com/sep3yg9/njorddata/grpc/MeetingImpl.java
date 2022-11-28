@@ -150,19 +150,19 @@ public class MeetingImpl extends MeetingServiceGrpc.MeetingServiceImplBase
   }
 
   @Override public void getByProjectId(Int32Value request,
-      StreamObserver<MeetingList> responseObserver)
+      StreamObserver<GrpcMeetingList> responseObserver)
   {
     try
     {
       projectService.getById(request.getValue());
 
-      List<BasicMeeting> meetings = new ArrayList<>();
+      List<MeetingGrpc> meetings = new ArrayList<>();
 
       for(MeetingEntity meeting : meetingService.getByProjectId(request.getValue())) {
-        meetings.add(meeting.convertToBasicMeeting());
+        meetings.add(meeting.convertToMeetingGrpc());
       }
 
-      MeetingList list = MeetingList.newBuilder().addAllMeeting(meetings).build();
+      GrpcMeetingList list = GrpcMeetingList.newBuilder().addAllMeetingsList(meetings).build();
 
       responseObserver.onNext(list);
       responseObserver.onCompleted();

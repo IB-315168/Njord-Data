@@ -40,8 +40,8 @@ message BasicMeeting {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 4;
 }
 
-message MeetingList {
-  repeated BasicMeeting meeting = 1;
+message GrpcMeetingList {
+  repeated MeetingGrpc meetingsList = 1;
 }
 
 service MeetingService{
@@ -49,5 +49,5 @@ service MeetingService{
   rpc UpdateMeeting(UpdatingMeeting) returns (MeetingGrpc);
   rpc DeleteMeeting(google.protobuf.Int32Value) returns (google.protobuf.Empty);
   rpc GetById(google.protobuf.Int32Value) returns (MeetingGrpc);
-  rpc GetByProjectId(google.protobuf.Int32Value) returns (MeetingList);
+  rpc GetByProjectId(google.protobuf.Int32Value) returns (GrpcMeetingList);
 }
