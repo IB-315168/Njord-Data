@@ -137,12 +137,11 @@ import java.util.List;
         try
         {
             taskService.getByProjectId(request.getValue());
-            List<TaskEntity> tasks = new ArrayList<>();
+            List<TaskGrpc> tasks = new ArrayList<>();
             for (TaskEntity task : taskService.getByProjectId(request.getValue())){
-                tasks.add(task);
+                tasks.add(task.convertToTaskGrpc());
             }
-            //how do I add here?? using which addAll() method
-            GrpcTaskList list = GrpcTaskList.newBuilder().build();
+            GrpcTaskList list = GrpcTaskList.newBuilder().addAllTasksList(tasks).build();
 
             responseObserver.onNext(list);
             responseObserver.onCompleted();
