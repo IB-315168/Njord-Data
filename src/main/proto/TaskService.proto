@@ -45,7 +45,7 @@ message BasicTask {
 }
 
 message BasicTaskList {
-  repeated BasicTask meetings = 1;
+  repeated BasicTask tasks = 1;
 }
 
 service TaskService {
