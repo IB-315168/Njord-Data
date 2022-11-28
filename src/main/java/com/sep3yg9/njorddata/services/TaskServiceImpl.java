@@ -5,7 +5,10 @@ import com.sep3yg9.njorddata.models.TaskEntity;
 import com.sep3yg9.njorddata.repos.TaskRepository;
 import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.TaskService;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service public class TaskServiceImpl implements TaskService {
 
@@ -54,5 +57,11 @@ import org.springframework.stereotype.Service;
             throw new IllegalArgumentException("Task not found");
         }
         return taskRepository.findByIdtask(id);
+    }
+
+    @Override public List<TaskEntity> getByProjectId(int id){
+        List<TaskEntity> taskEntities = taskRepository.findByAssignedproject_Idproject(id);
+
+        return taskEntities;
     }
 }

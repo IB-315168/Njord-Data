@@ -1,5 +1,6 @@
 package com.sep3yg9.njorddata.models;
 
+import com.sep3yg9.njorddata.grpc.protobuf.task.BasicTask;
 import com.sep3yg9.njorddata.grpc.protobuf.task.TaskGrpc;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -43,7 +44,8 @@ public class TaskEntity {
 
     };
 
-    public TaskEntity(String title, String description, char status, LocalTime timeestimation, LocalDateTime creationdate) {
+    public TaskEntity(ProjectEntity assignedproject, String title, String description, char status, LocalTime timeestimation, LocalDateTime creationdate) {
+        this.assignedproject = assignedproject;
         this.title = title;
         this.description = description;
         this.status = status;
@@ -111,6 +113,12 @@ public class TaskEntity {
         return status + "";
     }
 
+    public BasicTask convertToBasicTask(){
+        return BasicTask.newBuilder()
+                .setId(idtask)
+                .setTitle(title)
+                .build();
+    }
     public TaskGrpc convertToTaskGrpc()
     {
         if(memberassigned == null) {

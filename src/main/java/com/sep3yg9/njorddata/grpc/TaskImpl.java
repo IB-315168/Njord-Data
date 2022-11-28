@@ -2,32 +2,37 @@ package com.sep3yg9.njorddata.grpc;
 
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
-import com.sep3yg9.njorddata.grpc.protobuf.task.CreatingTask;
-import com.sep3yg9.njorddata.grpc.protobuf.task.TaskGrpc;
-import com.sep3yg9.njorddata.grpc.protobuf.task.TaskServiceGrpc;
-import com.sep3yg9.njorddata.grpc.protobuf.task.UpdatingTask;
+import com.sep3yg9.njorddata.grpc.protobuf.task.*;
 import com.sep3yg9.njorddata.models.*;
+import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import com.sep3yg9.njorddata.services.interfaces.TaskService;
 import com.sep3yg9.njorddata.services.interfaces.MemberService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @GRpcService public class TaskImpl extends TaskServiceGrpc.TaskServiceImplBase {
 
     private final TaskService taskService;
     private final MemberService memberService;
 
-    public TaskImpl(TaskService taskService, MemberService memberService) {
+    private final ProjectService projectService;
+
+    public TaskImpl(TaskService taskService, MemberService memberService, ProjectService projectService) {
         this.taskService = taskService;
         this.memberService = memberService;
+        this.projectService = projectService;
     }
 
     //needs fix
     @Override public void createTask(CreatingTask task, StreamObserver<TaskGrpc> responseObserver){
         try
         {
-            TaskEntity taskToCreate = new TaskEntity(task.getTitle(), task.getDescription(),
+            ProjectEntity project = projectService.getById(task.getProjectAssigned());
+            TaskEntity taskToCreate = new TaskEntity(project, task.getTitle(), task.getDescription(),
                     task.getStatus().charAt(0), SpecificDateTimeConverter.convertToLocalTime(task.getTimeestimation()),
                     SpecificDateTimeConverter.convertToLocalDateTime(task.getCreationdate()));
 
@@ -128,4 +133,32 @@ import org.lognet.springboot.grpc.GRpcService;
         }
     }
 
+    @Override public void getByProjectId(Int32Value request, StreamObserver<BasicTaskList> responseObserver)
+    {
+        try
+        {
+            taskService.getByProjectId(request.getValue());
+            List<BasicTask> tasks = new ArrayList<>();
+            for(TaskEntity task : taskService.getByProjectId(request.getValue())){
+                tasks.add(task.convertToBasicTask());
+            }
+            BasicTaskList list = BasicTaskList.newBuilder().addAllMeetings(tasks).build();
+
+            responseObserver.onNext(list);
+            responseObserver.onCompleted();
+        }
+        catch (Exception e)
+        {
+            Status status;
+            if (e instanceof IllegalArgumentException)
+            {
+                status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+            }
+            else
+            {
+                status = Status.INTERNAL.withDescription(e.getMessage());
+            }
+            responseObserver.onError(status.asRuntimeException());
+        }
+    }
 }
