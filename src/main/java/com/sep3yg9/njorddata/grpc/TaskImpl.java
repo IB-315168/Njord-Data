@@ -133,6 +133,35 @@ import java.util.List;
         }
     }
 
+    @Override public void getByProjectId(Int32Value request, StreamObserver<GrpcTaskList> responseObserver){
+        try
+        {
+            taskService.getByProjectId(request.getValue());
+            List<TaskEntity> tasks = new ArrayList<>();
+            for (TaskEntity task : taskService.getByProjectId(request.getValue())){
+                tasks.add(task);
+            }
+            //how do I add here?? using which addAll() method
+            GrpcTaskList list = GrpcTaskList.newBuilder().build();
+
+            responseObserver.onNext(list);
+            responseObserver.onCompleted();
+
+        }
+        catch (Exception e)
+        {
+            Status status;
+            if (e instanceof IllegalArgumentException)
+            {
+                status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+            }
+            else
+            {
+                status = Status.INTERNAL.withDescription(e.getMessage());
+            }
+            responseObserver.onError(status.asRuntimeException());
+        }
+    }
 //    @Override public void getByProjectId(Int32Value request, StreamObserver<BasicTaskList> responseObserver)
 //    {
 //        try
