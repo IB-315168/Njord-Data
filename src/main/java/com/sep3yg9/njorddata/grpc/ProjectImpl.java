@@ -139,7 +139,7 @@ import java.util.ArrayList;
     }
   }
 
-  @Override public void getByUserId(Int32Value id,
+  @Override public void getByMemberId(Int32Value id,
       StreamObserver<BasicProjectList> responseObserver)
   {
     try

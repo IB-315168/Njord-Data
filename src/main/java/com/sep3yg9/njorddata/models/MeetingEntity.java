@@ -88,7 +88,7 @@ public class MeetingEntity
     {
         return MeetingGrpc.newBuilder()
                 .setId(idmeeting)
-                .setAssignedleader(assignedleader.getIdmember())
+                .setAssignedleader(assignedleader.convertToMemberGrpc())
                 .setTitle(title)
                 .setDescription(description)
                 .setStartdate(SpecificDateTimeConverter.convertToSpecificDateTime(startdatetime))

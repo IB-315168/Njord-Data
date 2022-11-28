@@ -1,6 +1,7 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
+import "MemberService.proto";
 import "SpecificDateTime.proto";
 option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.Meeting";
@@ -8,10 +9,11 @@ package com.sep3yg9.njorddata.grpc.protobuf.meeting;
 
 message CreatingMeeting {
   int32 assignedleader = 1;
-  string title = 2;
-  string description = 3;
-  com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime startdate = 4;
-  com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 5;
+  int32 projectAssigned = 2;
+  string title = 3;
+  string description = 4;
+  com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime startdate = 5;
+  com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 6;
 }
 
 message UpdatingMeeting {
@@ -24,7 +26,7 @@ message UpdatingMeeting {
 
 message MeetingGrpc {
   int32 id = 1;
-  int32 assignedleader = 2;
+  com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc assignedleader = 2;
   string title = 3;
   string description = 4;
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime startdate = 5;
@@ -32,14 +34,14 @@ message MeetingGrpc {
 }
 
 message BasicMeeting {
-  int32 id=1;
-  string title=2;
+  int32 id = 1;
+  string title = 2;
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime startdate = 3;
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 4;
 }
 
 message MeetingList {
-  repeated BasicMeeting meeting=1;
+  repeated BasicMeeting meeting = 1;
 }
 
 service MeetingService{

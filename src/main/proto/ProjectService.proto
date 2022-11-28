@@ -1,6 +1,7 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
+import "TeamService.proto";
 import "SpecificDateTime.proto";
 option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.Project";
@@ -28,7 +29,7 @@ message Requirement {
 message ProjectGrpc {
   int32 id = 1;
   string name = 2;
-  int32 teamId = 3;
+  com.sep3yg9.njorddata.grpc.protobuf.team.TeamGrpc teamId = 3;
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime startDate = 4;
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime deadline = 5;
   repeated Requirement requirements = 6;
@@ -49,6 +50,6 @@ service ProjectService {
   rpc UpdateProject(UpdatingProject) returns (ProjectGrpc);
   rpc DeleteProject(google.protobuf.Int32Value) returns (google.protobuf.Empty);
   rpc GetById(google.protobuf.Int32Value) returns (ProjectGrpc);
-  rpc GetByUserId(google.protobuf.Int32Value) returns (BasicProjectList);
+  rpc GetByMemberId(google.protobuf.Int32Value) returns (BasicProjectList);
 }
 

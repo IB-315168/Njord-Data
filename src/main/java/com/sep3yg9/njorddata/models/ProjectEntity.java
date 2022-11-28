@@ -123,7 +123,7 @@ import java.util.*;
     }
 
     return ProjectGrpc.newBuilder().setId(idproject).setName(name)
-        .setTeamId(teamassigned.getIdTeam())
+        .setTeamId(teamassigned.convertToTeamGrpc())
         .setStartDate(SpecificDateTimeConverter.convertToSpecificDateTime(startdate))
         .setDeadline(SpecificDateTimeConverter.convertToSpecificDateTime(deadline))
         .addAllRequirements(requirements1)

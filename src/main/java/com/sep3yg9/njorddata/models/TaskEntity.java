@@ -101,9 +101,19 @@ public class TaskEntity {
 
     public TaskGrpc convertToTaskGrpc()
     {
+        if(memberassigned == null) {
+            return TaskGrpc.newBuilder()
+                .setId(idtask)
+                .setTitle(title)
+                .setDescription(description)
+                .setStatus(getStatusAsString())
+                .setTimeestimation(SpecificDateTimeConverter.convertToSpecificTime(timeestimation))
+                .setCreationdate(SpecificDateTimeConverter.convertToSpecificDateTime(creationdate))
+                .build();
+        }
         return TaskGrpc.newBuilder()
                 .setId(idtask)
-                .setMemberassigned(memberassigned.getIdmember())
+                .setMemberassigned(memberassigned.convertToMemberGrpc())
                 .setTitle(title)
                 .setDescription(description)
                 .setStatus(getStatusAsString())
