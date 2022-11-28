@@ -2,27 +2,32 @@ package com.sep3yg9.njorddata.grpc;
 
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
-import com.sep3yg9.njorddata.grpc.protobuf.meeting.CreatingMeeting;
-import com.sep3yg9.njorddata.grpc.protobuf.meeting.MeetingGrpc;
-import com.sep3yg9.njorddata.grpc.protobuf.meeting.MeetingServiceGrpc;
-import com.sep3yg9.njorddata.grpc.protobuf.meeting.UpdatingMeeting;
+import com.sep3yg9.njorddata.grpc.protobuf.meeting.*;
 import com.sep3yg9.njorddata.models.MeetingEntity;
 import com.sep3yg9.njorddata.models.MemberEntity;
+import com.sep3yg9.njorddata.models.ProjectEntity;
 import com.sep3yg9.njorddata.models.SpecificDateTimeConverter;
 import com.sep3yg9.njorddata.services.interfaces.MeetingService;
 import com.sep3yg9.njorddata.services.interfaces.MemberService;
+import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MeetingImpl extends MeetingServiceGrpc.MeetingServiceImplBase
 {
   private final MeetingService meetingService;
   private final MemberService memberService;
+  private final ProjectService projectService;
 
-  public MeetingImpl(MeetingService meetingService, MemberService memberService)
+  public MeetingImpl(MeetingService meetingService, MemberService memberService,
+      ProjectService projectService)
   {
     this.meetingService = meetingService;
     this.memberService = memberService;
+    this.projectService = projectService;
   }
 
   @Override public void createMeeting(CreatingMeeting meeting,
@@ -33,8 +38,11 @@ public class MeetingImpl extends MeetingServiceGrpc.MeetingServiceImplBase
       MemberEntity memberEntity = memberService.getById(
           meeting.getAssignedleader());
 
+      ProjectEntity project = projectService.getById(
+          meeting.getProjectAssigned());
+
       MeetingEntity meetingEntity = meetingService.addMeeting(
-          new MeetingEntity(memberEntity, meeting.getTitle(),
+          new MeetingEntity(project, memberEntity, meeting.getTitle(),
               meeting.getDescription(),
               SpecificDateTimeConverter.convertToLocalDateTime(
                   meeting.getStartdate()),
@@ -122,6 +130,37 @@ public class MeetingImpl extends MeetingServiceGrpc.MeetingServiceImplBase
       MeetingGrpc meeting2 = meeting.convertToMeetingGrpc();
 
       responseObserver.onNext(meeting2);
+      responseObserver.onCompleted();
+    }
+    catch (Exception e)
+    {
+      Status status;
+      if (e instanceof IllegalArgumentException)
+      {
+        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+      }
+      else
+      {
+        status = Status.INTERNAL.withDescription(e.getMessage());
+      }
+      responseObserver.onError(status.asRuntimeException());
+    }
+  }
+
+  @Override public void getByProjectId(Int32Value request,
+      StreamObserver<MeetingList> responseObserver)
+  {
+    try
+    {
+      List<BasicMeeting> meetings = new ArrayList<>();
+
+      for(MeetingEntity meeting : meetingService.getByProjectId(request.getValue())) {
+        meetings.add(meeting.convertToBasicMeeting());
+      }
+
+      MeetingList list = MeetingList.newBuilder().addAllMeeting(meetings).build();
+
+      responseObserver.onNext(list);
       responseObserver.onCompleted();
     }
     catch (Exception e)

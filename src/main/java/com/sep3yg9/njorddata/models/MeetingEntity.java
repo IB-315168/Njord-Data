@@ -1,6 +1,7 @@
 package com.sep3yg9.njorddata.models;
 
 
+import com.sep3yg9.njorddata.grpc.protobuf.meeting.BasicMeeting;
 import com.sep3yg9.njorddata.grpc.protobuf.meeting.MeetingGrpc;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -18,17 +19,32 @@ public class MeetingEntity
 
     @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "assignedleader") private MemberEntity assignedleader;
 
+
+
     private String title;
     private String description;
     private LocalDateTime startdatetime;
     private LocalDateTime enddatetime;
+
+    @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "assignedproject") private ProjectEntity assignedproject;
+
+    public ProjectEntity getAssignedproject()
+    {
+        return assignedproject;
+    }
+
+    public void setAssignedproject(ProjectEntity assignedproject)
+    {
+        this.assignedproject = assignedproject;
+    }
 
     public MeetingEntity()
     {
 
     }
 
-    public MeetingEntity(MemberEntity assignedleader, String title, String description, LocalDateTime startdatetime, LocalDateTime enddatetime) {
+    public MeetingEntity(ProjectEntity project, MemberEntity assignedleader, String title, String description, LocalDateTime startdatetime, LocalDateTime enddatetime) {
+        this.assignedproject = project;
         this.assignedleader = assignedleader;
         this.title = title;
         this.description = description;
@@ -82,6 +98,15 @@ public class MeetingEntity
 
     public void setEnddatetime(LocalDateTime enddatetime) {
         this.enddatetime = enddatetime;
+    }
+
+    public BasicMeeting convertToBasicMeeting() {
+        return BasicMeeting.newBuilder()
+            .setId(idmeeting)
+            .setTitle(title)
+            .setStartdate(SpecificDateTimeConverter.convertToSpecificDateTime(startdatetime))
+            .setEnddate(SpecificDateTimeConverter.convertToSpecificDateTime(enddatetime))
+            .build();
     }
 
     public MeetingGrpc convertToMeetingGrpc()

@@ -8,6 +8,8 @@ import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.MeetingService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service public class MeetingServiceImpl implements MeetingService
 {
 
@@ -71,5 +73,13 @@ import org.springframework.stereotype.Service;
     }
 
     return meetingEntity;
+  }
+
+  @Override public List<MeetingEntity> getByProjectId(int id) {
+    getById(id);
+
+    List<MeetingEntity> meetingEntities = meetingRepository.findByAssignedproject_Idproject(id);
+
+    return meetingEntities;
   }
 }
