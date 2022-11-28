@@ -142,7 +142,7 @@ import java.util.List;
             for(TaskEntity task : taskService.getByProjectId(request.getValue())){
                 tasks.add(task.convertToBasicTask());
             }
-            BasicTaskList list = BasicTaskList.newBuilder().addAllMeetings(tasks).build();
+            BasicTaskList list = BasicTaskList.newBuilder().addAllTasks(tasks).build();
 
             responseObserver.onNext(list);
             responseObserver.onCompleted();
