@@ -12,10 +12,12 @@ import com.sep3yg9.njorddata.services.interfaces.MemberService;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+import org.lognet.springboot.grpc.GRpcService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@GRpcService
 public class MeetingImpl extends MeetingServiceGrpc.MeetingServiceImplBase
 {
   private final MeetingService meetingService;
@@ -152,6 +154,8 @@ public class MeetingImpl extends MeetingServiceGrpc.MeetingServiceImplBase
   {
     try
     {
+      projectService.getById(request.getValue());
+
       List<BasicMeeting> meetings = new ArrayList<>();
 
       for(MeetingEntity meeting : meetingService.getByProjectId(request.getValue())) {

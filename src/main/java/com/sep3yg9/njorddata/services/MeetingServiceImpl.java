@@ -76,7 +76,6 @@ import java.util.List;
   }
 
   @Override public List<MeetingEntity> getByProjectId(int id) {
-    getById(id);
 
     List<MeetingEntity> meetingEntities = meetingRepository.findByAssignedproject_Idproject(id);
 
