@@ -7,6 +7,7 @@ option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.Meeting";
 package com.sep3yg9.njorddata.grpc.protobuf.meeting;
 
+// You can create a meeting with just an leader, a project, title and description, as well as a start date and end date
 message CreatingMeeting {
   int32 assignedleader = 1;
   int32 projectAssigned = 2;
@@ -16,6 +17,7 @@ message CreatingMeeting {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 6;
 }
 
+// You can update only the title, description, start date and end date from a meeting.
 message UpdatingMeeting {
   int32 id = 1;
   string title = 2;
@@ -24,6 +26,7 @@ message UpdatingMeeting {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 5;
 }
 
+//
 message MeetingGrpc {
   int32 id = 1;
   com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc assignedleader = 2;
@@ -33,6 +36,7 @@ message MeetingGrpc {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 6;
 }
 
+//
 message BasicMeeting {
   int32 id = 1;
   string title = 2;
@@ -40,6 +44,7 @@ message BasicMeeting {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 4;
 }
 
+// List of meetings
 message GrpcMeetingList {
   repeated MeetingGrpc meetingsList = 1;
 }

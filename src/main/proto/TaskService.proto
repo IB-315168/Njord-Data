@@ -7,6 +7,7 @@ option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.Task";
 package com.sep3yg9.njorddata.grpc.protobuf.task;
 
+// Allow creation of a task with a member assigned, a project assigned, title, description, status, time estimation and creation date.
 message CreatingTask {
   int32 memberassigned = 1;
   int32 projectAssigned = 2;
@@ -17,6 +18,7 @@ message CreatingTask {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime creationdate = 7;
 }
 
+// Allow to update a member assigned, title, description, status and time estimation of a task.
 message UpdatingTask {
   int32 id = 1;
   int32 memberassigned = 2;
@@ -26,6 +28,7 @@ message UpdatingTask {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificTime timeestimation = 6;
 }
 
+//
 message TaskGrpc {
   int32 id = 1;
   com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc memberassigned = 2;
@@ -37,6 +40,7 @@ message TaskGrpc {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime creationdate = 8;
 }
 
+//
 message BasicTask {
   int32 id = 1;
   string title = 2;
@@ -44,6 +48,7 @@ message BasicTask {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime creationdate = 4;
 }
 
+// List of tasks
 message GrpcTaskList {
   repeated TaskGrpc tasksList = 1;
 }
