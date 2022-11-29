@@ -6,11 +6,13 @@ option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.Team";
 package com.sep3yg9.njorddata.grpc.protobuf.team;
 
+// Allow to create a team with only name and a team leader.
 message CreatingTeam {
   string name = 1;
   int32 teamLeaderId = 2;
 }
 
+// Allow to update name, team leader and members of a team.
 message UpdatingTeam {
   int32 id = 1;
   string name = 2;
@@ -18,12 +20,14 @@ message UpdatingTeam {
   repeated com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc members = 4;
 }
 
+//
 message BasicTeam {
   int32 id = 1;
   string name = 2;
   string teamLeaderName = 3;
 }
 
+//
 message TeamGrpc {
   int32 id = 1;
   string name = 2;
@@ -31,6 +35,7 @@ message TeamGrpc {
   repeated com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc members = 4;
 }
 
+// List of teams
 message TeamList {
   repeated BasicTeam team = 1;
 }

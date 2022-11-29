@@ -5,6 +5,7 @@ option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.Member";
 package com.sep3yg9.njorddata.grpc.protobuf.member;
 
+// Allow creation of members as long as there is a Full Name, Username, email and password
 message CreatingMember {
   string fullName = 1;
   string userName = 2;
@@ -12,6 +13,7 @@ message CreatingMember {
   string password = 4;
 }
 
+// Allow to update only username, email and password of a member.
 message UpdatingMember {
   int32 id = 1;
   string userName = 2;
@@ -19,24 +21,28 @@ message UpdatingMember {
   string password = 4;
 }
 
+// Allow to search members by Username, email and/or full name
 message SearchingMember {
   string userName = 1;
   string email = 2;
   string fullName = 3;
 }
 
+//
 message BasicMember {
   string fullName = 1;
   string userName = 2;
   string email = 3;
 }
 
+//
 message BasicTeam {
   int32 id = 1;
   string name = 2;
   string teamLeaderName = 3;
 }
 
+//
 message MemberGrpc {
   int32 id = 1;
   string fullName = 2;
@@ -46,6 +52,7 @@ message MemberGrpc {
   repeated BasicTeam memberTeams = 6;
 }
 
+// List of members
 message MemberList {
   repeated MemberGrpc member = 1;
 }

@@ -7,12 +7,14 @@ option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.Project";
 package com.sep3yg9.njorddata.grpc.protobuf.project;
 
+// Allow creation of project as long as there is a name, team and deadline.
 message CreatingProject {
   string name = 1;
   int32 teamId = 2;
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime deadline = 3;
 }
 
+// Allow to update only name, deadline and requirements of a project.
 message UpdatingProject {
   int32 id = 1;
   string name = 2;
@@ -20,12 +22,14 @@ message UpdatingProject {
   repeated Requirement requirements = 4;
 }
 
+// Specifications of one single instance of a requirement
 message Requirement {
   int32 id = 1;
   int32 idproject = 2;
   string content = 3;
 }
 
+//
 message ProjectGrpc {
   int32 id = 1;
   string name = 2;
@@ -35,12 +39,14 @@ message ProjectGrpc {
   repeated Requirement requirements = 6;
 }
 
+//
 message BasicProject {
   int32 id = 1;
   string projectName = 2;
   string teamName = 3;
 }
 
+//
 message BasicProjectList {
   repeated BasicProject projects = 1;
 }
