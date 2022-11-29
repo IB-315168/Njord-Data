@@ -35,11 +35,15 @@ import java.util.List;
             {
                 taskEntity.setTitle(task.getTitle());
             }
+
             if (!taskEntity.getDescription().isEmpty() && !taskEntity.getDescription().equals(task.getDescription()))
             {
                 taskEntity.setDescription(task.getDescription());
             }
-            //what can be updated?
+
+            if(!task.getStatus().isEmpty() && !taskEntity.getStatus().equals(task.getStatus())) {
+                taskEntity.setStatus(task.getStatus());
+            }
 
             taskRepository.save(taskEntity);
         }

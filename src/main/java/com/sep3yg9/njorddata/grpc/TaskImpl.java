@@ -33,7 +33,7 @@ import java.util.List;
         {
             ProjectEntity project = projectService.getById(task.getProjectAssigned());
             TaskEntity taskToCreate = new TaskEntity(project, task.getTitle(), task.getDescription(),
-                    task.getStatus().charAt(0), SpecificDateTimeConverter.convertToLocalTime(task.getTimeestimation()),
+                    task.getStatus(), SpecificDateTimeConverter.convertToLocalTime(task.getTimeestimation()),
                     SpecificDateTimeConverter.convertToLocalDateTime(task.getCreationdate()));
 
             if(task.getMemberassigned() != 0) {

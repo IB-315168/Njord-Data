@@ -19,15 +19,25 @@ public class TaskEntity {
     @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.NO_ACTION) @JoinColumn(name="memberassigned")
     private MemberEntity memberassigned;
 
-
-
     private String title;
     private String description;
-    private char status;
+
     private LocalTime timeestimation;
     private LocalDateTime creationdate;
 
     @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "assignedproject") private ProjectEntity assignedproject;
+
+    @Column(name = "status", nullable = false, length = 100) private String status;
+
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
 
     public ProjectEntity getAssignedproject()
     {
@@ -44,7 +54,7 @@ public class TaskEntity {
 
     };
 
-    public TaskEntity(ProjectEntity assignedproject, String title, String description, char status, LocalTime timeestimation, LocalDateTime creationdate) {
+    public TaskEntity(ProjectEntity assignedproject, String title, String description, String status, LocalTime timeestimation, LocalDateTime creationdate) {
         this.assignedproject = assignedproject;
         this.title = title;
         this.description = description;
@@ -85,14 +95,6 @@ public class TaskEntity {
         this.description = description;
     }
 
-    public char getStatus() {
-        return status;
-    }
-
-    public void setStatus(char status) {
-        this.status = status;
-    }
-
     public LocalTime getTimeestimation() {
         return timeestimation;
     }
@@ -109,9 +111,6 @@ public class TaskEntity {
         this.creationdate = creationdate;
     }
 
-    private String getStatusAsString(){
-        return status + "";
-    }
 
     public BasicTask convertToBasicTask(){
         return BasicTask.newBuilder()
@@ -126,7 +125,7 @@ public class TaskEntity {
                 .setId(idtask)
                 .setTitle(title)
                 .setDescription(description)
-                .setStatus(getStatusAsString())
+                .setStatus(status)
                 .setTimeestimation(SpecificDateTimeConverter.convertToSpecificTime(timeestimation))
                 .setCreationdate(SpecificDateTimeConverter.convertToSpecificDateTime(creationdate))
                 .build();
@@ -136,7 +135,7 @@ public class TaskEntity {
                 .setMemberassigned(memberassigned.convertToMemberGrpc())
                 .setTitle(title)
                 .setDescription(description)
-                .setStatus(getStatusAsString())
+                .setStatus(status)
                 .setTimeestimation(SpecificDateTimeConverter.convertToSpecificTime(timeestimation))
                 .setCreationdate(SpecificDateTimeConverter.convertToSpecificDateTime(creationdate))
                 .build();
