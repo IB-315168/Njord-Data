@@ -44,10 +44,18 @@ message GrpcMeetingList {
   repeated MeetingGrpc meetingsList = 1;
 }
 
+/*
+  <b>MeetingService</b> Meeting Service Description
+ */
 service MeetingService{
+  // CreateMeeting returns a meeting that has been created with the information passed.
   rpc CreateMeeting(CreatingMeeting) returns (MeetingGrpc);
+  // UpdateMeeting returns a meeting that has been updated with the information passed.
   rpc UpdateMeeting(UpdatingMeeting) returns (MeetingGrpc);
+  // DeleteMeeting will delete a specific meeting through the id sent in arguments.
   rpc DeleteMeeting(google.protobuf.Int32Value) returns (google.protobuf.Empty);
+  // GetById will return a meeting which ID is the same as the one sent in arguments.
   rpc GetById(google.protobuf.Int32Value) returns (MeetingGrpc);
+  // GetByProjectId will return a list of meetings in which projectId is the same as the one sent in arguments
   rpc GetByProjectId(google.protobuf.Int32Value) returns (GrpcMeetingList);
 }

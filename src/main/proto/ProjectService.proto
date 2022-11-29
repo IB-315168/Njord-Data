@@ -45,11 +45,19 @@ message BasicProjectList {
   repeated BasicProject projects = 1;
 }
 
+/*
+  <b>ProjectService</b> ProjectService description
+ */
 service ProjectService {
+  // CreateProject will create a project and return it.
   rpc CreateProject(CreatingProject) returns (ProjectGrpc);
+  // UpdateProject will update a project that exists with new information sent on parameters and then return it.
   rpc UpdateProject(UpdatingProject) returns (ProjectGrpc);
+  // DeleteProjectt will delete a specific project through the id sent in arguments.
   rpc DeleteProject(google.protobuf.Int32Value) returns (google.protobuf.Empty);
+  // GetById will return a project which ID is the same as the one sent in arguments.
   rpc GetById(google.protobuf.Int32Value) returns (ProjectGrpc);
+  // GetByMemberId will return a list of projects in which a member is part of.
   rpc GetByMemberId(google.protobuf.Int32Value) returns (BasicProjectList);
 }
 

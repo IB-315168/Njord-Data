@@ -50,11 +50,20 @@ message MemberList {
   repeated MemberGrpc member = 1;
 }
 
+/*
+ <b>MemberService</b> MemberService description
+ */
 service MemberService {
+  // CreateMember will create a member and returns it.
   rpc CreateMember(CreatingMember) returns (MemberGrpc);
+  // UpdateMember will update a member and return the same member but with the update information.
   rpc UpdateMember(UpdatingMember) returns (google.protobuf.Empty);
+  // DeleteMember will delete a specific member through the id sent in arguments.
   rpc DeleteMember(google.protobuf.Int32Value) returns (google.protobuf.Empty);
+  // GetByEmail will return a member which email is the same as the one sent in arguments.
   rpc GetByEmail(google.protobuf.StringValue) returns (MemberGrpc);
+  // GetById will return a member which ID is the same as the one sent in arguments.
   rpc GetById(google.protobuf.Int32Value) returns (MemberGrpc);
+  // SearchMember will return a list of members which contains a value equals to what is sent on the argument.
   rpc SearchMember(SearchingMember) returns (MemberList);
 }

@@ -48,10 +48,18 @@ message GrpcTaskList {
   repeated TaskGrpc tasksList = 1;
 }
 
+/*
+  <b>TaskService</b> TaskService description
+ */
 service TaskService {
+  // CreateTask will create a task and return it.
   rpc CreateTask(CreatingTask) returns (TaskGrpc);
+  // UpdateTask will update a task with new information and return it.
   rpc UpdateTask(UpdatingTask) returns (TaskGrpc);
+  // DeleteTask will delete a specific task through the ID sent in the parameters.
   rpc DeleteTask(google.protobuf.Int32Value) returns (google.protobuf.Empty);
+  // GetById will return a task which ID is the same as the one sent in arguments.
   rpc GetById(google.protobuf.Int32Value) returns (TaskGrpc);
+  // GetById will return a list of tasks which assignedProject ID is the same as the one sent in arguments.
   rpc GetByProjectId(google.protobuf.Int32Value) returns (GrpcTaskList);
 }

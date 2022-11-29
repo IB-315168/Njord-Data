@@ -35,11 +35,20 @@ message TeamList {
   repeated BasicTeam team = 1;
 }
 
+/*
+  <b>TeamService</b> TeamService description
+ */
 service TeamService {
+  // CreateTeam will create a team and return it.
   rpc CreateTeam(CreatingTeam) returns (TeamGrpc);
+  // DeleteTeam will delete a specific team through the ID sent on parameter.
   rpc DeleteTeam(google.protobuf.Int32Value) returns (google.protobuf.Empty);
+  // UpdateTeam will update a team with new information.
   rpc UpdateTeam(UpdatingTeam) returns (google.protobuf.Empty);
+  // GetById will return a team which Name is the same as the one sent in arguments.
   rpc GetByName(google.protobuf.StringValue) returns (TeamGrpc);
+  // GetById will return a team which ID is the same as the one sent in arguments.
   rpc GetById(google.protobuf.Int32Value) returns (TeamGrpc);
+  // GetById will return a list of teams which specific user is part of.
   rpc GetByUserId(google.protobuf.Int32Value) returns (TeamList);
 }
