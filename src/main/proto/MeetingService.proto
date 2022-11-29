@@ -9,7 +9,7 @@ package com.sep3yg9.njorddata.grpc.protobuf.meeting;
 
 // You can create a meeting with just an leader, a project, title and description, as well as a start date and end date
 message CreatingMeeting {
-  int32 assignedleader = 1;
+  int32 assignedleader = 1; // Leader of the meeting
   int32 projectAssigned = 2;
   string title = 3;
   string description = 4;
