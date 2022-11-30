@@ -1,6 +1,7 @@
 package com.sep3yg9.njorddata.services;
 
 import com.sep3yg9.njorddata.grpc.protobuf.task.UpdatingTask;
+import com.sep3yg9.njorddata.models.SpecificDateTimeConverter;
 import com.sep3yg9.njorddata.models.TaskEntity;
 import com.sep3yg9.njorddata.repos.TaskRepository;
 import com.sep3yg9.njorddata.repos.MemberRepository;
@@ -36,13 +37,23 @@ import java.util.List;
                 taskEntity.setTitle(task.getTitle());
             }
 
-            if (!taskEntity.getDescription().isEmpty() && !taskEntity.getDescription().equals(task.getDescription()))
+            if (!task.getDescription().isEmpty() && !taskEntity.getDescription().equals(task.getDescription()))
             {
                 taskEntity.setDescription(task.getDescription());
             }
 
             if(!task.getStatus().isEmpty() && !taskEntity.getStatus().equals(task.getStatus())) {
                 taskEntity.setStatus(task.getStatus());
+            }
+
+            if(task.getTimeestimation().isInitialized()) {
+                taskEntity.setTimeestimation(SpecificDateTimeConverter.convertToLocalTime(task.getTimeestimation()));
+            }
+
+            if(task.getMemberassigned() == 0) {
+                taskEntity.setMemberassigned(null);
+            } else {
+                taskEntity.setMemberassigned(memberRepository.findById(task.getMemberassigned()));
             }
 
             taskRepository.save(taskEntity);

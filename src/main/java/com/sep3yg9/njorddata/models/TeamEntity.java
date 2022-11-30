@@ -2,6 +2,7 @@ package com.sep3yg9.njorddata.models;
 
 
 import com.sep3yg9.njorddata.grpc.protobuf.member.BasicTeam;
+import com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.team.TeamGrpc;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -107,10 +108,18 @@ public class TeamEntity
     }
 
     public TeamGrpc convertToTeamGrpc() {
+        Set<MemberGrpc> memberEntities = new LinkedHashSet<>();
+
+        for(TeamMember memberEntity : member) {
+            memberEntities.add(memberEntity.getUserEntity()
+                .convertToMemberGrpc());
+        }
+
         return TeamGrpc.newBuilder()
             .setId(idteam)
             .setTeamLeader(teamleader.convertToMemberGrpc())
             .setName(name)
+            .addAllMembers(memberEntities)
             .build();
     }
 
