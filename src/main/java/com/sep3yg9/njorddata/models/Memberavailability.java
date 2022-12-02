@@ -1,5 +1,6 @@
 package com.sep3yg9.njorddata.models;
 
+import com.sep3yg9.njorddata.grpc.protobuf.member.MemberAvailabilityGrpc;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -17,6 +18,19 @@ import java.time.LocalTime;
   @Column(name = "starthour", nullable = false) private LocalTime starthour;
 
   @Column(name = "endhour", nullable = false) private LocalTime endhour;
+
+  public Memberavailability()
+  {
+  }
+
+  public Memberavailability(MemberEntity assignedmember, Integer dayofweek,
+      LocalTime starthour, LocalTime endhour)
+  {
+    this.assignedmember = assignedmember;
+    this.dayofweek = dayofweek;
+    this.starthour = starthour;
+    this.endhour = endhour;
+  }
 
   public Integer getId()
   {
@@ -68,4 +82,13 @@ import java.time.LocalTime;
     this.endhour = endhour;
   }
 
+  public MemberAvailabilityGrpc convertToMemberAvailabilityGrpc() {
+    return MemberAvailabilityGrpc.newBuilder()
+        .setId(id)
+        .setAssignedmember(getAssignedmember().getIdmember())
+        .setDayofweek(dayofweek)
+        .setStarthour(SpecificDateTimeConverter.convertToSpecificTime(starthour))
+        .setEndhour(SpecificDateTimeConverter.convertToSpecificTime(endhour))
+        .build();
+  }
 }

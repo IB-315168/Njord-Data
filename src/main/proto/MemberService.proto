@@ -20,6 +20,7 @@ message UpdatingMember {
   string userName = 2;
   string email = 3;
   string password = 4;
+  repeated MemberAvailabilityGrpc availability = 5;
 }
 
 // Allow to search members by Username, email and/or full name
@@ -47,8 +48,8 @@ message MemberAvailabilityGrpc{
   int32 id = 1;
   int32 assignedmember = 2;
   int32 dayofweek = 3;
-  com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime starthour = 4;
-  com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime endhour = 5;
+  com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificTime starthour = 4;
+  com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificTime endhour = 5;
 }
 
 //

@@ -1,9 +1,15 @@
 package com.sep3yg9.njorddata.services;
 
+import com.sep3yg9.njorddata.grpc.protobuf.member.MemberAvailabilityGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc;
 import com.sep3yg9.njorddata.grpc.protobuf.member.UpdatingMember;
+import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.models.MemberEntity;
+import com.sep3yg9.njorddata.models.Memberavailability;
+import com.sep3yg9.njorddata.models.RequirementEntity;
+import com.sep3yg9.njorddata.models.SpecificDateTimeConverter;
 import com.sep3yg9.njorddata.repos.MemberRepository;
+import com.sep3yg9.njorddata.repos.MemberavailabilityRepository;
 import com.sep3yg9.njorddata.services.interfaces.MemberService;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +19,12 @@ import java.util.List;
 @Service public class MemberServiceImpl implements MemberService
 {
   private final MemberRepository memberRepository;
+  private final MemberavailabilityRepository memberavailabilityRepository;
 
-  public MemberServiceImpl(MemberRepository memberRepository)
+  public MemberServiceImpl(MemberRepository memberRepository, MemberavailabilityRepository memberavailabilityRepository)
   {
     this.memberRepository = memberRepository;
+    this.memberavailabilityRepository = memberavailabilityRepository;
   }
 
   @Override public List<MemberGrpc> getAllMembers()
@@ -63,6 +71,17 @@ import java.util.List;
       memberEntity.setPassword(member.getPassword());
     }
 
+    memberEntity.setMemberavailabilities(null);
+    memberRepository.save(memberEntity);
+
+    for (MemberAvailabilityGrpc memberavailability : member.getAvailabilityList())
+    {
+      Memberavailability memberavailability1 = new Memberavailability(memberEntity,
+          memberavailability.getDayofweek(), SpecificDateTimeConverter.convertToLocalTime(memberavailability.getStarthour()),
+          SpecificDateTimeConverter.convertToLocalTime(memberavailability.getStarthour()));
+      memberEntity.addAvailability(memberavailability1);
+      memberavailabilityRepository.save(memberavailability1);
+    }
     memberRepository.save(memberEntity);
   }
 
