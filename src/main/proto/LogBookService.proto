@@ -1,5 +1,6 @@
 syntax = 'proto3';
 import "google/protobuf/wrappers.proto";
+import "ProjectService.proto";
 option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.LogBook";
 package com.sep3yg9.njorddata.grpc.protobuf.logbook;
@@ -22,7 +23,7 @@ message LogBookEntryGrpc{
 
 message LogBookGrpc{
   int32 id = 1;
-  int32 projectassigned = 2;
+  com.sep3yg9.njorddata.grpc.protobuf.project.ProjectGrpc projectassigned = 2;
   repeated LogBookEntryGrpc logbookentries = 3;
 }
 

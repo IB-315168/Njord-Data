@@ -70,7 +70,7 @@ import java.util.Set;
       entries1.add(entry.convertToLogBookEntry());
     }
 
-    return LogBookGrpc.newBuilder().setId(id).setProjectassigned(assignedproject.getIdproject())
+    return LogBookGrpc.newBuilder().setId(id).setProjectassigned(assignedproject.convertToProjectGrpc())
             .addAllLogbookentries(entries1)
             .build();
   }
