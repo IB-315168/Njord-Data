@@ -1,5 +1,7 @@
 package com.sep3yg9.njorddata.models;
 
+import com.sep3yg9.njorddata.grpc.protobuf.logbook.LogBookEntryGrpc;
+import com.sep3yg9.njorddata.grpc.protobuf.logbook.LogBookGrpc;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -56,5 +58,16 @@ import java.util.Set;
   public void removeEntry(LogbookentryEntity logbookentryEntity) {
     logbookentries.remove(logbookentryEntity);
     logbookentryEntity.setAssignedlogbook(null);
+  }
+
+  public LogBookGrpc convertToLogBookGrpc(){
+    Set<LogBookEntryGrpc> entries1 = new LinkedHashSet<>();
+    for (LogbookentryEntity entry : logbookentries){
+      entries1.add(entry.convertToLogBookEntry());
+    }
+
+    return LogBookGrpc.newBuilder().setId(id).setProjectassigned(assignedproject.getIdproject())
+            .addAllLogbookentries(entries1)
+            .build();
   }
 }

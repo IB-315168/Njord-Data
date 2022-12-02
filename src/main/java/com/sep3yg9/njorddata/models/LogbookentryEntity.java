@@ -1,5 +1,6 @@
 package com.sep3yg9.njorddata.models;
 
+import com.sep3yg9.njorddata.grpc.protobuf.logbook.LogBookEntryGrpc;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
@@ -65,4 +66,12 @@ import javax.persistence.*;
     this.contents = contents;
   }
 
+  public LogBookEntryGrpc convertToLogBookEntry(){
+    return LogBookEntryGrpc.newBuilder()
+            .setId(id)
+            .setAssignedlogbook(assignedlogbook.getId())
+            .setAssignedmeeting(assignedmeeting.getIdmeeting())
+            .setContents(contents)
+            .build();
+  }
 }
