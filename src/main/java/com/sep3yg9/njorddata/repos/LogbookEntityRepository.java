@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface LogbookEntityRepository
     extends CrudRepository<LogbookEntity, Integer>
 {
+    LogbookEntity findById(int id);
 }
