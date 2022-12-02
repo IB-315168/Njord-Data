@@ -3,9 +3,7 @@ package com.sep3yg9.njorddata.grpc;
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.member.*;
-import com.sep3yg9.njorddata.models.TeamEntity;
-import com.sep3yg9.njorddata.models.TeamMember;
-import com.sep3yg9.njorddata.models.MemberEntity;
+import com.sep3yg9.njorddata.models.*;
 import com.sep3yg9.njorddata.services.TeamServiceImpl;
 import com.sep3yg9.njorddata.services.MemberServiceImpl;
 import io.grpc.Status;
@@ -121,10 +119,22 @@ import java.util.ArrayList;
         teamsLeaders.add(teamEntity.convertToBasicTeam());
       }
 
+      ArrayList<MemberAvailabilityGrpc> memberavailabilities = new ArrayList<>();
+      for(Memberavailability memberavailability : member.getMemberavailabilities()) {
+        memberavailabilities.add(MemberAvailabilityGrpc.newBuilder()
+            .setId(memberavailability.getId())
+            .setAssignedmember(member.getIdmember())
+            .setDayofweek(memberavailability.getDayofweek())
+            .setStarthour(SpecificDateTimeConverter.convertToSpecificTime(memberavailability.getStarthour()))
+            .setEndhour(SpecificDateTimeConverter.convertToSpecificTime(memberavailability.getEndhour()))
+            .build());
+      }
+
       MemberGrpc memberGrpc = MemberGrpc.newBuilder().setId(member.getIdmember())
           .setFullName(member.getFullName()).setEmail(member.getEmail())
           .setUserName(member.getUserName()).setPassword(member.getPassword())
           .addAllMemberTeams(teamMembership).addAllMemberTeams(teamsLeaders)
+          .addAllAvailability(memberavailabilities)
           .build();
 
       responseObserver.onNext(memberGrpc);
