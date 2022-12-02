@@ -20,6 +20,10 @@ import java.util.Set;
   public LogbookEntity() {
   }
 
+  public LogbookEntity(ProjectEntity assignedproject) {
+    this.assignedproject = assignedproject;
+  }
+
   public Integer getId()
   {
     return id;
