@@ -15,6 +15,9 @@ import java.util.Set;
 
   @OneToMany(mappedBy = "assignedlogbook") private Set<LogbookentryEntity> logbookentries = new LinkedHashSet<>();
 
+  public LogbookEntity() {
+  }
+
   public Integer getId()
   {
     return id;
@@ -45,4 +48,13 @@ import java.util.Set;
     this.logbookentries = logbookentries;
   }
 
+  public void addEntry(LogbookentryEntity logbookentryEntity){
+    logbookentries.add(logbookentryEntity);
+    logbookentryEntity.setAssignedlogbook(this);
+  }
+
+  public void removeEntry(LogbookentryEntity logbookentryEntity) {
+    logbookentries.remove(logbookentryEntity);
+    logbookentryEntity.setAssignedlogbook(null);
+  }
 }

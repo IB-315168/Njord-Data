@@ -1,5 +1,6 @@
 syntax = 'proto3';
 import "SpecificDateTime.proto";
+import "google/protobuf/wrappers.proto";
 option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.LogBook";
 package com.sep3yg9.njorddata.grpc.protobuf.logbook;
@@ -10,10 +11,10 @@ message CreatingLogBook{
 
 message UpdatingLogBook{
   int32 id = 1;
-  repeated LogBookEntry logbookentries = 2;
+  repeated LogBookEntryGrpc logbookentries = 2;
 }
 
-message LogBookEntry{
+message LogBookEntryGrpc{
   int32 id = 1;
   int32 assignedlogbook = 2;
   int32 assignedmeeting = 3;
@@ -28,4 +29,5 @@ message LogBookGrpc{
 service LogBookService{
   rpc CreateLogBook(CreatingLogBook) returns (LogBookGrpc);
   rpc UpdateLogBook(UpdatingLogBook) returns (LogBookGrpc);
+  rpc GetById(google.protobuf.Int32Value) returns (LogBookGrpc);
 }

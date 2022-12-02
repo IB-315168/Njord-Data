@@ -16,6 +16,15 @@ import javax.persistence.*;
 
   @Column(name = "contents") @Type(type = "org.hibernate.type.TextType") private String contents;
 
+  public LogbookentryEntity() {
+  }
+
+  public LogbookentryEntity(LogbookEntity assignedlogbook, MeetingEntity assignedmeeting, String contents) {
+    this.assignedlogbook = assignedlogbook;
+    this.assignedmeeting = assignedmeeting;
+    this.contents = contents;
+  }
+
   public Integer getId()
   {
     return id;
