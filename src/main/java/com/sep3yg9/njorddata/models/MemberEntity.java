@@ -28,7 +28,7 @@ public class MemberEntity
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "idmember", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<TeamMember> teams = new ArrayList<>();
 
-  @OneToMany(mappedBy = "assignedmember") private Set<Memberavailability> memberavailabilities = new LinkedHashSet<>();
+  @OneToMany(fetch = FetchType.LAZY,mappedBy = "assignedmember", cascade = CascadeType.ALL, orphanRemoval = true) private Set<Memberavailability> memberavailabilities = new LinkedHashSet<>();
 
   public Set<Memberavailability> getMemberavailabilities()
   {

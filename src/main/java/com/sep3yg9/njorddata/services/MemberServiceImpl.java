@@ -14,6 +14,7 @@ import com.sep3yg9.njorddata.services.interfaces.MemberService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Service public class MemberServiceImpl implements MemberService
@@ -71,17 +72,19 @@ import java.util.List;
       memberEntity.setPassword(member.getPassword());
     }
 
-    memberEntity.setMemberavailabilities(null);
+    memberEntity.setMemberavailabilities(new LinkedHashSet<>());
     memberRepository.save(memberEntity);
 
     for (MemberAvailabilityGrpc memberavailability : member.getAvailabilityList())
     {
       Memberavailability memberavailability1 = new Memberavailability(memberEntity,
           memberavailability.getDayofweek(), SpecificDateTimeConverter.convertToLocalTime(memberavailability.getStarthour()),
-          SpecificDateTimeConverter.convertToLocalTime(memberavailability.getStarthour()));
+          SpecificDateTimeConverter.convertToLocalTime(memberavailability.getEndhour()));
       memberEntity.addAvailability(memberavailability1);
+
       memberavailabilityRepository.save(memberavailability1);
     }
+
     memberRepository.save(memberEntity);
   }
 

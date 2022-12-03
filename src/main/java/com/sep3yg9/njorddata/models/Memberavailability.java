@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 @Entity @Table(name = "memberavailability", schema = "sep3ygroup9") public class Memberavailability
 {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "idavailability", nullable = false) private Integer id;
+  @Id @GeneratedValue @Column(name = "idavailability", nullable = false) private Integer id;
 
   @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "assignedmember") private MemberEntity assignedmember;
 
