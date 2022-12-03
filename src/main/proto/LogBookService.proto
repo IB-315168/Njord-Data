@@ -5,15 +5,19 @@ option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.LogBook";
 package com.sep3yg9.njorddata.grpc.protobuf.logbook;
 
+
+// Allow creation of a logbook as long as there is a project assigned
 message CreatingLogBook{
   int32 projectassigned = 1;
 }
 
+// Allow update of logbook as long as there is a id and a set of loogbook entries
 message UpdatingLogBook{
   int32 id = 1;
   repeated LogBookEntryGrpc logbookentries = 2;
 }
 
+//
 message LogBookEntryGrpc{
   int32 id = 1;
   int32 assignedlogbook = 2;
@@ -21,14 +25,23 @@ message LogBookEntryGrpc{
   string contents = 4;
 }
 
+//
 message LogBookGrpc{
   int32 id = 1;
   com.sep3yg9.njorddata.grpc.protobuf.project.ProjectGrpc projectassigned = 2;
   repeated LogBookEntryGrpc logbookentries = 3;
 }
 
+/*
+ <b>LogBookService</b> LogBookService description
+ */
 service LogBookService{
+  //Will create a logbook and return it
   rpc CreateLogBook(CreatingLogBook) returns (LogBookGrpc);
+  //Will update a logbook and return it
   rpc UpdateLogBook(UpdatingLogBook) returns (LogBookGrpc);
+  //Will return a logbook which ID equals the ID sent in the arguments
   rpc GetById(google.protobuf.Int32Value) returns (LogBookGrpc);
+  //Will return a logbook which projectId equals the ID sent in the arguments
+  rpc GetByProjectId(google.protobuf.Int32Value) returns (LogBookGrpc);
 }

@@ -93,4 +93,27 @@ public class LogBookImpl extends LogBookServiceGrpc.LogBookServiceImplBase
             responseObserver.onError(status.asRuntimeException());
         }
     }
+
+    @Override public void getByProjectId(Int32Value request, StreamObserver<LogBookGrpc> responseObserver) {
+        try {
+            LogbookEntity logbook=logBookService.getByProjectId(request.getValue());
+            LogBookGrpc logBookGrpc=logbook.convertToLogBookGrpc();
+
+            responseObserver.onNext(logBookGrpc);
+            responseObserver.onCompleted();
+        }
+        catch (Exception e)
+        {
+            Status status;
+            if(e instanceof IllegalArgumentException)
+            {
+                status=Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+            }
+            else
+            {
+                status=Status.INTERNAL.withDescription(e.getMessage());
+            }
+            responseObserver.onError(status.asRuntimeException());
+        }
+    }
 }

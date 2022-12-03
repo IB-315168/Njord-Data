@@ -7,4 +7,5 @@ public interface LogbookEntityRepository
     extends CrudRepository<LogbookEntity, Integer>
 {
     LogbookEntity findById(int id);
+    LogbookEntity findByAssignedproject_Idproject(int idproject);
 }
