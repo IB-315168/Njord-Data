@@ -61,4 +61,14 @@ import java.util.LinkedHashSet;
         }
         return LogBookEntityRepo.findById(id);
     }
+
+    @Override
+    public LogbookEntity getByProjectId(int id) {
+        LogbookEntity logbookEntity=LogBookEntityRepo.findByAssignedproject_Idproject(id);
+        if(logbookEntity==null)
+        {
+            throw new IllegalArgumentException("Logbook not found");
+        }
+        return LogBookEntityRepo.findByAssignedproject_Idproject(id);
+    }
 }

@@ -8,5 +8,6 @@ public interface LogBookService {
     void updateLogBook(UpdatingLogBook logBook);
     void removeLogBook(int id);
     LogbookEntity getById(int id);
+    LogbookEntity getByProjectId(int id);
 
 }
