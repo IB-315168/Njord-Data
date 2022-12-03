@@ -31,4 +31,5 @@ service LogBookService{
   rpc CreateLogBook(CreatingLogBook) returns (LogBookGrpc);
   rpc UpdateLogBook(UpdatingLogBook) returns (LogBookGrpc);
   rpc GetById(google.protobuf.Int32Value) returns (LogBookGrpc);
+  rpc GetByProjectId(google.protobuf.Int32Value) returns (LogBookGrpc);
 }
