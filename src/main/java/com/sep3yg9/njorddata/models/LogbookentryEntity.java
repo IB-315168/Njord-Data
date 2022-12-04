@@ -70,7 +70,7 @@ import javax.persistence.*;
     return LogBookEntryGrpc.newBuilder()
             .setId(id)
             .setAssignedlogbook(assignedlogbook.getId())
-            .setAssignedmeeting(assignedmeeting.getIdmeeting())
+            .setAssignedmeeting(assignedmeeting.convertToMeetingGrpc())
             .setContents(contents)
             .build();
   }
