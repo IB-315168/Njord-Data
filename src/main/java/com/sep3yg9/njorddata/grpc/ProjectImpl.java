@@ -3,9 +3,11 @@ package com.sep3yg9.njorddata.grpc;
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.project.*;
+import com.sep3yg9.njorddata.models.LogbookEntity;
 import com.sep3yg9.njorddata.models.ProjectEntity;
 import com.sep3yg9.njorddata.models.SpecificDateTimeConverter;
 import com.sep3yg9.njorddata.models.TeamEntity;
+import com.sep3yg9.njorddata.services.interfaces.LogBookService;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import com.sep3yg9.njorddata.services.interfaces.TeamService;
 import io.grpc.Status;
@@ -21,11 +23,13 @@ import java.util.ArrayList;
 
   private final ProjectService projectService;
   private final TeamService teamService;
+  private final LogBookService logBookService;
 
-  public ProjectImpl(ProjectService projectService, TeamService teamService)
+  public ProjectImpl(ProjectService projectService, TeamService teamService, LogBookService logBookService)
   {
     this.projectService = projectService;
     this.teamService = teamService;
+    this.logBookService = logBookService;
   }
 
   @Override public void createProject(CreatingProject project,
