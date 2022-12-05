@@ -51,7 +51,7 @@ import java.util.LinkedHashSet;
     for (LogBookEntryGrpc entry : logBook.getLogbookentriesList())
     {
       MeetingEntity meeting = meetingRepository.findByIdmeeting(
-          entry.getAssignedmeeting());
+          entry.getAssignedmeeting().getId());
       LogbookentryEntity entity = new LogbookentryEntity(logbookEntity, meeting,
           entry.getContents());
       logbookEntity.addEntry(entity);
