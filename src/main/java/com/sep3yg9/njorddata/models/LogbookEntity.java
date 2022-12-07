@@ -15,7 +15,7 @@ import java.util.Set;
 
   @ManyToOne(fetch = FetchType.LAZY) @OnDelete(action = OnDeleteAction.CASCADE) @JoinColumn(name = "assignedproject") private ProjectEntity assignedproject;
 
-  @OneToMany(mappedBy = "assignedlogbook") private Set<LogbookentryEntity> logbookentries = new LinkedHashSet<>();
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "assignedlogbook", cascade = CascadeType.ALL, orphanRemoval = true) private Set<LogbookentryEntity> logbookentries = new LinkedHashSet<>();
 
   public LogbookEntity() {
   }
