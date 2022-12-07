@@ -3,10 +3,7 @@ package com.sep3yg9.njorddata.services;
 import com.sep3yg9.njorddata.grpc.protobuf.project.Requirement;
 import com.sep3yg9.njorddata.grpc.protobuf.project.UpdatingProject;
 import com.sep3yg9.njorddata.models.*;
-import com.sep3yg9.njorddata.repos.ProjectRepository;
-import com.sep3yg9.njorddata.repos.RequirementEntityRepository;
-import com.sep3yg9.njorddata.repos.TeamRepository;
-import com.sep3yg9.njorddata.repos.MemberRepository;
+import com.sep3yg9.njorddata.repos.*;
 import com.sep3yg9.njorddata.services.interfaces.ProjectService;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +16,17 @@ import java.util.LinkedHashSet;
   private final TeamRepository teamRepository;
   private final MemberRepository memberRepository;
   private final RequirementEntityRepository requirementRepository;
+  private final LogbookEntityRepository logbookEntityRepository;
 
   public ProjectServiceImpl(ProjectRepository projectRepository,
       TeamRepository teamRepository, MemberRepository memberRepository,
-      RequirementEntityRepository requirementRepository)
+      RequirementEntityRepository requirementRepository, LogbookEntityRepository logbookEntityRepository)
   {
     this.projectRepository = projectRepository;
     this.teamRepository = teamRepository;
     this.memberRepository = memberRepository;
     this.requirementRepository = requirementRepository;
+    this.logbookEntityRepository = logbookEntityRepository;
   }
 
   @Override public ProjectEntity addProject(ProjectEntity projectEntityRecord)
@@ -78,6 +77,9 @@ import java.util.LinkedHashSet;
   @Override public void removeProject(int id)
   {
     getById(id);
+
+    //deleting
+    logbookEntityRepository.delete(logbookEntityRepository.findByAssignedproject_Idproject(id));
 
     projectRepository.deleteById(id);
   }
