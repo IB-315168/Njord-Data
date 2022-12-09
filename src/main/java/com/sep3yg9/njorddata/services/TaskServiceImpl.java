@@ -1,6 +1,7 @@
 package com.sep3yg9.njorddata.services;
 
 import com.sep3yg9.njorddata.grpc.protobuf.task.UpdatingTask;
+import com.sep3yg9.njorddata.models.MemberEntity;
 import com.sep3yg9.njorddata.models.SpecificDateTimeConverter;
 import com.sep3yg9.njorddata.models.TaskEntity;
 import com.sep3yg9.njorddata.repos.TaskRepository;
@@ -10,6 +11,7 @@ import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service public class TaskServiceImpl implements TaskService {
 
@@ -53,7 +55,13 @@ import java.util.List;
             if(task.getMemberassigned() == 0) {
                 taskEntity.setMemberassigned(null);
             } else {
-                taskEntity.setMemberassigned(memberRepository.findById(task.getMemberassigned()));
+                Optional<MemberEntity> memberEntity = memberRepository.findById(task.getMemberassigned());
+
+                if(memberEntity.isEmpty()) {
+                    throw new IllegalArgumentException("Member not found");
+                }
+
+                taskEntity.setMemberassigned(memberEntity.get());
             }
 
             taskRepository.save(taskEntity);

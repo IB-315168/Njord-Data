@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service public class MemberServiceImpl implements MemberService
 {
@@ -94,19 +95,19 @@ import java.util.List;
     memberRepository.deleteById(id);
   }
 
-  public MemberEntity getById(int id)
+  @Override public MemberEntity getById(int id)
   {
-    MemberEntity memberEntity = memberRepository.findById(id);
+    Optional<MemberEntity> memberEntity = memberRepository.findById(id);
 
-    if (memberEntity == null)
+    if (memberEntity.isEmpty())
     {
       throw new IllegalArgumentException("Member not found");
     }
 
-    return memberEntity;
+    return memberEntity.get();
   }
 
-  public MemberEntity getByUserName(String username)
+  @Override public MemberEntity getByUserName(String username)
   {
     MemberEntity memberEntity = memberRepository.findByUsername(username);
 
@@ -117,7 +118,7 @@ import java.util.List;
     return memberRepository.findByUsername(username);
   }
 
-  public MemberEntity getByEmail(String email)
+  @Override public MemberEntity getByEmail(String email)
   {
     MemberEntity memberEntity = memberRepository.findByEmail(email);
 
@@ -128,7 +129,7 @@ import java.util.List;
     return memberRepository.findByEmail(email);
   }
 
-  public Iterable<MemberEntity> getAll()
+  @Override public Iterable<MemberEntity> getAll()
   {
     return memberRepository.findAll();
   }

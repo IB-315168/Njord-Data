@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service public class TeamServiceImpl implements TeamService
 {
@@ -52,7 +53,13 @@ import java.util.List;
 
   public List<TeamEntity> getByTeamLeaderId(int id)
   {
-    return teamRepository.findByTeamleader(memberRepository.findById(id));
+    Optional<MemberEntity> teamLeader = memberRepository.findById(id);
+
+    if(teamLeader.isEmpty()) {
+      throw new IllegalArgumentException("Member not found");
+    }
+
+    return teamRepository.findByTeamleader(teamLeader.get());
   }
 
   public TeamEntity getByName(String name)
@@ -93,7 +100,13 @@ import java.util.List;
     ArrayList<MemberEntity> newMembers = new ArrayList<>();
     for (MemberGrpc member : team.getMembersList())
     {
-      newMembers.add(memberRepository.findById(member.getId()));
+      Optional<MemberEntity> memberEntity = memberRepository.findById(member.getId());
+
+      if(memberEntity.isEmpty()) {
+        throw new IllegalArgumentException("Member not found");
+      }
+
+      newMembers.add(memberEntity.get());
     }
 
     teamEntity.setMembers(new ArrayList<TeamMember>());

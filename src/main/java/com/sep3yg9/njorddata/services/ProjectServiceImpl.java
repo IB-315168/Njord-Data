@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 
 @Service public class ProjectServiceImpl implements ProjectService
 {
@@ -95,15 +96,21 @@ import java.util.LinkedHashSet;
   @Override public ArrayList<ProjectEntity> getByUserId(int id)
   {
     ArrayList<ProjectEntity> listOfProjects = new ArrayList<>();
-    MemberEntity user = memberRepository.findById(id);
+    Optional<MemberEntity> memberEntity = memberRepository.findById(id);
 
-    for (TeamMember team : user.getTeams())
+    if(memberEntity.isEmpty()) {
+      throw new IllegalArgumentException("Member not found");
+    }
+
+    MemberEntity member = memberEntity.get();
+
+    for (TeamMember team : member.getTeams())
     {
       listOfProjects.addAll(projectRepository.findByTeamassigned_Idteam(
           team.getTeamEntity().getIdTeam()));
     }
 
-    for (TeamEntity teamEntity : teamRepository.findByTeamleader(user)) {
+    for (TeamEntity teamEntity : teamRepository.findByTeamleader(member)) {
       listOfProjects.addAll(projectRepository.findByTeamassigned_Idteam(teamEntity.getIdTeam()));
     }
 
