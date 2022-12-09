@@ -62,7 +62,6 @@ import java.util.LinkedHashSet;
 
   @Override public void removeLogBook(int id)
   {
-    getById(id);
     LogBookEntityRepo.deleteById(id);
   }
 

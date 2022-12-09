@@ -1,5 +1,6 @@
 package com.sep3yg9.njorddata.grpc;
 
+import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.sep3yg9.njorddata.grpc.protobuf.logbook.CreatingLogBook;
 import com.sep3yg9.njorddata.grpc.protobuf.logbook.LogBookGrpc;
@@ -67,6 +68,32 @@ import org.lognet.springboot.grpc.GRpcService;
       LogBookGrpc logbook1 = logBookService.getById(logBook.getId())
           .convertToLogBookGrpc();
       responseObserver.onNext(logbook1);
+      responseObserver.onCompleted();
+    }
+    catch (Exception e)
+    {
+      Status status;
+      if (e instanceof IllegalArgumentException)
+      {
+        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+      }
+      else
+      {
+        status = Status.INTERNAL.withDescription(e.getMessage());
+      }
+      responseObserver.onError(status.asRuntimeException());
+    }
+  }
+
+  @Override public void deleteLogBookByProjectId(Int32Value projectId,
+      StreamObserver<Empty> responseObserver)
+  {
+    try
+    {
+      LogbookEntity logbook = logBookService.getByProjectId(projectId.getValue());
+
+      logBookService.removeLogBook(logbook.getId());
+      responseObserver.onNext(Empty.newBuilder().build());
       responseObserver.onCompleted();
     }
     catch (Exception e)

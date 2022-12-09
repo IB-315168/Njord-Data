@@ -1,5 +1,6 @@
 syntax = 'proto3';
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
 import "ProjectService.proto";
 import "MeetingService.proto";
 option java_multiple_files = true;
@@ -41,6 +42,8 @@ service LogBookService{
   rpc CreateLogBook(CreatingLogBook) returns (LogBookGrpc);
   //Will update a logbook and return it
   rpc UpdateLogBook(UpdatingLogBook) returns (LogBookGrpc);
+  //Will delete a logbook and return Empty value
+  rpc DeleteLogBookByProjectId(google.protobuf.Int32Value) returns (google.protobuf.Empty);
   //Will return a logbook which ID equals the ID sent in the arguments
   rpc GetById(google.protobuf.Int32Value) returns (LogBookGrpc);
   //Will return a logbook which projectId equals the ID sent in the arguments
