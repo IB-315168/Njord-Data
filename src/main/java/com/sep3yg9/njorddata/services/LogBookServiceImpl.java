@@ -79,6 +79,7 @@ import java.util.LinkedHashSet;
   {
     LogbookEntity logbookEntity = LogBookEntityRepo.findByAssignedproject_Idproject(
         id);
+    
     if (logbookEntity == null)
     {
       throw new IllegalArgumentException("Logbook not found");

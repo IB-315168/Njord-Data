@@ -142,17 +142,16 @@ import java.util.ArrayList;
     }
     catch (Exception e)
     {
-//      Status status;
-//      if (e instanceof IllegalArgumentException)
-//      {
-//        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
-//      }
-//      else
-//      {
-//        status = Status.INTERNAL.withDescription(e.getMessage());
-//      }
-//      responseObserver.onError(status.asRuntimeException());
-      throw e;
+      Status status;
+      if (e instanceof IllegalArgumentException)
+      {
+        status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+      }
+      else
+      {
+        status = Status.INTERNAL.withDescription(e.getMessage());
+      }
+      responseObserver.onError(status.asRuntimeException());
     }
   }
 
