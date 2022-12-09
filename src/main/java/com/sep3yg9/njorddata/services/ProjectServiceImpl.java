@@ -77,10 +77,6 @@ import java.util.LinkedHashSet;
   @Override public void removeProject(int id)
   {
     getById(id);
-
-    //deleting
-    logbookEntityRepository.delete(logbookEntityRepository.findByAssignedproject_Idproject(id));
-
     projectRepository.deleteById(id);
   }
 
