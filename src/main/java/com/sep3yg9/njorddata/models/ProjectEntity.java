@@ -136,7 +136,7 @@ import java.util.*;
             .setId(idproject)
             .setProjectName(name)
             .setTeamName(teamassigned.getName())
-        .build();     //todo: How do I find the value for the team name without team repository.
+        .build();
   }
 
   @Override public String toString()

@@ -62,7 +62,6 @@ import java.util.Optional;
       projectEntity.setRequirements(new LinkedHashSet<>());
       projectRepository.save(projectEntity);
 
-      //            Set<RequirementEntity> requirementSet = new LinkedHashSet<>();
       for (Requirement requirement : project.getRequirementsList())
       {
         RequirementEntity requirement1 = new RequirementEntity(projectEntity,

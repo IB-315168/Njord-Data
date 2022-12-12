@@ -8,6 +8,7 @@ import com.sep3yg9.njorddata.repos.MemberRepository;
 import com.sep3yg9.njorddata.services.interfaces.MeetingService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service public class MeetingServiceImpl implements MeetingService
@@ -42,13 +43,13 @@ import java.util.List;
     {
       meetingEntity.setDescription(meeting.getDescription());
     }
-    //TODO: Re-do
-    if (!meeting.getStartdate().equals(meetingEntity.getStartdatetime()))
+
+    if (meetingEntity.getStartdatetime().compareTo(SpecificDateTimeConverter.convertToLocalDateTime(meeting.getStartdate())) != 0)
     {
       meetingEntity.setStartdatetime(
           SpecificDateTimeConverter.convertToLocalDateTime(meeting.getStartdate()));
     }
-    if (!meeting.getEnddate().equals(meetingEntity.getEnddatetime()))
+    if (meetingEntity.getEnddatetime().compareTo(SpecificDateTimeConverter.convertToLocalDateTime(meeting.getEnddate())) != 0)
     {
       meetingEntity.setEnddatetime(
           SpecificDateTimeConverter.convertToLocalDateTime(meeting.getEnddate()));

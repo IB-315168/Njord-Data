@@ -27,7 +27,6 @@ import java.util.List;
         this.projectService = projectService;
     }
 
-    //needs fix
     @Override public void createTask(CreatingTask task, StreamObserver<TaskGrpc> responseObserver){
         try
         {
@@ -161,32 +160,4 @@ import java.util.List;
             responseObserver.onError(status.asRuntimeException());
         }
     }
-//    @Override public void getByProjectId(Int32Value request, StreamObserver<BasicTaskList> responseObserver)
-//    {
-//        try
-//        {
-//            taskService.getByProjectId(request.getValue());
-//            List<BasicTask> tasks = new ArrayList<>();
-//            for(TaskEntity task : taskService.getByProjectId(request.getValue())){
-//                tasks.add(task.convertToBasicTask());
-//            }
-//            BasicTaskList list = BasicTaskList.newBuilder().addAllTasks(tasks).build();
-//
-//            responseObserver.onNext(list);
-//            responseObserver.onCompleted();
-//        }
-//        catch (Exception e)
-//        {
-//            Status status;
-//            if (e instanceof IllegalArgumentException)
-//            {
-//                status = Status.FAILED_PRECONDITION.withDescription(e.getMessage());
-//            }
-//            else
-//            {
-//                status = Status.INTERNAL.withDescription(e.getMessage());
-//            }
-//            responseObserver.onError(status.asRuntimeException());
-//        }
-//    }
 }
