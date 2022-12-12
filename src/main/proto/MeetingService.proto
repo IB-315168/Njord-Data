@@ -26,7 +26,7 @@ message UpdatingMeeting {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 5;
 }
 
-//
+// Full model for Meeting
 message MeetingGrpc {
   int32 id = 1;
   com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc assignedleader = 2;
@@ -36,7 +36,7 @@ message MeetingGrpc {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime enddate = 6;
 }
 
-//
+// Basic model for Meeting
 message BasicMeeting {
   int32 id = 1;
   string title = 2;
@@ -50,7 +50,7 @@ message GrpcMeetingList {
 }
 
 /*
-  <b>MeetingService</b> Meeting Service Description
+  Services for Meeting model
  */
 service MeetingService{
   // CreateMeeting returns a meeting that has been created with the information passed.

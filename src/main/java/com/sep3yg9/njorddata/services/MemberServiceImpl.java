@@ -59,12 +59,18 @@ import java.util.Optional;
     if (!member.getEmail().isEmpty() && !member.getEmail()
         .equals(memberEntity.getEmail()))
     {
+      if(memberRepository.findByEmail(member.getEmail()) != null) {
+        throw new IllegalArgumentException("Email already in use");
+      }
       memberEntity.setEmail(member.getEmail());
     }
 
     if (!member.getUserName().isEmpty() && !member.getUserName()
         .equals(memberEntity.getUserName()))
     {
+      if(memberRepository.findByUsername(member.getUserName()) != null) {
+        throw new IllegalArgumentException("Username already in use");
+      }
       memberEntity.setUserName(member.getUserName());
     }
     if (!member.getPassword().isEmpty() && !member.getPassword()

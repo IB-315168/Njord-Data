@@ -28,7 +28,7 @@ message UpdatingTask {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificTime timeestimation = 6;
 }
 
-//
+// Full model of Task
 message TaskGrpc {
   int32 id = 1;
   com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc memberassigned = 2;
@@ -40,7 +40,7 @@ message TaskGrpc {
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificDateTime creationdate = 8;
 }
 
-//
+// Basic model of Task
 message BasicTask {
   int32 id = 1;
   string title = 2;
@@ -54,7 +54,7 @@ message GrpcTaskList {
 }
 
 /*
-  <b>TaskService</b> TaskService description
+  Services for Task model
  */
 service TaskService {
   // CreateTask will create a task and return it.

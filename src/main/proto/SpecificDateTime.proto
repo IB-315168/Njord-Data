@@ -3,14 +3,14 @@ option java_multiple_files = true;
 option csharp_namespace = "GrpcNjordClient.SpecificDateTime";
 package com.sep3yg9.njorddata.grpc.protobuf.specificdatetime;
 
-// Custom Date only made to pass dates through protos
+// Custom Date only, made to send dates through gRPC
 message SpecificDate {
   int32 day = 1;
   int32 month = 2;
   int32 year = 3;
 }
 
-// Custom DateTime made to pass dates with times through protos
+// Custom DateTime, made to send dates with times through gRPC
 message SpecificDateTime {
   int32 day = 1;
   int32 month = 2;
@@ -19,7 +19,7 @@ message SpecificDateTime {
   int32 minute = 5;
 }
 
-// Custom Time only made to pass times through protos
+// Custom Time only, made to send times through gRPC
 message SpecificTime {
   int32 hour = 1;
   int32 minute = 2;

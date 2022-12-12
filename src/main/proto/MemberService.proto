@@ -30,21 +30,21 @@ message SearchingMember {
   string fullName = 3;
 }
 
-//
+// Basic model of Member, with full name, user name and email
 message BasicMember {
   string fullName = 1;
   string userName = 2;
   string email = 3;
 }
 
-//
+// Basic Team - duplication of model from TeamService due to imports
 message BasicTeam {
   int32 id = 1;
   string name = 2;
   string teamLeaderName = 3;
 }
 
-//
+// Model for availability of Member
 message MemberAvailabilityGrpc{
   int32 id = 1;
   int32 assignedmember = 2;
@@ -53,7 +53,7 @@ message MemberAvailabilityGrpc{
   com.sep3yg9.njorddata.grpc.protobuf.specificdatetime.SpecificTime endhour = 5;
 }
 
-//
+// Full model of Member
 message MemberGrpc {
   int32 id = 1;
   string fullName = 2;
@@ -70,7 +70,7 @@ message MemberList {
 }
 
 /*
- <b>MemberService</b> MemberService description
+ Services for Member model
  */
 service MemberService {
   // CreateMember will create a member and returns it.

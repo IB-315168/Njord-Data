@@ -20,14 +20,14 @@ message UpdatingTeam {
   repeated com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc members = 4;
 }
 
-//
+//  Basic version of Team, with reference of Id, name of the team and full name of the teamleader
 message BasicTeam {
   int32 id = 1;
   string name = 2;
   string teamLeaderName = 3;
 }
 
-//
+//  Full version of Team, together with full model of Team Leader and members as list
 message TeamGrpc {
   int32 id = 1;
   string name = 2;
@@ -35,13 +35,13 @@ message TeamGrpc {
   repeated com.sep3yg9.njorddata.grpc.protobuf.member.MemberGrpc members = 4;
 }
 
-// List of teams
+// List of basic teams
 message TeamList {
   repeated BasicTeam team = 1;
 }
 
 /*
-  <b>TeamService</b> TeamService description
+  Services for Team model
  */
 service TeamService {
   // CreateTeam will create a team and return it.

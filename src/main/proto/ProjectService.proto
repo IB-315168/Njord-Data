@@ -29,7 +29,7 @@ message Requirement {
   string content = 3;
 }
 
-//
+// Full model of Project
 message ProjectGrpc {
   int32 id = 1;
   string name = 2;
@@ -39,20 +39,20 @@ message ProjectGrpc {
   repeated Requirement requirements = 6;
 }
 
-//
+// Basic model of Project
 message BasicProject {
   int32 id = 1;
   string projectName = 2;
   string teamName = 3;
 }
 
-//
+// List of Basic Project models
 message BasicProjectList {
   repeated BasicProject projects = 1;
 }
 
 /*
-  <b>ProjectService</b> ProjectService description
+  Services for Project model
  */
 service ProjectService {
   // CreateProject will create a project and return it.
