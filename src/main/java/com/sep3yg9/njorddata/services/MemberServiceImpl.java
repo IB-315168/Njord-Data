@@ -111,20 +111,12 @@ import java.util.Optional;
   {
     MemberEntity memberEntity = memberRepository.findByUsername(username);
 
-    if(memberEntity == null) {
-      throw new IllegalArgumentException("Member not found");
-    }
-
     return memberRepository.findByUsername(username);
   }
 
   @Override public MemberEntity getByEmail(String email)
   {
     MemberEntity memberEntity = memberRepository.findByEmail(email);
-
-    if(memberEntity == null) {
-      throw new IllegalArgumentException("Member not found");
-    }
 
     return memberRepository.findByEmail(email);
   }
